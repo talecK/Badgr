@@ -7,6 +7,7 @@ gem 'rails', '3.0.1'
 
 group :production, :staging do
   gem 'pg'
+  gem 'devise'
 end
 
 
@@ -29,4 +30,5 @@ group :development, :test do
   gem 'cucumber'
   gem 'cucumber-rails'
   gem 'webrat'
+  gem 'devise'
 end
