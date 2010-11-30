@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
   before (:each) do
-    @attr = { :name => 'test', :email => 'test@test.com' }
+    @attr = { :password => 'valid_password', :email => 'test@test.com' }
   end
   
   it "should require an email addres" do
@@ -10,16 +10,21 @@ describe User do
     no_email_user.should_not be_valid
   end
 	
-	it "should require a name" do
-		no_name_user = User.new( @attr.merge( :name => "" ) )
-		no_name_user.should_not be_valid
+	it "should require a password" do
+		no_passw_user = User.new( @attr.merge( :password => "" ) )
+		no_passw_user.should_not be_valid
 	end
 	
-	it "should reject user names that are too long" do
-		long_name = 'c' * 31
-		long_name_user = User.new( @attr.merge( :name => long_name) )
-		long_name_user.should_not be_valid
-	end
+	#it "should require a name" do
+		#no_name_user = User.new( @attr.merge( :name => "" ) )
+		#no_name_user.should_not be_valid
+	#end
+	
+	#it "should reject user names that are too long" do
+	#	long_name = 'c' * 31
+	#	long_name_user = User.new( @attr.merge( :name => long_name) )
+	#	long_name_user.should_not be_valid
+	#end
 	
 	it "should only accept valid emails" do
 		addresses = %w[user@foo.com THE_USER@foo.bar.org first.last@foo.jp]

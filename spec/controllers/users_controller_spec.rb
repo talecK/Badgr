@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe UsersController do
-
+	include Devise::TestHelpers
+	
   describe "GET 'new'" do
     it "should be successful" do
       get 'new'

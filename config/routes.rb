@@ -1,7 +1,10 @@
 Achievement::Application.routes.draw do
   devise_for :users
-
-  get "users/new"
+	
+  as :user do
+		get "/" => "devise/sessions#new"
+	end
+  #get "users/new"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
