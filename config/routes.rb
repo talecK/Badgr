@@ -4,7 +4,8 @@ Achievement::Application.routes.draw do
   as :user do
 		get "/" => "devise/sessions#new"
 	end
-  #get "users/new"
+	
+  get "users/new"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
