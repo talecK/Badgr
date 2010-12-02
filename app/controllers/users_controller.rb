@@ -3,5 +3,9 @@ class UsersController < ApplicationController
 	
   def new
   end
+	
+	def index
+		@user_email = current_user.email
+	end
 
 end
