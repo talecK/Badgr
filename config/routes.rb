@@ -2,13 +2,13 @@ Achievement::Application.routes.draw do
   devise_for :users
 	resources :users
 	
-  as :user do
-		get "/" => "devise/sessions#new"
-	end
+  #as :user do
+		#get "/" => "devise/sessions#new"
+	#end
 	
-	namespace :user do
-		root :to => "users#index"
-	end
+	#namespace :user do
+		#root :to => "users#index"
+	#end
 
 
   # The priority is based upon order of creation:
