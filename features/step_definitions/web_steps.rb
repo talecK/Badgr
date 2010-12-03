@@ -160,6 +160,7 @@ Then /^(?:|I )should see "([^"]*)" within "([^"]*)"$/ do |text, selector|
 end
 
 Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
+	follow_redirect! if redirect
   regexp = Regexp.new(regexp)
   if response.respond_to? :should
     response.should contain(regexp)
@@ -199,6 +200,7 @@ Then /^(?:|I )should not see "([^"]*)" within "([^"]*)"$/ do |text, selector|
 end
 
 Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
+	follow_redirect! if redirect
   regexp = Regexp.new(regexp)
   if response.respond_to? :should_not
     response.should_not contain(regexp)
