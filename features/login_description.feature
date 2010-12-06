@@ -11,6 +11,7 @@ Feature: Login Descriptions
 
     Scenario: Logging in with a valid user name and valid password
         Given I am not already logged in
+        And I go to the home page
         And my account "valid_user_email@email.com" exists with password "valid_password" and is valid
         When I fill in "user[email]" with "valid_user_email@email.com"
         And I fill in "user[password]" with "valid_password"
@@ -19,6 +20,7 @@ Feature: Login Descriptions
 
     Scenario: Logging in with an invalid user name and invalid password
         Given I am not already logged in
+        And I go to the home page
         When I fill in "user[email]" with "valid_user_email@email.com"
         And I fill in "user[password]" with "valid_password"
         And I press "user_submit"
@@ -26,6 +28,7 @@ Feature: Login Descriptions
 
     Scenario: Logging in with an valid user name and invalid password
         Given I am not already logged in
+        And I go to the home page
         And my account "valid_user_email@email.com" exists with password "valid_password" and is valid
         When I fill in "user[email]" with "valid_user_email@email.com"
         And I fill in "user[password]" with "invalid_valid_password"

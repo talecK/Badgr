@@ -2,4 +2,6 @@
 
 <b> <%= @user_email %> </b>
 
-  <%= link_to('Logout', destroy_user_session_path) %>   
+<%- if user_signed_in? %>
+    <%= render :partial => "devise/shared/dashboard" %>
+<% end -%>
