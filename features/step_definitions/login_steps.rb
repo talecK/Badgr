@@ -5,6 +5,7 @@ end
 Given /^my account "([^"]*)" exists with password "([^"]*)" and is valid$/ do | email, password |
     @attributes = { :password_confirmation => password, :password => password, :email => email }
 		@user = User.create!( @attributes )
+		@user.save!
 end
 
 Given /^there are the following users:$/ do |table|
