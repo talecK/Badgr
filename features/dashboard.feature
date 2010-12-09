@@ -15,3 +15,9 @@ Feature: Dashboard Feature
         And I should see "My friends"
         And I should see "My Groups"
         And I should see "My Trophy Case"
+        
+    Scenario: Viewing My Groups
+        Given I am logged in as "valid_user@valid.com"
+        And "valid_user@valid.com" belongs to "Some Group"
+        When I click "My Groups" 
+        Then I should see "Some Group"
