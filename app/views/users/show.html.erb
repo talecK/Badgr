@@ -1,7 +1,11 @@
+<%- if user_signed_in? %>
+    <%= render :partial => "shared/dashboard" %>
+    <br />
+    <br />
+<% end -%>
+
 <h1>My Profile</h1>
 
 <b> <%= @user_email %> </b>
 
-<%- if user_signed_in? %>
-    <%= render :partial => "devise/shared/dashboard" %>
-<% end -%>
+
