@@ -1,7 +1,9 @@
 class CreateGroupUsers < ActiveRecord::Migration
   def self.up
     create_table :group_users do |t|
-      t.bool :group_admin
+      t.boolean :group_admin
+      t.integer :group_id
+      t.integer :user_id
 
       t.timestamps
     end
@@ -11,3 +13,4 @@ class CreateGroupUsers < ActiveRecord::Migration
     drop_table :group_users
   end
 end
+

@@ -31,4 +31,6 @@ group :development, :test do
   gem 'cucumber-rails'
   gem 'webrat'
   gem 'devise'
+  gem 'factory_girl_rails'
 end
+
