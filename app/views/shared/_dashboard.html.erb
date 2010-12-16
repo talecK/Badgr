@@ -1,6 +1,16 @@
-<%= link_to('Logout', destroy_user_session_path) %> 
-<%= link_to('My Profile', destroy_user_session_path) %> 
-<%= link_to('My User Page', destroy_user_session_path) %> 
-<%= link_to('My friends', destroy_user_session_path) %> 
-<%= link_to('My Groups', destroy_user_session_path) %> 
-<%= link_to('My Trophy Case', destroy_user_session_path) %> 
+<%= link_to('Logout', destroy_user_session_path) %>
+<%= link_to('My Profile', destroy_user_session_path) %>
+<%= link_to('My User Page', destroy_user_session_path) %>
+<%= link_to('My friends', destroy_user_session_path) %>
+
+<%= link_to('My Groups', destroy_user_session_path) %>
+<%= link_to('My Trophy Case', destroy_user_session_path) %>
+<ul>
+  <% for group in @user.groups %>
+    <li><%= link_to(group.name, destroy_user_session_path) %>
+    </li>
+
+  <% end %>
+<li><%= link_to('Create a Group', new_group_path) %> </li>
+</ul>
+

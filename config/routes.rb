@@ -1,11 +1,12 @@
 Achievement::Application.routes.draw do
   devise_for :users
 	resources :users
-	
+  resources :groups
+
   #as :user do
 		#root :to => "users#show"
 	#end
-	
+
 	#namespace :user do
 		#root :to => "users#index"
 	#end
@@ -68,3 +69,4 @@ Achievement::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
 end
+

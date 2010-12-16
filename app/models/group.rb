@@ -7,5 +7,8 @@ class Group < ActiveRecord::Base
 
 	validates( :name,  :presence => true)
 
+  def add_user( user )
+    self.group_users.create!( :group_id => self.id, :user_id => user.id ,:group_admin => false )
+  end
 end
 

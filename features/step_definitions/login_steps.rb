@@ -8,12 +8,10 @@ Given /^my account "([^"]*)" exists with password "([^"]*)" and is valid$/ do | 
 		user.save!
 end
 
-Given /^I am logged in as "([^"]*)"$/ do | user_email |
-    attributes = { :password_confirmation => "valid_password", :password => "valid_password", :email => user_email }
-		user = User.create!( attributes )
-		user.save!
+Given /^I log in as "([^"]*)" with password "([^"]*)"$/ do | user_email,password |
 		visit '/'
 		fill_in( "user_email", :with => user_email )
-		fill_in( "user_password", :with => "valid_password" )
-   		click_button( "user_submit" )
+		fill_in( "user_password", :with => password )
+   	click_button( "user_submit" )
 end
+
