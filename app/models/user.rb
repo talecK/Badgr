@@ -8,7 +8,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # paperclip attribute ( for file associations / uploads )
-  has_attached_file :avatar, :styles => { :thumb  => "50x50#", :medium => "300x300>"}
+  has_attached_file :avatar, :styles => { :thumb  => "50x50#", :medium => "300x300>"},
+                    :default_url => ('no-image.png' )
+
 
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :avatar

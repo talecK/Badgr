@@ -49,20 +49,34 @@ describe User do
 		user_with_duplicate_email.save.should == false
 	end
 
-  it "can have an avatar image" do
-    pending
-  end
+  # Can't get the next two tests working properly yet... works in dev but fails here
+
+  #it "can set its avatar to a valid image" do
+    #user = Factory( :user, :avatar => File.join( Rails.root, "spec/fixtures/valid_avatar.png" ).open )
+    #puts user.avatar.url
+    #user.avatar.url.should_not == 'no-image.png'
+  #end
+
+  #it "should not attach invalid files" do
+    #@user.avatar = Rails.root.join( "spec/fixtures/invalid_avatar.psd" ).open
+    #puts @user.avatar.url
+    #@user.avatar.url.should == 'no-image.png'
+  #end
 
   it "should invalidate images too large" do
-    pending
+    @user.should validate_attachment_size(:avatar).
+                less_than(5.megabytes)
   end
 
   it "should invalidate images that are the wrong format" do
-    pending
+    @user.should validate_attachment_content_type(:avatar).
+                allowing('image/png', 'image/gif').
+                rejecting('text/plain', 'text/xml')
   end
 
   it "should have a default avatar image" do
-    pending
+    user = Factory( :user )
+    user.avatar.url.should == 'no-image.png'
   end
 
 end
