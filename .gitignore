@@ -4,8 +4,10 @@ log/*.log
 *.log
 tmp/**/*
 tmp/*
+public/system/*
 doc/api
 doc/app
 *.swp
 *~
 .DS_Store
+
