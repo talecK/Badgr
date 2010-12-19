@@ -11,5 +11,9 @@ class GroupsController < ApplicationController
     flash[:notice] = "Group has been created!"
     redirect_to (user_path( current_user ) )
   end
+
+  def show
+    @group = Group.find(params[:id])
+  end
 end
 

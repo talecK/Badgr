@@ -30,9 +30,10 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
+  include Webrat::Methods
 end
 
-Spec::Runner.configure do |config|
-  include Webrat::Methods
- end
+#Spec::Runner.configure do |config|
+#
+# end
 

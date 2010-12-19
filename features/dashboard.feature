@@ -17,7 +17,7 @@ Feature: Dashboard Feature
         And I should see "My Trophy Case"
 
     Scenario: Viewing My Groups
-        And "valid_user@valid.com" belongs to "Some Group"
+        Given "valid_user@valid.com" belongs to "Some Group"
         When I log in as "valid_user@valid.com" with password "valid_password"
         Then I should see "Some Group"
 
@@ -30,6 +30,9 @@ Feature: Dashboard Feature
         Then I should see "My Profile"
         And I should see "NewGroup"
 
-    @wip
     Scenario: Visiting a Group
+        Given "valid_user@valid.com" belongs to "Some Group"
+        When I log in as "valid_user@valid.com" with password "valid_password"
+        And I follow "Some Group"
+        Then I should see "Some Group Profile"
 
