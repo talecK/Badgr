@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # paperclip attribute ( for file associations / uploads )
-  has_attached_file :avatar, :styles => { :thumb  => "50x50#" }
+  has_attached_file :avatar, :styles => { :thumb  => "50x50#", :medium => "300x300>"}
 
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :avatar
@@ -20,8 +20,9 @@ class User < ActiveRecord::Base
 
 
   # paperclip upload validations
-  #validates_attachment_size :avatar, :less_than => 5.megabytes
-  #validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
+  validates_attachment_size :avatar, :less_than => 5.megabytes, :message => "File must be smaller than 5MB"
+  validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'],
+                                    :message => "Can only upload jpeg, jpg, png and gif file types"
 
 end
 

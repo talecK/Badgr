@@ -1,11 +1,14 @@
 <%- if user_signed_in? %>
-    <%= render :partial => "shared/dashboard" %>
-    <br />
-    <br />
+    <%= render :partial => "shared/dashboard" %> <br />
 <% end -%>
 
 <h1>My Profile</h1>
-<%= image_tag @user.avatar.url %>
-<%= link_to('Edit Profile', edit_user_path( @user ) ) %>
-<b> <%= @user.email %> </b>
+
+<%= image_tag @user.avatar.url( :medium ) %> <br /> <br />
+<b> Email: </b> <%= @user.email %> <br />
+<%= link_to( 'Edit Profile', edit_user_path( @user ) ) %>
+
+<% flash.each do |key, value| %>
+  <div class="flash <%= key %>"><%= value %></div>
+<% end %>
 

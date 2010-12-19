@@ -10,12 +10,13 @@ Feature: User Profile Feature
 
     Scenario: Avatar Image
         When I follow "Edit profile"
-        And I attach the file "spec/fixtures/valid_avatar.jpg" to "avatar_input_box"
-        Then I should see "valid_avatar.jpg"
+        And I attach the file "./spec/fixtures/valid_avatar.png" to "user_avatar"
+        And I press "Update User"
+        Then I should see "Profile has been updated"
 
-    @wip
     Scenario: Invalid Avatar Image
         When I follow "Edit profile"
-        And I attach the file "spec/fixtures/invalid_avatar.jpg" to "avatar_input_box"
-        Then I should see "Unable to set avatar image"
+        And I attach the file "./spec/fixtures/invalid_avatar.psd" to "user_avatar"
+        And I press "Update User"
+        Then I should see "Can only upload jpeg, jpg, png and gif file types"
 

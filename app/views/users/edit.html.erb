@@ -1,5 +1,13 @@
-<% form_for @user , :html => { :multipart => true } do |f| %>
+<%= form_for @user , :html => { :multipart => true } do |f| %>
   <%= f.file_field :avatar %>
   <%= f.submit %>
+<% end %>
+
+<% flash.each do |key, value| %>
+  <div class="flash <%= key %>"><%= value %></div>
+<% end %>
+
+<% @user.errors.to_a.each do |error| %>
+  <%= error %>
 <% end %>
 
