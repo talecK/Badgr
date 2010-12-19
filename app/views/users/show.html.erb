@@ -5,6 +5,7 @@
 <% end -%>
 
 <h1>My Profile</h1>
-
+<%= image_tag @user.avatar.url %>
+<%= link_to('Edit Profile', edit_user_path( @user ) ) %>
 <b> <%= @user.email %> </b>
 

@@ -7,15 +7,21 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # Setup accessible (or protected) attributes for your model
+  # paperclip attribute ( for file associations / uploads )
+  has_attached_file :avatar, :styles => { :thumb  => "50x50#" }
 
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :avatar
 	email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
 	validates( :email,  :presence => true,
 											:format => { :with => email_regex },
 											:uniqueness => { :case_sensitive => false })
+
+
+  # paperclip upload validations
+  #validates_attachment_size :avatar, :less_than => 5.megabytes
+  #validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
 
 end
 
