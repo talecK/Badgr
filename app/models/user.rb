@@ -12,13 +12,14 @@ class User < ActiveRecord::Base
                     :default_url => ('no-image.png' )
 
 
-
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :avatar
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :avatar, :name
 	email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
 	validates( :email,  :presence => true,
 											:format => { :with => email_regex },
 											:uniqueness => { :case_sensitive => false })
+
+  validates( :name, :presence => true )
 
 
   # paperclip upload validations

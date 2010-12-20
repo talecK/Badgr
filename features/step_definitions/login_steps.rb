@@ -3,12 +3,12 @@ Given /^I am not already logged in$/ do
 end
 
 Given /^my account "([^"]*)" exists with password "([^"]*)" and is valid$/ do | email, password |
-    attributes = { :password_confirmation => password, :password => password, :email => email }
+    attributes = { :name => "test_name",:password_confirmation => password, :password => password, :email => email }
 		user = User.create!( attributes )
 		user.save!
 end
 
-Given /^I log in as "([^"]*)" with password "([^"]*)"$/ do | user_email,password |
+Given /^I log in as "([^"]*)" with password "([^"]*)"$/ do | user_email, password |
 		visit '/'
 		fill_in( "user_email", :with => user_email )
 		fill_in( "user_password", :with => password )

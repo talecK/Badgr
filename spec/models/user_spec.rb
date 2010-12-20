@@ -49,6 +49,12 @@ describe User do
 		user_with_duplicate_email.save.should == false
 	end
 
+  it "should require a name" do
+    user = Factory(:user, :name => "")
+    user.should_not be_valid
+  end
+
+
   # Can't get the next two tests working properly yet... works in dev but fails here
 
   #it "can set its avatar to a valid image" do
