@@ -30,6 +30,7 @@ group :development, :test do
   gem 'cucumber-rails'
   gem 'webrat'
   gem 'factory_girl_rails'
+  gem 'launchy'
 end
 
 gem 'devise'

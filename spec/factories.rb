@@ -2,6 +2,7 @@ Factory.define :user,:default_strategy => :build do |user|
   user.email                 "valid_user_email@valid.com"
   user.password              "valid_password"
   user.password_confirmation "valid_password"
+  user.name                  "user_name"
 end
 
 Factory.define :group, :default_strategy => :build do |group|

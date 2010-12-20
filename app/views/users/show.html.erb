@@ -2,7 +2,7 @@
     <%= render :partial => "shared/dashboard" %> <br />
 <% end -%>
 
-<h1>My Profile</h1>
+<h1><%= @user.name %>'s Profile</h1>
 
 <%= image_tag @user.avatar.url( :medium ) %> <br /> <br />
 <b> Email: </b> <%= @user.email %> <br />
