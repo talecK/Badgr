@@ -10,7 +10,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101220001243) do
+ActiveRecord::Schema.define(:version => 20101223030058) do
+
+  create_table "achievements", :force => true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "achievements", ["name"], :name => "index_achievements_on_name"
+  add_index "achievements", ["user_id"], :name => "index_achievements_on_user_id"
 
   create_table "group_users", :force => true do |t|
     t.boolean  "group_admin"
@@ -47,6 +57,10 @@ ActiveRecord::Schema.define(:version => 20101220001243) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string   "name"
+    t.string   "gem_file_name"
+    t.string   "gem_content_type"
+    t.integer  "gem_file_size"
+    t.datetime "gem_updated_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

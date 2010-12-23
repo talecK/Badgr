@@ -1,0 +1,10 @@
+<%- if user_signed_in? %>
+    <%= render :partial => "shared/dashboard" %> <br />
+<% end -%>
+
+<ul>
+<% for @achievement in @user.achievements %>
+  <li> <% puts @achievement %> </li>
+<% end %>
+</ul>
+

@@ -9,11 +9,19 @@ Factory.define :group, :default_strategy => :build do |group|
   group.name                 "some_group"
 end
 
+Factory.define :achievement, :default_strategy => :build do |achievement|
+  achievement.name            "some_achievement"
+end
+
 Factory.sequence :email do |n|
   "valid_user_email#{n}@valid.com"
 end
 
 Factory.sequence :group_name do |n|
   "some_group#{n}"
+end
+
+Factory.sequence :achievement_name do |n|
+  "achievement#{n}"
 end
 

@@ -1,8 +1,11 @@
-Achievement::Application.routes.draw do
+Badgr::Application.routes.draw do
   devise_for :users
 	resources :users
   resources :groups
 
+  resources :users do
+    resources :achievements
+  end
   #as :user do
 		#root :to => "users#show"
 	#end

@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_many :groups, :through => :group_users
   has_many :group_users
+  has_many :achievements
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
@@ -10,6 +11,9 @@ class User < ActiveRecord::Base
   # paperclip attribute ( for file associations / uploads )
   has_attached_file :avatar, :styles => { :thumb  => "50x50#", :medium => "300x300>"},
                     :default_url => ('no-image.png' )
+
+  has_attached_file :gem, :styles => { :thumb  => "50x50#" },
+                  :default_url => ('no-gem-image.png' )
 
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :avatar, :name

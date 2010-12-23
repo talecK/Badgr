@@ -8,6 +8,9 @@
 <b> Email: </b> <%= @user.email %> <br />
 <%= link_to( 'Edit Profile', edit_user_path( @user ) ) %>
 
+<%= link_to image_tag( @user.gem.url( :thumb ), :border => 1 ), user_achievements_path( @user ), :method => :get,
+                                      :title => "gem_slot"%>
+
 <% flash.each do |key, value| %>
   <div class="flash <%= key %>"><%= value %></div>
 <% end %>

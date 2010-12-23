@@ -20,3 +20,9 @@ Feature: User Profile Feature
         And I press "Update User"
         Then I should see "Can only upload jpeg, jpg, png and gif file types"
 
+    Scenario: Gem Slot
+        When I follow "gem_slot"
+        Then I should see "Please select an achievement to display"
+        And I press "NewGem"
+        Then I should see "Gem Slot has been updated"
+
