@@ -16,5 +16,26 @@ describe Achievement do
     achievement.name = "test"
     achievement.save!
   end
+
+  it "should invalidate images too large" do
+    @achievement.should validate_attachment_size( :image ).
+                less_than(5.megabytes)
+  end
+
+  it "should invalidate images that are the wrong format" do
+    @achievement.should validate_attachment_content_type( :image ).
+                allowing('image/png', 'image/gif').
+                rejecting('text/plain', 'text/xml')
+  end
+
+  it "should have a default gem image" do
+    @achievement.image.url.should == 'no-gem-image.png'
+  end
+
+  it "should be able to have its image set" do
+    @achievement.image = File.open("./spec/fixtures/valid-gem.png")
+    @achievement.image.url.include?("valid-gem.png").should == true
+  end
+
 end
 

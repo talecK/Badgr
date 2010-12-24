@@ -21,8 +21,10 @@ Feature: User Profile Feature
         Then I should see "Can only upload jpeg, jpg, png and gif file types"
 
     Scenario: Gem Slot
+        Given "valid_user@valid.com" has achieved the "Gem" achievement
         When I follow "gem_slot"
-        Then I should see "Please select an achievement to display"
-        And I press "NewGem"
-        Then I should see "Gem Slot has been updated"
+        Then I should see "Select an acheivement to put in your gem slot"
+        And I follow "Gem"
+        Then I should see "Profile has been updated"
+        And I should see "Gem" within "gem_slot"
 

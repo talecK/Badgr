@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
                   :default_url => ('no-gem-image.png' )
 
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :avatar, :name
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :avatar, :name, :gem
 	email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
 	validates( :email,  :presence => true,
