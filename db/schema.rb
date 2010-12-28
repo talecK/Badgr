@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101224031413) do
+ActiveRecord::Schema.define(:version => 20101228034629) do
 
   create_table "achievements", :force => true do |t|
     t.string   "name"
@@ -21,10 +21,20 @@ ActiveRecord::Schema.define(:version => 20101224031413) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.integer  "gemslot_id"
   end
 
+  add_index "achievements", ["gemslot_id"], :name => "index_achievements_on_gemslot_id"
   add_index "achievements", ["name"], :name => "index_achievements_on_name"
   add_index "achievements", ["user_id"], :name => "index_achievements_on_user_id"
+
+  create_table "gemslots", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "gemslots", ["user_id"], :name => "index_gemslots_on_user_id"
 
   create_table "group_users", :force => true do |t|
     t.boolean  "group_admin"

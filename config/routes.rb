@@ -3,9 +3,18 @@ Badgr::Application.routes.draw do
 	resources :users
   resources :groups
 
+  #resources :users do
+  #  resources :achievements
+  #end
+
   resources :users do
-    resources :achievements
+      resource :gemslot
   end
+
+  resources :groups do
+    resources :group_users
+  end
+
   #as :user do
 		#root :to => "users#show"
 	#end

@@ -84,17 +84,5 @@ describe User do
     user = Factory( :user )
     user.avatar.url.should == 'no-image.png'
   end
-
-  it "should have a default gem image" do
-    user = Factory( :user )
-    user.gem.url.should == 'no-gem-image.png'
-  end
-
-  it "should have an assignable gem image" do
-    user = Factory( :user )
-    user.gem = File.open( './spec/fixtures/valid-gem.png')
-    user.gem.url.include?('valid-gem.png').should == true
-  end
-
 end
 

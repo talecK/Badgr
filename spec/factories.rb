@@ -3,6 +3,11 @@ Factory.define :user,:default_strategy => :build do |user|
   user.password              "valid_password"
   user.password_confirmation "valid_password"
   user.name                  "user_name"
+  user.association            :gemslot
+end
+
+Factory.define :gemslot do |gemslot|
+  gemslot.association         :achievement
 end
 
 Factory.define :group, :default_strategy => :build do |group|

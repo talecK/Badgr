@@ -22,9 +22,10 @@ Feature: User Profile Feature
 
     Scenario: Gem Slot
         Given "valid_user@valid.com" has achieved the "Gem" achievement
-        When I follow "gem_slot"
+        When I follow "Click to set gem"
         Then I should see "Select an acheivement to put in your gem slot"
-        And I follow "Gem"
-        Then I should see "Profile has been updated"
-        And I should see "Gem" within "gem_slot"
+        When I choose "Gem"
+        And I press "Update"
+        Then I should see "Your gem has been updated"
+        And I should see "Gem" within the gemslot
 

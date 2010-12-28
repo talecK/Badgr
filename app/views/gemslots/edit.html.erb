@@ -1,0 +1,19 @@
+<%- if user_signed_in? %>
+    <%= render :partial => "shared/dashboard" %> <br />
+<% end -%>
+<h3>Select an acheivement to put in your gem slot </h3>
+
+<%= form_for [@user,@user.gemslot] do |f| %>
+  <% for achievement in @user.achievements %>
+      <%= f.radio_button :id, achievement.id, :id => achievement.name %>
+      <%= image_tag(achievement.image.url(:thumb), :title => achievement.name ) %> <br />
+  <% end %>
+  <%= submit_tag "Update" %>
+<% end %>
+
+<br />
+
+<% flash.each do |key, value| %>
+  <div class="flash <%= key %>"><%= value %></div>
+<% end %>
+

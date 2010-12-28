@@ -1,5 +1,6 @@
 class Achievement < ActiveRecord::Base
   belongs_to :user
+  belongs_to :gemslot
   attr_accessible :name
 
   has_attached_file :image, :styles => { :thumb  => "50x50#" },

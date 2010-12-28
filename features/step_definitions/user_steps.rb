@@ -5,3 +5,9 @@ Given /^"([^"]*)" has achieved the "([^"]*)" achievement$/ do |user_name, achiev
   achievement.save!
 end
 
+Then /^I should see "([^"]*)" within the gemslot$/ do |gem|
+  html = Nokogiri::HTML(response.body)
+  tags = html.xpath('//a[@title="'+gem+'"]')
+  tags.length.should eql(1)
+end
+
