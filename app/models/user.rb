@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-  has_many :groups, :through => :group_users
-  has_many :group_users
+  has_many :groups, :through => :memberships
+  has_many :memberships
   has_many :achievements
   has_one :gemslot
 

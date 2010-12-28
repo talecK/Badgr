@@ -12,7 +12,7 @@ Badgr::Application.routes.draw do
   end
 
   resources :groups do
-    resources :group_users
+    resources :memberships
   end
 
   #as :user do

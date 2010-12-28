@@ -19,7 +19,7 @@ Feature: Group Feature
         Given "valid_user@valid.com" belongs to "Some Group"
         When I log in as "valid_user@valid.com" with password "valid_password"
         And I follow "Some Group"
-        Then I should see "Some Group's Hub"
+        Then I should see "Some Group Hub"
 
     Scenario: Leaving a Group
         Given "valid_user@valid.com" belongs to "Some Group"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101228034629) do
+ActiveRecord::Schema.define(:version => 20101228213033) do
 
   create_table "achievements", :force => true do |t|
     t.string   "name"
@@ -36,14 +36,6 @@ ActiveRecord::Schema.define(:version => 20101228034629) do
 
   add_index "gemslots", ["user_id"], :name => "index_gemslots_on_user_id"
 
-  create_table "group_users", :force => true do |t|
-    t.boolean  "group_admin"
-    t.integer  "group_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "groups", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -51,6 +43,14 @@ ActiveRecord::Schema.define(:version => 20101228034629) do
   end
 
   add_index "groups", ["name"], :name => "index_groups_on_name"
+
+  create_table "memberships", :force => true do |t|
+    t.boolean  "group_admin"
+    t.integer  "group_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
