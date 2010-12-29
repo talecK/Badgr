@@ -7,7 +7,7 @@ Feature: Login Descriptions
         Given I am not already logged in
 	    When I go to the home page
         Then I should be on the sign in page
-        Then I should see "Sign in"
+        Then I should see "Badgr"
 
     Scenario: Logging in with a valid user name and valid password
         Given I am not already logged in
