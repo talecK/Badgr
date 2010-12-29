@@ -8,15 +8,18 @@ Feature: User Profile Feature
         And my account "valid_user@valid.com" exists with password "valid_password" and is valid
         And I log in as "valid_user@valid.com" with password "valid_password"
 
+    @javascript
     Scenario: Avatar Image
-        When I follow "Edit profile"
+        When I follow "Edit Profile"
         And I attach the file "spec/fixtures/valid_avatar.png" to "user_avatar"
         And I press "Update User"
         Then I should see "Profile has been updated"
 
+    @javascript
     Scenario: Invalid Avatar Image
-        When I follow "Edit profile"
+        When I follow "Edit Profile"
         And I attach the file "spec/fixtures/invalid_avatar.psd" to "user_avatar"
+        Then show me the page
         And I press "Update User"
         Then I should see "Can only upload jpeg, jpg, png and gif file types"
 
@@ -27,5 +30,5 @@ Feature: User Profile Feature
         When I choose "Gem"
         And I press "Update"
         Then I should see "Your gem has been updated"
-        And I should see "Gem" within the gemslot
+        And I should see "Gem" in the gemslot
 

@@ -21,13 +21,12 @@ Feature: Group Feature
         And I follow "Some Group"
         Then I should see "Some Group Hub"
 
+    @javascript
     Scenario: Leaving a Group
         Given "valid_user@valid.com" belongs to "Some Group"
         When I log in as "valid_user@valid.com" with password "valid_password"
         And I follow "Some Group"
         Then I should see "Leave group"
-        When I follow "Leave group"
-        Then I should see "Are you sure you want to leave this group?"
-        When I press "ok"
-        Then I should see "You are no longer a member of Some Group"
+        When I follow "Leave group" and click OK
+        Then I should see "You have left the Some Group hub"
 

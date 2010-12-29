@@ -28,9 +28,10 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'cucumber'
   gem 'cucumber-rails'
-  gem 'webrat'
+  gem 'capybara'
   gem 'factory_girl_rails'
   gem 'launchy'
+  gem 'database_cleaner'
 end
 
 gem 'devise'

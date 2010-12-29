@@ -10,13 +10,13 @@ module NavigationHelpers
 
     when /the home\s?page/
       '/'
-			
+
 		when /the sign out\s?page/
       '/users/sign_out'
-			
+
 		when /the sign in\s?page/
       '/users/sign_in'
-			
+
 		when /my sign in\s?page/
 		  '/users/sign_in'
 
@@ -40,3 +40,4 @@ module NavigationHelpers
 end
 
 World(NavigationHelpers)
+
