@@ -40,5 +40,22 @@ describe Group do
     @group.remove_user( user )
     user.groups.find_by_id(@group).should == nil
   end
+
+  it "should be able to check if a user is a member" do
+    user = Factory(:user)
+    user.save!
+    @group.save!
+    @group.add_user(user)
+    @group.has_member?(user).should == true
+  end
+
+  it "should be able to check if a user is not a member" do
+    user = Factory(:user)
+    user.save!
+    @group.save!
+    @group.add_user(user)
+    @group.remove_user(user)
+    @group.has_member?(user).should == false
+  end
 end
 
