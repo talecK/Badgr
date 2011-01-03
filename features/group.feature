@@ -41,7 +41,6 @@ Feature: Group Feature
         Then show me the page
         Then I should see "You are now a member of the Another Group Hub."
 
-    @wip
     Scenario: Trying to join a Hub you already belong to
         When I follow "Some Group"
         Then I should not see "Join Hub"
