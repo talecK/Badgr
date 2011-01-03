@@ -1,2 +1,9 @@
-<h1> <%= @group.name %> Profile </h1>
+<h1> <%= @group.name %> Hub </h1>
+
+<%= link_to "Leave group", group_membership_path( @group.id, current_user ), :method => :delete,
+                          :confirm => "Are you sure you want to leave this group?" %>
+
+<%= link_to "View members", group_memberships_path( @group.id ) %>
+
+<%= link_to "Join Hub", group_memberships_path( @group.id ), :method => :post %>
 

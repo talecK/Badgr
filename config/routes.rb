@@ -1,7 +1,19 @@
-Achievement::Application.routes.draw do
+Badgr::Application.routes.draw do
   devise_for :users
 	resources :users
   resources :groups
+
+  #resources :users do
+  #  resources :achievements
+  #end
+
+  resources :users do
+      resource :gemslot
+  end
+
+  resources :groups do
+    resources :memberships
+  end
 
   #as :user do
 		#root :to => "users#show"
@@ -61,7 +73,8 @@ Achievement::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => "users#show"
+
+    root :to => "users#show"
 
   # See how all your routes lay out with "rake routes"
 

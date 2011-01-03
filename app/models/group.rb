@@ -1,6 +1,6 @@
 class Group < ActiveRecord::Base
-  has_many :users, :through => :group_users
-  has_many :group_users, :dependent => :destroy
+  has_many :users, :through => :memberships
+  has_many :memberships, :dependent => :destroy
 
 # Setup accessible (or protected) attributes for your model
   attr_accessible :name
@@ -10,11 +10,15 @@ class Group < ActiveRecord::Base
              :length => { :within => 1...25 } )
 
   def add_user( user )
-    self.group_users.create!( :group_id => self.id, :user_id => user.id ,:group_admin => false )
+    self.memberships.create( :group_id => self.id, :user_id => user.id ,:group_admin => false )
   end
 
   def remove_user( user )
-    self.group_users.find_by_user_id(user).destroy
+    self.memberships.find_by_user_id(user).destroy
+  end
+
+  def has_member?( user )
+    self.users.exists?(user.id)
   end
 end
 

@@ -4,4 +4,5 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
 
-Achievement::Application.load_tasks
+Badgr::Application.load_tasks
+

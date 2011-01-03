@@ -1,0 +1,19 @@
+class Achievement < ActiveRecord::Base
+  belongs_to :user
+  belongs_to :gemslot
+  attr_accessible :name
+
+  has_attached_file :image, :styles => { :thumb  => "50x50#" },
+                    :default_url => ('no-gem-image.png' )
+
+  validates( :name, :presence => true )
+
+  # paperclip upload validations
+  validates_attachment_size :image,
+                            :less_than => 5.megabytes,
+                            :message => "File must be smaller than 5MB"
+  validates_attachment_content_type :image,
+                                    :content_type => ['image/jpeg', 'image/jpg', 'image/png','image/gif'],
+                                    :message => "Can only upload jpeg, jpg, png and gif file types"
+end
+

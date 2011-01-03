@@ -2,11 +2,25 @@
     <%= render :partial => "shared/dashboard" %> <br />
 <% end -%>
 
-<h1><%= @user.name %>'s Profile</h1>
+<h1>
+<%= @user.name %>'s Profile
+  <% if @user.gemslot.achievement != nil %>
+    <%= link_to image_tag( @user.gemslot.achievement.image.url( :thumb ) , :border => 1 ), edit_user_gemslot_path( @user.id ),
+                           :title => @user.gemslot.achievement.name %>
+  <% else %>
+    <%= link_to image_tag( 'no-gem-image.png', :border => 1 ), edit_user_gemslot_path( @user.id ),
+                           :title => "Click to set gem" %>
+  <% end %>
+</h1>
 
 <%= image_tag @user.avatar.url( :medium ) %> <br /> <br />
+
 <b> Email: </b> <%= @user.email %> <br />
+
+ <br /> <br />
+
 <%= link_to( 'Edit Profile', edit_user_path( @user ) ) %>
+
 
 <% flash.each do |key, value| %>
   <div class="flash <%= key %>"><%= value %></div>

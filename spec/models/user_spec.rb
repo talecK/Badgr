@@ -84,6 +84,5 @@ describe User do
     user = Factory( :user )
     user.avatar.url.should == 'no-image.png'
   end
-
 end
 
