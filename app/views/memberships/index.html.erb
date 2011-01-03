@@ -1,0 +1,14 @@
+<%- if user_signed_in? %>
+    <%= render :partial => "shared/dashboard" %> <br />
+<% end -%>
+
+<h1>
+  <%= @group.name %> Hub - Memberlist
+</h1>
+
+<ul>
+  <% for user in @group.users %>
+    <li> <%= link_to(user.name, user_path(user)) %> </li>
+  <% end %>
+</ul>
+

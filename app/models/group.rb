@@ -10,7 +10,7 @@ class Group < ActiveRecord::Base
              :length => { :within => 1...25 } )
 
   def add_user( user )
-    self.memberships.create!( :group_id => self.id, :user_id => user.id ,:group_admin => false )
+    self.memberships.create( :group_id => self.id, :user_id => user.id ,:group_admin => false )
   end
 
   def remove_user( user )
