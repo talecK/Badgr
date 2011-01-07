@@ -57,5 +57,33 @@ describe Group do
     @group.remove_user(user)
     @group.has_member?(user).should == false
   end
+
+
+  it "should put an entry (the only entry at this time) in the feed for the groups creation" do
+    @group.save!
+    user = Factory(:user)
+    user.save!
+    @group.add_creator(user)
+    @group.feed_items.first.text.should == "#{user.name} built the #{@group.name} Hub"
+  end
+
+  it "should put an entry in the feed for when a user leaves the group" do
+    @group.save!
+    user = Factory(:user)
+    user.save!
+    @group.add_user(user)
+    @group.remove_user(user)
+    feed_item_count = @group.feed_items.where( :source_id => @group.id, :reference_id => user.id, :feed_type => :user_left_hub ).count
+    feed_item_count.should == 1
+  end
+
+  it "should put an entry in the feed for when a user joins the group" do
+    @group.save!
+    user = Factory(:user, :name => "new_user")
+    user.save!
+    @group.add_user(user)
+    feed_item_count = @group.feed_items.where( :source_id => @group.id, :reference_id => user.id, :feed_type => :user_joined_hub ).count
+    feed_item_count.should == 1
+  end
 end
 

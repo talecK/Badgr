@@ -2,9 +2,10 @@ Given /^I am not already logged in$/ do
 	visit '/users/sign_out'
 end
 
-Given /^my account "([^"]*)" exists with password "([^"]*)" and is valid$/ do | email, password |
-    attributes = { :name => "test_name",:password_confirmation => password, :password => password, :email => email }
-		user = User.create!( attributes )
+# "and name ____" is optional
+Given /^a valid account "([^"]*)" exists with password "([^"]*)"(?: and name "([^"]*)")?$/ do | email, password, name |
+		name = "user1" if (name.blank?)  #assign default name if its not given
+		user = Factory(:user, :name => name, :email => email, :password => password, :password_confirmation => password)
 		user.save!
 end
 

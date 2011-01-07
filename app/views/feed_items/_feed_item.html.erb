@@ -1,0 +1,22 @@
+<div id="feed_item" class="span-16 append-8" style="padding-bottom: 1.5em;" >
+  <li>
+    <hr />
+    <div id="feed_item_avatar_container" class="span-5">
+
+      <div id="feed_item_avatar" class="span-2" >
+        <%= image_tag(feed_item.reference.avatar.url(:thumb), :style =>"float:right") %>
+      </div>
+
+      <div id="feed_item_info" class="span-3 last">
+        <%= link_to "#{feed_item.reference.name}", feed_item.reference %> <br />
+        <%= feed_item.creation_date %><br />
+        <%= feed_item.creation_time %>
+      </div>
+
+    </div>
+    <div id="feed_item_content" class="span-11 last">
+      <%= feed_item.text %>
+    </div>
+  </li>
+</div>
+

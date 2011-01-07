@@ -2,7 +2,7 @@ Factory.define :user,:default_strategy => :build do |user|
   user.email                 "valid_user_email@valid.com"
   user.password              "valid_password"
   user.password_confirmation "valid_password"
-  user.name                  "user_name"
+  user.name                  "user"
   user.association            :gemslot
 end
 
@@ -20,6 +20,10 @@ end
 
 Factory.sequence :email do |n|
   "valid_user_email#{n}@valid.com"
+end
+
+Factory.sequence :user_name do |n|
+  "user#{n}"
 end
 
 Factory.sequence :group_name do |n|
