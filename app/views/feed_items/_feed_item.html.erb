@@ -1,4 +1,4 @@
-<div id="feed_item<%=feed_item.id %>" class="feed_item span-16 append-8" style="padding-bottom: 1.5em;" >
+<div id="feed_item<%=feed_item.id %>" class="feed_item span-16" style="padding-bottom: 1.5em;" >
   <li>
     <hr />
     <div class="feed_item_avatar_container span-5">
@@ -21,8 +21,9 @@
     </div>
 
     <div class="feed_item_remove span-1 last">
-      <%= link_to( "X",remove_source_feed_item_path(feed_item.source.id, feed_item),
+      <%= link_to( "x",remove_source_feed_item_path(feed_item.source.id, feed_item),
         :remote => true,
+        :class => "feedItemRemoveLink",
         :method => :delete,
         :html => { :id => "delete-feed_item#{feed_item.id}" }
         )
@@ -30,4 +31,6 @@
     </div>
   </li>
 </div>
+
+<div class="span-8 last" />
 
