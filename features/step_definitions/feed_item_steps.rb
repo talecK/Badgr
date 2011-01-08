@@ -25,7 +25,7 @@ When /^I click remove for the feed item with reference "([^"]*)", source "([^"]*
   end
 
   with_scope("#hub_feed #feed_item#{feed_item.id}") do
-    click_link("X")
+    click_link("x")
   end
 end
 
