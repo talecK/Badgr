@@ -5,7 +5,7 @@ Feature: Dashboard Feature
     Background:
         Given I am not already logged in
         And I go to the home page
-        And my account "valid_user@valid.com" exists with password "valid_password" and is valid
+        And a valid account "valid_user@valid.com" exists with password "valid_password"
 
     Scenario: Dashboard Links
         When I log in as "valid_user@valid.com" with password "valid_password"

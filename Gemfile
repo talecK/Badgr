@@ -32,8 +32,10 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'launchy'
   gem 'database_cleaner'
+  gem 'rcov'
 end
 
+gem "jquery-rails"
 gem 'devise'
 gem 'paperclip'
 

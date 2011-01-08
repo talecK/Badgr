@@ -15,6 +15,14 @@ Badgr::Application.routes.draw do
     resources :memberships
   end
 
+  resources :sources do
+    resources :feed_items do
+      member do
+        delete :remove
+      end
+    end
+  end
+
   #as :user do
 		#root :to => "users#show"
 	#end

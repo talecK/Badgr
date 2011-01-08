@@ -1,0 +1,4 @@
+$("#feed_item<%= @feed_item.id %>").slideUp(200).delay(200).queue(function() {
+  $(this).remove();
+});
+
