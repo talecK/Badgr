@@ -19,7 +19,6 @@ Feature: User Profile Feature
     Scenario: Invalid Avatar Image
         When I follow "Edit Profile"
         And I attach the file "spec/fixtures/invalid_avatar.psd" to "user_avatar"
-        Then show me the page
         And I press "Update User"
         Then I should see "Can only upload jpeg, jpg, png and gif file types"
 

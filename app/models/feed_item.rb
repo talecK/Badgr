@@ -30,13 +30,18 @@ class FeedItem < ActiveRecord::Base
 
   #return a formated creation time (year-month-day /n H:M:S am/pm)
   def creation_date
-    time = Time.new(created_at.to_s)
-    return time.strftime("%F").to_s
+    return created_at.strftime("%F")
   end
 
   def creation_time
-    time = Time.new(created_at.to_s)
-    return time.strftime("%I:%M %P").to_s
+    time = created_at.strftime("%I:%M %P")
+
+    #if the first character of the time string is a 0, drop it
+    if ( time[0] == '0' )
+     return time[1..time.length]
+    else
+      return time
+    end
   end
 end
 

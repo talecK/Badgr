@@ -1,21 +1,32 @@
-<div id="feed_item" class="span-16 append-8" style="padding-bottom: 1.5em;" >
+<div id="feed_item<%=feed_item.id %>" class="feed_item span-16 append-8" style="padding-bottom: 1.5em;" >
   <li>
     <hr />
-    <div id="feed_item_avatar_container" class="span-5">
+    <div class="feed_item_avatar_container span-5">
 
-      <div id="feed_item_avatar" class="span-2" >
+      <div class="span-2 feed_item_avatar" >
         <%= image_tag(feed_item.reference.avatar.url(:thumb), :style =>"float:right") %>
       </div>
 
-      <div id="feed_item_info" class="span-3 last">
+      <div class="feed_item_info span-3 last">
         <%= link_to "#{feed_item.reference.name}", feed_item.reference %> <br />
-        <%= feed_item.creation_date %><br />
-        <%= feed_item.creation_time %>
+        <span class="time_span" style="font-size: 85%">
+          <%= feed_item.creation_time %><br />
+          <%= feed_item.creation_date %>
+        </span>
       </div>
 
     </div>
-    <div id="feed_item_content" class="span-11 last">
+    <div class="feed_item_content span-10">
       <%= feed_item.text %>
+    </div>
+
+    <div class="feed_item_remove span-1 last">
+      <%= link_to( "X",remove_source_feed_item_path(feed_item.source.id, feed_item),
+        :remote => true,
+        :method => :delete,
+        :html => { :id => "delete-feed_item#{feed_item.id}" }
+        )
+      %>
     </div>
   </li>
 </div>
