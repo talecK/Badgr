@@ -85,5 +85,21 @@ describe Group do
     feed_item_count = @group.feed_items.where( :source_id => @group.id, :reference_id => user.id, :feed_type => :user_joined_hub ).count
     feed_item_count.should == 1
   end
+
+  it "should invalidate images too large" do
+    @group.should validate_attachment_size(:avatar).
+                less_than(5.megabytes)
+  end
+
+  it "should invalidate images that are the wrong format" do
+    @group.should validate_attachment_content_type(:avatar).
+                allowing('image/png', 'image/gif').
+                rejecting('text/plain', 'text/xml')
+  end
+
+  it "should have a default avatar image" do
+    group = Factory( :group )
+    group.avatar.url.should == 'no-image-original.png'
+  end
 end
 

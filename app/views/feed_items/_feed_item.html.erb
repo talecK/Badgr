@@ -10,14 +10,18 @@
       <div class="feed_item_info span-3 last">
         <%= link_to "#{feed_item.reference.name}", feed_item.reference %> <br />
         <span class="time_span" style="font-size: 85%">
-          <%= feed_item.creation_time %><br />
+          <%= feed_item.creation_time %> <br />
           <%= feed_item.creation_date %>
         </span>
       </div>
 
     </div>
     <div class="feed_item_content span-10">
+    <% if feed_item.reference == current_user  %>
+      <%= feed_item.first_person_text %>
+    <% else %>
       <%= feed_item.text %>
+    <% end %>
     </div>
 
     <div class="feed_item_remove span-1 last">

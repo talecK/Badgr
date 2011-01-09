@@ -2,7 +2,9 @@ class User < ActiveRecord::Base
   has_many :groups, :through => :memberships
   has_many :memberships
   has_many :achievements
+  has_many :feed_items, :as => :source, :dependent => :destroy
   has_one :gemslot
+
 
   after_create :create_gem
 
@@ -13,7 +15,7 @@ class User < ActiveRecord::Base
 
   # paperclip attribute ( for file associations / uploads )
   has_attached_file :avatar, :styles => { :thumb  => "50x50#", :medium => "300x300>"},
-                    :default_url => ('no-image.png' )
+                    :default_url => 'no-image-:style.png'
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :avatar, :name
 	email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -29,7 +31,6 @@ class User < ActiveRecord::Base
   validates_attachment_size :avatar, :less_than => 5.megabytes, :message => "File must be smaller than 5MB"
   validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'],
                                     :message => "Can only upload jpeg, jpg, png and gif file types"
-
 
   def create_gem
     self.create_gemslot

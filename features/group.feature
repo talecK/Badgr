@@ -50,3 +50,20 @@ Feature: Group Feature
         Then I should see "user2 built the Some Group Hub" within "#hub_feed"
         And I should see "user1 is now a member of the Some Group Hub"
 
+    @javascript
+    Scenario: Updating the group avatar
+        When I follow "Some Group"
+        And I follow "Edit group"
+        Then show me the page
+        And I attach the file "spec/fixtures/valid_avatar.png" to "Avatar image"
+        And I press "Update Group"
+        Then I should see "Some Group Hub has been updated"
+
+    @javascript
+    Scenario: Invalid Group avatar Image
+        When I follow "Some Group"
+        And I follow "Edit group"
+        And I attach the file "spec/fixtures/invalid_avatar.png" to "Avatar image"
+        And I press "Update Group"
+        Then I should see "Can only upload jpeg, jpg, png and gif file types"
+
