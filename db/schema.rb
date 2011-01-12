@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110109011741) do
+ActiveRecord::Schema.define(:version => 20110111214111) do
 
   create_table "achievements", :force => true do |t|
     t.string   "name"
@@ -30,7 +30,21 @@ ActiveRecord::Schema.define(:version => 20110109011741) do
 
   create_table "feed_items", :force => true do |t|
     t.string   "feed_type"
-    t.string   "reference_id"
+    t.integer  "referenced_model_id"
+    t.string   "referenced_model_type"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "feed_subscriptions", :force => true do |t|
+    t.integer  "feed_item_id"
+    t.integer  "feed_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "feeds", :force => true do |t|
     t.integer  "source_id"
     t.string   "source_type"
     t.datetime "created_at"
@@ -77,6 +91,7 @@ ActiveRecord::Schema.define(:version => 20110109011741) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.integer  "feed_item_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "avatar_file_name"

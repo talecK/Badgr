@@ -14,6 +14,7 @@ Feature: Feed Item Feature
         And I should see "user1" within "#hub_feed"
         And I should see the time the feed item was created for "valid_user@valid.com" joining the "Some Group" Hub
 
+    @wip
     Scenario: viewing a properly formed feed item in the user feed (for joining a group) in "first person"
         Then I should see "You became a member of the Some Group Hub"
 

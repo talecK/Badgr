@@ -1,11 +1,10 @@
 class CreateFeedItems < ActiveRecord::Migration
   def self.up
     create_table :feed_items do |t|
-      t.string :feed_type
-      t.string :reference_id
+      t.string      :feed_type
 
-      t.references :source, :polymorphic => true
-
+      t.references  :referenced_model, :polymorphic => true
+      t.belongs_to  :user
       t.timestamps
     end
   end

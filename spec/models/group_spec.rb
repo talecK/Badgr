@@ -64,7 +64,7 @@ describe Group do
     user = Factory(:user)
     user.save!
     @group.add_creator(user)
-    @group.feed_items.first.text.should == "#{user.name} built the #{@group.name} Hub"
+    @group.feed.feed_items.first.text.should == "#{user.name} built the #{@group.name} Hub"
   end
 
   it "should put an entry in the feed for when a user leaves the group" do
@@ -73,7 +73,9 @@ describe Group do
     user.save!
     @group.add_user(user)
     @group.remove_user(user)
-    feed_item_count = @group.feed_items.where( :source_id => @group.id, :reference_id => user.id, :feed_type => :user_left_hub ).count
+    feed_item_count = @group.feed.feed_items.where( :referenced_model_id => @group.id,
+                                                    :user_id => user.id, :feed_type => :user_left_hub
+                                                  ).count
     feed_item_count.should == 1
   end
 
@@ -82,7 +84,9 @@ describe Group do
     user = Factory(:user, :name => "new_user")
     user.save!
     @group.add_user(user)
-    feed_item_count = @group.feed_items.where( :source_id => @group.id, :reference_id => user.id, :feed_type => :user_joined_hub ).count
+    feed_item_count = @group.feed.feed_items.where( :referenced_model_id => @group.id,
+                                                    :user_id => user.id, :feed_type => :user_joined_hub
+                                                  ).count
     feed_item_count.should == 1
   end
 

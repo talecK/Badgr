@@ -1,30 +1,24 @@
 class FeedItem < ActiveRecord::Base
-  belongs_to :source, :polymorphic => true
-  attr_accessible :feed_type, :reference_id
+  has_many :feeds , :through => :feed_subscriptions
+  has_many :feed_subscriptions
+  belongs_to :user
+  belongs_to :referenced_model, :polymorphic => true
+
+  attr_accessible :feed_type
 
   validates(:feed_type, :presence => true,
             :inclusion => { :in => [:user_built_hub, :user_joined_hub, :user_left_hub] } )
 
-  def reference
-    unless( self.reference_id.nil? )
-      type = self.feed_type.to_sym
-
-      #if reference is a user
-      if( type == :user_built_hub || type == :user_joined_hub || type == :user_left_hub )
-        return User.find( self.reference_id )
-      end
-    end
-  end
 
   def text
     if( self.feed_type.to_sym == :user_built_hub )
-      return "#{User.find(reference_id).name} built the #{source.name} Hub"
+      return "#{user.name} built the #{referenced_model.name} Hub"
 
     elsif ( self.feed_type.to_sym == :user_joined_hub )
-      return "#{User.find(reference_id).name} is now a member of the #{source.name} Hub"
+      return "#{user.name} is now a member of the #{referenced_model.name} Hub"
 
     elsif ( self.feed_type.to_sym == :user_left_hub )
-      return "#{User.find(reference_id).name} has left the #{source.name} Hub"
+      return "#{user.name} has left the #{referenced_model.name} Hub"
     end
   end
 
@@ -43,5 +37,6 @@ class FeedItem < ActiveRecord::Base
       return time
     end
   end
+
 end
 

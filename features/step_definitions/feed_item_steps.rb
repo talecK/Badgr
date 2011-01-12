@@ -1,7 +1,7 @@
 Then /^I should see the time the feed item was created for "([^"]*)" joining the "([^"]*)" Hub$/ do |user_email, group_name|
   @group = Group.find_by_name(group_name)
   @user = User.find_by_email(user_email)
-  feed_item = @group.feed_items.where( :feed_type => :user_joined_hub, :reference_id => @user.id, :source_id => @group.id ).first
+  feed_item = @group.feed.feed_items.where( :feed_type => :user_joined_hub, :referenced_model_id => @group.id, :user_id => @user.id ).first
   creation_time = feed_item.creation_time
   creation_date = feed_item.creation_date
 
@@ -21,7 +21,7 @@ When /^I click remove for the feed item with reference "([^"]*)", source "([^"]*
   if (type.to_sym == :user_joined_hub)
     @group = Group.find_by_name(source)
     @user = User.find_by_email(reference)
-    feed_item = @group.feed_items.where( :feed_type => :user_joined_hub, :reference_id => @user.id, :source_id => @group.id ).first
+    feed_item = @group.feed.feed_items.where( :feed_type => :user_joined_hub, :referenced_model_id => @group.id, :user_id => @user.id ).first
   end
 
   with_scope("#hub_feed #feed_item#{feed_item.id}") do

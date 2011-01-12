@@ -2,11 +2,13 @@ class User < ActiveRecord::Base
   has_many :groups, :through => :memberships
   has_many :memberships
   has_many :achievements
-  has_many :feed_items, :as => :source, :dependent => :destroy
   has_one :gemslot
+  has_one :feed, :as => :source
+  has_many :feed_item_model_refs, :as => :referenced_model, :class_name => "FeedItem"
+  has_many :feed_item_user_refs, :class_name => "FeedItem"
 
 
-  after_create :create_gem
+  after_create :create_gem, :create_feed_for_user
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
@@ -34,6 +36,10 @@ class User < ActiveRecord::Base
 
   def create_gem
     self.create_gemslot
+  end
+
+  def create_feed_for_user
+    self.create_feed
   end
 end
 
