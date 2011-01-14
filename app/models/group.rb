@@ -25,18 +25,15 @@ class Group < ActiveRecord::Base
 
 
   def add_creator( user )
-    self.memberships.create( :group_id => self.id, :user_id => user.id ,:group_admin => true )
-    self.feed.add_creation_feed_item( user, self )
+    self.memberships.create( :group_id => self.id, :user_id => user.id ,:group_admin => true, :group_creator => true )
   end
 
   def add_user( user )
     self.memberships.create( :group_id => self.id, :user_id => user.id ,:group_admin => false )
-    #self.feed.add_user_joined_feed_item( user, self )
   end
 
   def remove_user( user )
     self.memberships.find_by_user_id(user).destroy
-    self.feed.add_user_left_feed_item( user, self )
   end
 
   def has_member?( user )

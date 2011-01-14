@@ -17,7 +17,8 @@ Feature: Dashboard Feature
         And I should see "My Trophy Case"
 
     Scenario: Viewing My Groups
-        Given "valid_user@valid.com" belongs to "Some Group"
+        Given the group "Some Group" exists
+        And "valid_user@valid.com" belongs to "Some Group"
         When I log in as "valid_user@valid.com" with password "valid_password"
         Then I should see "Some Group"
 

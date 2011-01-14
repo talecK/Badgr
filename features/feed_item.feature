@@ -5,6 +5,7 @@ Feature: Feed Item Feature
         Given I am not already logged in
         And I go to the home page
         And a valid account "valid_user@valid.com" exists with password "valid_password"
+        And the group "Some Group" exists
         And "valid_user@valid.com" belongs to "Some Group"
         When I log in as "valid_user@valid.com" with password "valid_password"
 
@@ -36,4 +37,16 @@ Feature: Feed Item Feature
         When I follow "Some Group"
         Then I should see "user2 built the Some Group Hub" within "#hub_feed"
         And I should see "You became a member of the Some Group Hub"
+
+    @wip
+    Scenario: When a user joins or leaves a group all members in the group should have it posted in their feed
+              and in the case of the user who joined or left this should occour only once in their feed in first person
+
+        Given I am not already logged in
+        And a valid account "creator@valid.com" exists with password "valid_password" and name "user2"
+        And a valid account "user1@valid.com" exists with password "valid_password" and name "user1"
+        And "creator@valid.com" built the "Some Group" Hub
+        And "user1@valid.com" belongs to "Some Group"
+        And I log in as "user1@valid.com" with password "valid_password"
+        Then I should see "You became a member of the Some Group Hub" "1" time within "//div[@class='feed_item span-16']/li/div[@class='feed_item_content span-10']"
 

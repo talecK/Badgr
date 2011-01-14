@@ -29,3 +29,7 @@ When /^I click remove for the feed item with reference "([^"]*)", source "([^"]*
   end
 end
 
+Then /^I should see "([^"]*)" "([^"]*)" time(?:|s) (?:within "([^"]*)")?$/ do |text, occourences, selector|
+  page.should have_xpath( selector.to_s, :text => text, :count => occourences.to_i )
+end
+

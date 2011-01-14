@@ -5,6 +5,7 @@ Feature: Group Feature
         Given I am not already logged in
         And I go to the home page
         And a valid account "valid_user@valid.com" exists with password "valid_password"
+        And the group "Some Group" exists
         And "valid_user@valid.com" belongs to "Some Group"
         When I log in as "valid_user@valid.com" with password "valid_password"
 

@@ -1,7 +1,6 @@
-Given /^"([^"]*)" belongs to "([^"]*)"$/ do | user_email, group |
+Given /^"([^"]*)" belongs to "([^"]*)"$/ do | user_email, group_name |
 	user = User.find_by_email( user_email )
-  group = Factory(:group, :name => group)
-  group.save!
+  group = Group.find_by_name(group_name)
   group.add_user( user )
 end
 

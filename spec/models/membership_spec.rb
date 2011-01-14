@@ -7,6 +7,11 @@ describe Membership do
     @attr = { :user_id => @user.id, :group_id => @group.id, :group_admin => false }
   end
 
+  it "should default creator to false" do
+    group_user = @user.memberships.create!( @attr )
+    group_user.group_creator.should == false
+  end
+
   it "should create an instance given valid attributes" do
     group_user = @user.memberships.build( @attr )
     group_user.save!
