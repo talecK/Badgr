@@ -31,7 +31,7 @@ class Group < ActiveRecord::Base
 
   def add_user( user )
     self.memberships.create( :group_id => self.id, :user_id => user.id ,:group_admin => false )
-    self.feed.add_user_joined_feed_item( user, self )
+    #self.feed.add_user_joined_feed_item( user, self )
   end
 
   def remove_user( user )
@@ -42,7 +42,6 @@ class Group < ActiveRecord::Base
   def has_member?( user )
     self.users.exists?(user)
   end
-
 
   def create_feed_for_group
     self.create_feed
