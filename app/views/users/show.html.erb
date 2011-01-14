@@ -1,28 +1,53 @@
-<%- if user_signed_in? %>
-    <%= render :partial => "shared/dashboard" %> <br />
-<% end -%>
+<div class="container">
 
-<h1>
-<%= @user.name %>'s Profile
-  <% if @user.gemslot.achievement != nil %>
-    <%= link_to image_tag( @user.gemslot.achievement.image.url( :thumb ) , :border => 1 ), edit_user_gemslot_path( @user.id ),
-                           :title => @user.gemslot.achievement.name %>
-  <% else %>
-    <%= link_to image_tag( 'no-gem-image.png', :border => 1 ), edit_user_gemslot_path( @user.id ),
-                           :title => "Click to set gem" %>
-  <% end %>
-</h1>
+  <div id="header" class="span-24">
+      <%- if user_signed_in? %>
+          <%= render :partial => "shared/dashboard" %> <br />
+      <% end -%>
+    </div>
 
-<%= image_tag @user.avatar.url( :medium ) %> <br /> <br />
+    <div id="userPageContainer" class="span-24">
 
-<b> Email: </b> <%= @user.email %> <br />
+      <div id="userPageInfo" class="span-24">
+        <h1>
+        <%= @user.name %>'s Profile
+          <% if @user.gemslot.achievement != nil %>
+            <%= link_to image_tag( @user.gemslot.achievement.image.url( :thumb ) , :border => 1 ), edit_user_gemslot_path( @user.id ),
+                                   :title => @user.gemslot.achievement.name %>
+          <% else %>
+            <%= link_to image_tag( 'no-gem-image.png', :border => 1 ), edit_user_gemslot_path( @user.id ),
+                                   :title => "Click to set gem" %>
+          <% end %>
+        </h1>
 
- <br /> <br />
+        <%= image_tag @user.avatar.url( :medium ) %> <br /> <br />
 
-<%= link_to( 'Edit Profile', edit_user_path( @user ) ) %>
+        <% flash.each do |key, value| %>
+          <div class="flash <%= key %>"><%= value %></div>
+        <% end %>
 
+        <b> Email: </b> <%= @user.email %> <br />
+        <br />
+        <br />
 
-<% flash.each do |key, value| %>
-  <div class="flash <%= key %>"><%= value %></div>
-<% end %>
+      </div>
+
+      <div id="userPageActions" class="span-24">
+        <%= link_to( 'Edit Profile', edit_user_path( @user ) ) %>
+      </div>
+
+      <div id="user_feed" class="span-24">
+      <h3> Notice Board </h3>
+
+      <ul style="list-style-type: none;">
+        <%= render @user.feed.feed_items %>
+
+        <div id="last_feed_item_line" class="span-16 append-8" >
+          <hr />
+        </div>
+      </ul>
+    </div>
+
+  </div>
+</div>
 

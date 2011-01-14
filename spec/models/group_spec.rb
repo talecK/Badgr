@@ -59,31 +59,20 @@ describe Group do
   end
 
 
-  it "should put an entry (the only entry at this time) in the feed for the groups creation" do
-    @group.save!
-    user = Factory(:user)
-    user.save!
-    @group.add_creator(user)
-    @group.feed_items.first.text.should == "#{user.name} built the #{@group.name} Hub"
+  it "should invalidate images too large" do
+    @group.should validate_attachment_size(:avatar).
+                less_than(5.megabytes)
   end
 
-  it "should put an entry in the feed for when a user leaves the group" do
-    @group.save!
-    user = Factory(:user)
-    user.save!
-    @group.add_user(user)
-    @group.remove_user(user)
-    feed_item_count = @group.feed_items.where( :source_id => @group.id, :reference_id => user.id, :feed_type => :user_left_hub ).count
-    feed_item_count.should == 1
+  it "should invalidate images that are the wrong format" do
+    @group.should validate_attachment_content_type(:avatar).
+                allowing('image/png', 'image/gif').
+                rejecting('text/plain', 'text/xml')
   end
 
-  it "should put an entry in the feed for when a user joins the group" do
-    @group.save!
-    user = Factory(:user, :name => "new_user")
-    user.save!
-    @group.add_user(user)
-    feed_item_count = @group.feed_items.where( :source_id => @group.id, :reference_id => user.id, :feed_type => :user_joined_hub ).count
-    feed_item_count.should == 1
+  it "should have a default avatar image" do
+    group = Factory( :group )
+    group.avatar.url.should == 'no-image-original.png'
   end
 end
 

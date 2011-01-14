@@ -5,11 +5,15 @@ class UsersController < ApplicationController
   end
 
 	def index
-		@user = current_user
+		@users = User.all
 	end
 
 	def show
-		@user = current_user
+	  if(params[:id])
+      @user = User.find( params[:id] )
+    else
+		  @user = current_user
+    end
 	end
 
   def edit

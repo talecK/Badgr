@@ -82,7 +82,7 @@ describe User do
 
   it "should have a default avatar image" do
     user = Factory( :user )
-    user.avatar.url.should == 'no-image.png'
+    user.avatar.url.should == 'no-image-original.png'
   end
 end
 

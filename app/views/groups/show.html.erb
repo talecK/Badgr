@@ -9,10 +9,19 @@
   <div id="group_page_container" class="span-24">
     <h1> <%= @group.name %> Hub </h1>
 
+    <%= image_tag( @group.avatar.url(:medium) ) %>
+
+    <% flash.each do |key, value| %>
+      <div class="flash <%= key %>"><%= value %></div>
+    <% end %>
+
+
     <div id="group_page_actions" class="span-24">
       <% if @group.has_member?(current_user)%>
         <%= link_to "Leave group", group_membership_path( @group.id, current_user ), :method => :delete,
                                   :confirm => "Are you sure you want to leave this group?" %> <br />
+
+        <%= link_to "Edit group", edit_group_path( @group ) %> <br />
       <% end %>
 
       <%= link_to "View members", group_memberships_path( @group.id ) %> <br />
@@ -20,6 +29,7 @@
       <% unless @group.has_member?(current_user) %>
         <%= link_to "Join Hub", group_memberships_path( @group.id ), :method => :post %> <br />
       <% end %>
+
       <br />
       <br />
     </div>

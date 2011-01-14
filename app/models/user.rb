@@ -3,8 +3,12 @@ class User < ActiveRecord::Base
   has_many :memberships
   has_many :achievements
   has_one :gemslot
+  has_one :feed, :as => :source
+  has_many :feed_item_model_refs, :as => :referenced_model, :class_name => "FeedItem"
+  has_many :feed_item_user_refs, :class_name => "FeedItem"
 
-  after_create :create_gem
+
+  after_create :create_gem, :create_feed_for_user
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
@@ -13,7 +17,7 @@ class User < ActiveRecord::Base
 
   # paperclip attribute ( for file associations / uploads )
   has_attached_file :avatar, :styles => { :thumb  => "50x50#", :medium => "300x300>"},
-                    :default_url => ('no-image.png' )
+                    :default_url => 'no-image-:style.png'
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :avatar, :name
 	email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -30,9 +34,12 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'],
                                     :message => "Can only upload jpeg, jpg, png and gif file types"
 
-
   def create_gem
     self.create_gemslot
+  end
+
+  def create_feed_for_user
+    self.create_feed
   end
 end
 

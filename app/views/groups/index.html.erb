@@ -1,0 +1,8 @@
+<h1>Groups#index</h1>
+<b>Total Groups: <%= @groups.count %> </b> <br />
+<ul>
+  <% for group in @groups %>
+    <li> <%= link_to( group.name, group_path( group ) ) %> </li>
+  <% end %>
+</ul>
+
