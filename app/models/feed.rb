@@ -7,15 +7,16 @@ class Feed < ActiveRecord::Base
    # self.feed_items.to_ary.find { |item| ( item.source == values[:source] ) }
   # end
 
-
-
   def add_creation_feed_item( creator, group )
     feed_item = FeedItem.create!( :feed_type => :user_built_hub, :user => creator )
     feed_item.user = creator
     feed_item.referenced_model = group
     feed_item.save!
-    self.feed_subscriptions.create( :feed_id => self.id, :feed_item_id => feed_item.id )
-    self.save!
+    group.feed.feed_subscriptions.create( :feed_id => self.id, :feed_item_id => feed_item.id )
+    creator.feed.feed_subscriptions.create( :feed_id => creator.feed.id, :feed_item_id => feed_item.id )
+
+    group.save!
+    creator.save!
   end
 
   def add_user_joined_feed_item( user, group )
@@ -23,8 +24,11 @@ class Feed < ActiveRecord::Base
     feed_item.user = user
     feed_item.referenced_model = group
     feed_item.save!
-    self.feed_subscriptions.create( :feed_id => self.id, :feed_item_id => feed_item.id )
-    self.save!
+    group.feed.feed_subscriptions.create( :feed_id => self.id, :feed_item_id => feed_item.id )
+    user.feed.feed_subscriptions.create( :feed_id => user.feed.id, :feed_item_id => feed_item.id )
+
+    group.save!
+    user.save!
   end
 
   def add_user_left_feed_item( user, group )
@@ -32,8 +36,11 @@ class Feed < ActiveRecord::Base
     feed_item.user = user
     feed_item.referenced_model = group
     feed_item.save!
-    self.feed_subscriptions.create( :feed_id => self.id, :feed_item_id => feed_item.id )
-    self.save!
+    group.feed.feed_subscriptions.create( :feed_id => self.id, :feed_item_id => feed_item.id )
+    user.feed.feed_subscriptions.create( :feed_id => user.feed.id, :feed_item_id => feed_item.id )
+
+    group.save!
+    user.save!
   end
 
 end

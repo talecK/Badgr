@@ -17,11 +17,7 @@
 
     </div>
     <div class="feed_item_content span-10">
-    <% if feed_item.user == current_user  %>
-      <%= feed_item.text %>
-    <% else %>
-      <%= feed_item.text %>
-    <% end %>
+      <%= feed_item.text( :first_person => ( feed_item.user == current_user ) ) %>
     </div>
 
     <div class="feed_item_remove span-1 last">

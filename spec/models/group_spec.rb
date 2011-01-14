@@ -59,37 +59,6 @@ describe Group do
   end
 
 
-  it "should put an entry (the only entry at this time) in the feed for the groups creation" do
-    @group.save!
-    user = Factory(:user)
-    user.save!
-    @group.add_creator(user)
-    @group.feed.feed_items.first.text.should == "#{user.name} built the #{@group.name} Hub"
-  end
-
-  it "should put an entry in the feed for when a user leaves the group" do
-    @group.save!
-    user = Factory(:user)
-    user.save!
-    @group.add_user(user)
-    @group.remove_user(user)
-    feed_item_count = @group.feed.feed_items.where( :referenced_model_id => @group.id,
-                                                    :user_id => user.id, :feed_type => :user_left_hub
-                                                  ).count
-    feed_item_count.should == 1
-  end
-
-  it "should put an entry in the feed for when a user joins the group" do
-    @group.save!
-    user = Factory(:user, :name => "new_user")
-    user.save!
-    @group.add_user(user)
-    feed_item_count = @group.feed.feed_items.where( :referenced_model_id => @group.id,
-                                                    :user_id => user.id, :feed_type => :user_joined_hub
-                                                  ).count
-    feed_item_count.should == 1
-  end
-
   it "should invalidate images too large" do
     @group.should validate_attachment_size(:avatar).
                 less_than(5.megabytes)

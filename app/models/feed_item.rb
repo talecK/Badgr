@@ -10,15 +10,19 @@ class FeedItem < ActiveRecord::Base
             :inclusion => { :in => [:user_built_hub, :user_joined_hub, :user_left_hub] } )
 
 
-  def text
+  def text( values = {} )
+    #if they pass first_person, give them first person text
+    user_name = values[:first_person] == true ? "You" : "#{user.name}"
+
     if( self.feed_type.to_sym == :user_built_hub )
-      return "#{user.name} built the #{referenced_model.name} Hub"
+      return "#{user_name} built the #{referenced_model.name} Hub"
 
     elsif ( self.feed_type.to_sym == :user_joined_hub )
-      return "#{user.name} is now a member of the #{referenced_model.name} Hub"
+      user_qualifier = values[:first_person] == true ? "became" : "is now"
+      return "#{user_name} #{user_qualifier} a member of the #{referenced_model.name} Hub"
 
     elsif ( self.feed_type.to_sym == :user_left_hub )
-      return "#{user.name} has left the #{referenced_model.name} Hub"
+      return "#{user_name} left the #{referenced_model.name} Hub"
     end
   end
 
