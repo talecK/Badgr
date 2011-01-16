@@ -3,15 +3,15 @@ Factory.define :user,:default_strategy => :build do |user|
   user.password              "valid_password"
   user.password_confirmation "valid_password"
   user.name                  "user"
-  user.association            :gemslot
+  #user.association            :gemslot
   user.after_build {|u|
     Factory(:feed, :source => u)}
 end
 
 
-Factory.define :gemslot do |gemslot|
-  gemslot.association         :achievement
-end
+#Factory.define :gemslot do |gemslot|
+ # gemslot.association         :achievement
+#end
 
 Factory.define :feed do |feed|
   feed.source            nil

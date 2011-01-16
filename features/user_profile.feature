@@ -26,6 +26,7 @@ Feature: User Profile Feature
         Given "valid_user@valid.com" has achieved the "Gem" achievement
         When I follow "Click to set gem"
         Then I should see "Select an acheivement to put in your gem slot"
+        Then show me the page
         When I choose "Gem"
         And I press "Update"
         Then I should see "Your gem has been updated"

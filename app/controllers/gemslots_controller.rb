@@ -18,7 +18,7 @@ class GemslotsController < ApplicationController
     else
       flash[:error] = "Could not update Gem!"
       render :action => "edit"
-      @user.gemslot.save
+      @user.save
     end
   end
 
@@ -28,7 +28,7 @@ class GemslotsController < ApplicationController
 
   def find_user_achievements
     @user = find_user
-    @achievement = @user.achievements.find_by_id( params[:gemslot][:id] ) unless @user.nil? || params[:gemslot].blank?
+    @achievement = @user.achievements.find_by_id( params[:user][:gem] ) unless @user.nil? || params[:user].blank?
   end
 end
 

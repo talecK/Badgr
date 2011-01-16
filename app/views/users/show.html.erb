@@ -11,9 +11,9 @@
       <div id="userPageInfo" class="span-24">
         <h1>
         <%= @user.name %>'s Profile
-          <% if @user.gemslot.achievement != nil %>
-            <%= link_to image_tag( @user.gemslot.achievement.image.url( :thumb ) , :border => 1 ), edit_user_gemslot_path( @user.id ),
-                                   :title => @user.gemslot.achievement.name %>
+          <% unless @user.gem.nil? %>
+            <%= link_to image_tag( @user.gem.image.url( :thumb ) , :border => 1 ), edit_user_gemslot_path( @user.id ),
+                                   :title => @user.gem.name %>
           <% else %>
             <%= link_to image_tag( 'no-gem-image.png', :border => 1 ), edit_user_gemslot_path( @user.id ),
                                    :title => "Click to set gem" %>

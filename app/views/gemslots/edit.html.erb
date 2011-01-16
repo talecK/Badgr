@@ -3,9 +3,9 @@
 <% end -%>
 <h3>Select an acheivement to put in your gem slot </h3>
 
-<%= form_for [@user,@user.gemslot] do |f| %>
+<%= form_for [@user], :url => user_gemslot_path(@user) do |f| %>
   <% for achievement in @user.achievements %>
-      <%= f.radio_button :id, achievement.id, :id => achievement.name %>
+      <%= f.radio_button :gem, achievement.id, :id => achievement.name %>
       <%= image_tag(achievement.image.url(:thumb), :title => achievement.name ) %> <br />
   <% end %>
   <%= submit_tag "Update" %>
