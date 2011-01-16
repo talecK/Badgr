@@ -11,10 +11,14 @@ describe Achievement do
     no_name_achievement.should_not be_valid
   end
 
-  it "should belong to a user" do
-    achievement = @user.achievements.build
-    achievement.name = "test"
-    achievement.save!
+  it "should require a description" do
+    no_description_achievement = Factory( :achievement, :description => ""  )
+    no_description_achievement.should_not be_valid
+  end
+
+  it "should require requirements" do
+    no_description_achievement = Factory( :achievement, :requirements => ""  )
+    no_description_achievement.should_not be_valid
   end
 
   it "should invalidate images too large" do

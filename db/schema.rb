@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110114041618) do
+ActiveRecord::Schema.define(:version => 20110116071502) do
 
   create_table "achievements", :force => true do |t|
     t.string   "name"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(:version => 20110114041618) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.integer  "gemslot_id"
+    t.string   "description"
+    t.string   "requirements"
   end
 
   add_index "achievements", ["gemslot_id"], :name => "index_achievements_on_gemslot_id"

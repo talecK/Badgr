@@ -1,12 +1,14 @@
 class Achievement < ActiveRecord::Base
   belongs_to :user
   belongs_to :gemslot
-  attr_accessible :name
+  attr_accessible :name, :description, :requirements
 
   has_attached_file :image, :styles => { :thumb  => "50x50#" },
                     :default_url => ('no-gem-image.png' )
 
   validates( :name, :presence => true )
+  validates( :description, :presence => true, :length => { :within => 1...200 } )
+  validates( :requirements, :presence => true )
 
   # paperclip upload validations
   validates_attachment_size :image,

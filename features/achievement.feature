@@ -11,5 +11,9 @@ Feature: Achievements
         And "valid_user@valid.com" belongs to "Some Group"
         When I log in as "valid_user@valid.com" with password "valid_password"
         And I follow "Some Group"
-        And I follow
+        And I follow "Create achievement"
+        And I fill in "Achievement" for "Name"
+        And I fill in "Just some achievement..." for "Description"
+        And I attach the file "valid-gem.png" to "File"
+        And I fill "earn it" for "Requirement"
 

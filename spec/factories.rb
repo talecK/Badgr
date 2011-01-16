@@ -25,6 +25,8 @@ end
 
 Factory.define :achievement, :default_strategy => :build do |achievement|
   achievement.name            "some_achievement"
+  achievement.description     "some_description"
+  achievement.requirements    "some_requirements"
 end
 
 Factory.sequence :email do |n|
