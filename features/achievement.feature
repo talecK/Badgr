@@ -2,7 +2,7 @@ Feature: Achievements
     As a logged in user I should be able to view my own achievements as well as the
     available achievements for any group(s) I belong to
 
-
+    @wip
     Scenario: Creating an achievement
         Given I am not already logged in
         And I go to the home page
