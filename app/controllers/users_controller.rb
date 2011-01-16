@@ -11,8 +11,10 @@ class UsersController < ApplicationController
 	def show
 	  if(params[:id])
       @user = User.find( params[:id] )
+      @feed = @user.feed
     else
 		  @user = current_user
+		  @feed = @user.feed
     end
 	end
 

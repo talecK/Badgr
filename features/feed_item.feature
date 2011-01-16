@@ -38,7 +38,6 @@ Feature: Feed Item Feature
         Then I should see "user2 built the Some Group Hub" within "#hub_feed"
         And I should see "You became a member of the Some Group Hub"
 
-    @wip
     Scenario: When a user joins or leaves a group all members in the group should have it posted in their feed
               and in the case of the user who joined or left this should occour only once in their feed in first person
 

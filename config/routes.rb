@@ -15,7 +15,7 @@ Badgr::Application.routes.draw do
     resources :memberships
   end
 
-  resources :sources do
+  resources :feeds do
     resources :feed_items do
       member do
         delete :remove

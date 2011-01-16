@@ -14,6 +14,7 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
+    @feed = @group.feed
   end
 
   def index

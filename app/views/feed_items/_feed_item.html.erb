@@ -21,7 +21,7 @@
     </div>
 
     <div class="feed_item_remove span-1 last">
-      <%= link_to( "x",remove_source_feed_item_path(feed_item.referenced_model.id, feed_item),
+      <%= link_to( "x",remove_feed_feed_item_path(@feed, feed_item),
         :remote => true,
         :class => "feedItemRemoveLink",
         :method => :delete,
