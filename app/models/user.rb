@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_one :feed, :as => :source
   has_many :feed_item_model_refs, :as => :referenced_model, :class_name => "FeedItem"
   has_many :feed_item_user_refs, :class_name => "FeedItem"
+  has_many :achievement_creator_refs, :class_name => "Achievement"
 
 
   after_create :create_feed_for_user, :create_gem

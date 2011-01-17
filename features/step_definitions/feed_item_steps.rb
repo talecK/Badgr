@@ -33,3 +33,8 @@ Then /^I should see "([^"]*)" "([^"]*)" time(?:|s) (?:within "([^"]*)")?$/ do |t
   page.should have_xpath( selector.to_s, :text => text, :count => occourences.to_i )
 end
 
+Then /^I should see a feed item with text "([^"]*)" once within the feed$/ do |text|
+  page.should have_xpath( "//div[@class='feed_item span-16']/li/div[@class='feed_item_content span-10']",
+                           :text => text, :count => 1 )
+end
+

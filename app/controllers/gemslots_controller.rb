@@ -18,7 +18,6 @@ class GemslotsController < ApplicationController
     else
       flash[:error] = "Could not update Gem!"
       render :action => "edit"
-      @user.save
     end
   end
 

@@ -3,6 +3,7 @@ class Group < ActiveRecord::Base
   has_many :memberships, :dependent => :destroy
   has_one :feed, :as => :source
   has_many :feed_items, :as => :referenced_model
+  has_many :achievements
 
 
   # Setup accessible (or protected) attributes for your model

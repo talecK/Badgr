@@ -47,5 +47,5 @@ Feature: Feed Item Feature
         And "creator@valid.com" built the "Some Group" Hub
         And "user1@valid.com" belongs to "Some Group"
         And I log in as "user1@valid.com" with password "valid_password"
-        Then I should see "You became a member of the Some Group Hub" "1" time within "//div[@class='feed_item span-16']/li/div[@class='feed_item_content span-10']"
+        Then I should see a feed item with text "You became a member of the Some Group Hub" once within the feed
 

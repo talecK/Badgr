@@ -1,7 +1,9 @@
 class Achievement < ActiveRecord::Base
   belongs_to :user
   belongs_to :gemslot
-  attr_accessible :name, :description, :requirements
+  belongs_to :group
+  belongs_to :creator, :class_name => "User"
+  attr_accessible :name, :description, :requirements, :image
 
   has_attached_file :image, :styles => { :thumb  => "50x50#" },
                     :default_url => ('no-gem-image.png' )

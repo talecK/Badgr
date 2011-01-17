@@ -6,14 +6,19 @@ Feature: Achievements
     Scenario: Creating an achievement
         Given I am not already logged in
         And I go to the home page
-        And a valid account "valid_user@valid.com" exists with password "valid_password"
+        And a valid account "valid_user@valid.com" exists with password "valid_password" and name "user1"
         And the group "Some Group" exists
         And "valid_user@valid.com" belongs to "Some Group"
         When I log in as "valid_user@valid.com" with password "valid_password"
         And I follow "Some Group"
         And I follow "Create achievement"
-        And I fill in "Achievement" for "Name"
-        And I fill in "Just some achievement..." for "Description"
-        And I attach the file "valid-gem.png" to "File"
-        And I fill "earn it" for "Requirement"
+        And I fill in "test_achievement" for "Achievement name"
+        And I fill in "Just some achievement..." for "Achievement description"
+        And I attach the file "spec/fixtures/valid-gem.png" to "Achievement image"
+        And I fill in "earn it" for "Achievement requirement"
+        And I press "Create Achievement"
+        Then I should see "Achievement was successfully created."
+        And I should see "You forged the test_achievement Achievement" within "#hub_feed"
+        When I follow "My Profile"
+        Then I should see a feed item with text "You forged the test_achievement Achievement" once within the feed
 
