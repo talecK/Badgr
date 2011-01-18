@@ -11,6 +11,7 @@ class Achievement < ActiveRecord::Base
   validates( :name, :presence => true )
   validates( :description, :presence => true, :length => { :within => 1...200 } )
   validates( :requirements, :presence => true )
+  validates_uniqueness_of :name, :scope => :group_id, :case_sensitive => false
 
   # paperclip upload validations
   validates_attachment_size :image,

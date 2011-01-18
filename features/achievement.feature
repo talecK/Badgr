@@ -2,7 +2,6 @@ Feature: Achievements
     As a logged in user I should be able to view my own achievements as well as the
     available achievements for any group(s) I belong to
 
-    @wip
     Scenario: Creating an achievement
         Given I am not already logged in
         And I go to the home page
@@ -17,9 +16,8 @@ Feature: Achievements
         And I attach the file "spec/fixtures/valid-gem.png" to "Achievement image"
         And I fill in "earn it" for "Achievement requirement"
         And I press "Create Achievement"
-        And show me the page
         Then I should see "Achievement was successfully created."
-        And I should see "You forged the test_achievement Achievement" within "#hub_feed"
+        And I should see a feed item with text "You forged the 'test_achievement' Achievement" once within the feed
         When I follow "My Profile"
-        Then I should see a feed item with text "You forged the test_achievement Achievement" once within the feed
+        Then I should see a feed item with text "You forged the 'test_achievement' Achievement" once within the feed
 

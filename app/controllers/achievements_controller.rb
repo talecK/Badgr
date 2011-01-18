@@ -14,12 +14,16 @@ class AchievementsController < ApplicationController
     if @group != nil && @user != nil
       @achievement = @group.achievements.build( params[:achievement] )
       @achievement.creator = @user
-      @achievement.save!
-      flash[:notice] = "Achievement was successfully created."
-      redirect_to group_path(@group)
-    else
-      flash[:alert] = "Unable to create Achievement!"
-      render :action => "new"
+
+      if @achievement.save!
+        flash[:notice] = "Achievement was successfully created."
+        redirect_to group_path(@group)
+      else
+        fail_and_redirect
+      end
+
+    elsif
+      fail_and_redirect
     end
   end
 
@@ -29,6 +33,11 @@ class AchievementsController < ApplicationController
 
   def find_user
     @user = User.find( params[:user_id] )
+  end
+
+  def fail_and_redirect
+    flash[:alert] = "Unable to create Achievement!"
+    render :action => "new"
   end
 end
 

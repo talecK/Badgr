@@ -2,7 +2,7 @@ class Group < ActiveRecord::Base
   has_many :users, :through => :memberships
   has_many :memberships, :dependent => :destroy
   has_one :feed, :as => :source
-  has_many :feed_items, :as => :referenced_model
+  has_many :feed_item_model_refs, :as => :referenced_model, :class_name => "FeedItem"
   has_many :achievements
 
 

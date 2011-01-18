@@ -3,7 +3,6 @@ Factory.define :user,:default_strategy => :build do |user|
   user.password              "valid_password"
   user.password_confirmation "valid_password"
   user.name                  "user"
-  #user.association            :gemslot
   user.after_build {|u|
     Factory(:feed, :source => u)}
 end

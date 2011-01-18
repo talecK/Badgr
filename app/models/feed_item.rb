@@ -26,6 +26,7 @@ class FeedItem < ActiveRecord::Base
 
     elsif ( self.feed_type.to_sym == :user_left_hub )
       return "#{user_name} left the #{referenced_model.name} Hub"
+
     elsif ( self.feed_type.to_sym == :user_forged_achievement )
       return "#{user_name} forged the '#{referenced_model.name}' Achievement"
     end

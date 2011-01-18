@@ -23,10 +23,11 @@ Feature: User Profile Feature
         Then I should see "Can only upload jpeg, jpg, png and gif file types"
 
     Scenario: Gem Slot
-        Given "valid_user@valid.com" has achieved the "Gem" achievement
+        Given the group "Some Group" exists
+        And "valid_user@valid.com" belongs to "Some Group"
+        And "valid_user@valid.com" has achieved the "Gem" achievement from "Some Group"
         When I follow "Click to set gem"
         Then I should see "Select an acheivement to put in your gem slot"
-        Then show me the page
         When I choose "Gem"
         And I press "Update"
         Then I should see "Your gem has been updated"

@@ -1,6 +1,8 @@
-Given /^"([^"]*)" has achieved the "([^"]*)" achievement$/ do |user_name, achievement_name|
+Given /^"([^"]*)" has achieved the "([^"]*)" achievement from "([^"]*)"$/ do |user_name, achievement_name,group_name|
   user = User.find_by_email( user_name )
-  achievement = Factory(:achievement, :name => achievement_name)
+  group = Group.find_by_name( group_name )
+  achievement = group.achievements.build( :name => achievement_name, :description => "test", :requirements => "test" )
+  achievement.creator = user
   achievement.image = File.open( "./spec/fixtures/valid-gem.png" )
   achievement.save!
 
