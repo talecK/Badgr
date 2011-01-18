@@ -7,7 +7,10 @@ class FeedItem < ActiveRecord::Base
   attr_accessible :feed_type
 
   validates(:feed_type, :presence => true,
-            :inclusion => { :in => [:user_built_hub, :user_joined_hub, :user_left_hub] } )
+            :inclusion => { :in => [:user_built_hub, :user_joined_hub,
+                                    :user_left_hub, :user_forged_achievement]
+                          }
+           )
 
 
   def text( values = {} )
@@ -23,6 +26,8 @@ class FeedItem < ActiveRecord::Base
 
     elsif ( self.feed_type.to_sym == :user_left_hub )
       return "#{user_name} left the #{referenced_model.name} Hub"
+    elsif ( self.feed_type.to_sym == :user_forged_achievement )
+      return "#{user_name} forged the '#{referenced_model.name}' Achievement"
     end
   end
 

@@ -8,12 +8,13 @@ class AchievementObserver < ActiveRecord::Observer
 
     # add the feed item to its appropriate feeds (add_feed_item takes care of duplciates)
     def add_to_feeds( feed_item, achievement )
-      feed_item.user = membership.user
-      feed_item.referenced_model = membership.group
+      feed_item.user = achievement.creator
+      feed_item.referenced_model = achievement
       feed_item.save!
-      membership.group.feed.add_feed_item( feed_item )
-      membership.user.feed.add_feed_item( feed_item )
-      membership.group.users.each { |user| user.feed.add_feed_item( feed_item ) } # add to each feed item for members of the group
+
+      achievement.group.feed.add_feed_item( feed_item )
+      achievement.creator.feed.add_feed_item( feed_item )
+      achievement.group.users.each { |user| user.feed.add_feed_item( feed_item ) } # add to each feed item for members of the group
     end
 end
 

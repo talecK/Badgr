@@ -1,9 +1,11 @@
-<%= form_for [@group,current_user,@achievement], :url => group_achievements_path(@group), :html => { :multipart => true } do |f| %>
+<%= form_for [@achievement], :url => group_achievements_path(@group) , :html => { :multipart => true } do |f| %>
 <p>
   <%= f.label :name, 'Achievement name' %> <%= f.text_field :name %><br />
   <%= f.label :description, 'Achievement description' %> <%= f.text_field :description %><br />
   <%= f.label :requirements, 'Achievement requirements' %> <%= f.text_field :requirements %><br />
   <%= f.label :image, 'Achievement image' %> <%= f.file_field :image %>
+  <%= hidden_field_tag 'user_id', current_user.id %>
+  <%= hidden_field_tag 'group_id', @group.id %>
 </p>
 <%= f.submit %>
 <% end %>

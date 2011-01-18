@@ -17,6 +17,7 @@ Feature: Achievements
         And I attach the file "spec/fixtures/valid-gem.png" to "Achievement image"
         And I fill in "earn it" for "Achievement requirement"
         And I press "Create Achievement"
+        And show me the page
         Then I should see "Achievement was successfully created."
         And I should see "You forged the test_achievement Achievement" within "#hub_feed"
         When I follow "My Profile"

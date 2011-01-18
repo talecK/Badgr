@@ -7,6 +7,8 @@ class FeedItemsController < ApplicationController
     unless @feed_item.nil? || @feed.nil?
       @feed.feed_items -= [@feed_item]
       @feed.save
+    else
+      redirect_to root_path
     end
   end
 end
