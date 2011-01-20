@@ -27,6 +27,8 @@ Badgr::Application.routes.draw do
     end
   end
 
+  resources :achievements
+
   #as :user do
 		#root :to => "users#show"
 	#end

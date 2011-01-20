@@ -2,12 +2,15 @@ Feature: Achievements
     As a logged in user I should be able to view my own achievements as well as the
     available achievements for any group(s) I belong to
 
-    Scenario: Creating an achievement
+    Background:
         Given I am not already logged in
         And I go to the home page
         And a valid account "valid_user@valid.com" exists with password "valid_password" and name "user1"
         And the group "Some Group" exists
         And "valid_user@valid.com" belongs to "Some Group"
+
+    Scenario: Creating an achievement
+        Given "valid_user@valid.com" is a group admin for "Some Group"
         When I log in as "valid_user@valid.com" with password "valid_password"
         And I follow "Some Group"
         And I follow "Create achievement"
@@ -20,4 +23,16 @@ Feature: Achievements
         And I should see a feed item with text "You forged the 'test_achievement' Achievement" once within the feed
         When I follow "My Profile"
         Then I should see a feed item with text "You forged the 'test_achievement' Achievement" once within the feed
+
+    Scenario: Viewing all achievements in a group
+        When I log in as "valid_user@valid.com" with password "valid_password"
+        And I follow "Some Group"
+        Given "valid_user@valid.com" has achieved the "test_achievement" achievement from "Some Group"
+        And I follow "View achievements"
+        Then I should see "test_achievement"
+
+    Scenario: Normal user trying to forge an achievement for a group
+        When I log in as "valid_user@valid.com" with password "valid_password"
+        And I follow "Some Group"
+        Then I should not see "Create achievement"
 

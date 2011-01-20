@@ -35,7 +35,8 @@ group :development, :test do
   gem 'rcov'
 end
 
-gem "jquery-rails"
+gem 'cancan'
+gem 'jquery-rails'
 gem 'devise'
 gem 'paperclip'
 

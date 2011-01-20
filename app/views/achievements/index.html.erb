@@ -2,3 +2,11 @@
     <%= render :partial => "shared/dashboard" %> <br />
 <% end -%>
 
+<h1>Achievements#index</h1>
+<b>Total Achievements for the <%= @group.name %> Hub: <%= @group.achievements.count %> </b> <br />
+<ul>
+  <% for achievement in @group.achievements %>
+    <li> <%= link_to( achievement.name, group_achievement_path( @group, achievement ) ) %> </li>
+  <% end %>
+</ul>
+
