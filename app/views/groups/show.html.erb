@@ -22,6 +22,9 @@
                                   :confirm => "Are you sure you want to leave this group?" %> <br />
 
         <%= link_to "Edit group", edit_group_path( @group ) %> <br />
+      <% end %>
+
+      <% if can? :create_achievements, @group %>
         <%= link_to "Create achievement", new_group_achievement_path( @group ) %> <br />
       <% end %>
 

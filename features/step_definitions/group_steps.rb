@@ -19,3 +19,9 @@ Given /^"([^"]*)" built the "([^"]*)" Hub$/ do |user_email, group_name|
   group.add_creator(user)
 end
 
+Given /^"([^"]*)" is a group admin for "([^"]*)"$/ do |user_email, group_name|
+  user = User.find_by_email(user_email)
+  group = Group.find_by_name(group_name)
+  group.make_admin!(user)
+end
+

@@ -13,6 +13,7 @@ class Membership < ActiveRecord::Base
 
   def make_group_admin!
     self.group_admin = true
+    self.save
   end
 
   def revoke_group_admin!

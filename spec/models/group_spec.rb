@@ -74,5 +74,29 @@ describe Group do
     group = Factory( :group )
     group.avatar.url.should == 'no-image-original.png'
   end
+
+  it "should be able to make a member a group admin" do
+    user = Factory(:user)
+    user.save!
+    @group.save!
+    @group.add_user(user)
+    @group.make_admin!(user)
+    @group.has_admin?(user).should == true
+  end
+
+  it "should be able to tell if a user is an admin" do
+    user = Factory(:user)
+    user.save!
+    @group.save!
+    @group.add_user(user)
+    @group.has_admin?(user).should == false
+  end
+
+  it "should be able to tell if a user is not an admin if the user doesn't belong to the group" do
+    user = Factory(:user)
+    user.save!
+    @group.save!
+    @group.has_admin?(user).should == false
+  end
 end
 

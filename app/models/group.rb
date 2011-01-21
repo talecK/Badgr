@@ -44,5 +44,14 @@ class Group < ActiveRecord::Base
   def create_feed_for_group
     self.create_feed
   end
+
+  def has_admin?( user )
+    self.memberships.admins.exists?( :user_id => user.id )
+  end
+
+  def make_admin!( user )
+    membership = self.memberships.where( :user_id => user.id ).limit(1).first
+    membership.make_group_admin! unless membership.nil?
+  end
 end
 

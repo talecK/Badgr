@@ -1,38 +1,27 @@
 class AchievementsController < ApplicationController
-  before_filter :find_group
+  before_filter :authenticate_user!
+  load_resource :group
+  authorize_resource :group, :only => :index
 
   def index
   end
 
   def new
+    authorize! :create_achievements, @group
     @achievement = Achievement.new
   end
 
   def create
-    @user = find_user
+    authorize! :create_achievements, @group
+    @achievement = @group.achievements.build( params[:achievement] )
+    @achievement.creator = current_user
 
-    if @group != nil && @user != nil
-      @achievement = @group.achievements.build( params[:achievement] )
-      @achievement.creator = @user
-
-      if @achievement.save!
-        flash[:notice] = "Achievement was successfully created."
-        redirect_to group_path(@group)
-      else
-        fail_and_redirect
-      end
-
-    elsif
+    if @achievement.save!
+      flash[:notice] = "Achievement was successfully created."
+      redirect_to group_path(@group)
+    else
       fail_and_redirect
     end
-  end
-
-  def find_group
-    @group = Group.find( params[:group_id] )
-  end
-
-  def find_user
-    @user = User.find( params[:user_id] )
   end
 
   def fail_and_redirect
