@@ -39,11 +39,6 @@ describe Achievement do
     @achievement.image.url.should == 'no-gem-image.png'
   end
 
-  it "should be able to have its image set" do
-    @achievement.image = File.open("./spec/fixtures/valid-gem.png")
-    @achievement.image.url.include?("valid-gem.png").should == true
-  end
-
   it "should require a unique name within the group it belongs to" do
     achievement = @group.achievements.build( :name => "achievement",
                                              :description => "some_description",
