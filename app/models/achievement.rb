@@ -9,7 +9,7 @@ class Achievement < ActiveRecord::Base
                     :default_url => ('no-gem-image.png' ),
                     :storage => :s3,
                     :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
-                    :path => "/:style/:filename"
+                    :path => "Achievements/:id/:style.:extension"
 
   validates( :name, :presence => true )
   validates( :description, :presence => true, :length => { :within => 1...200 } )

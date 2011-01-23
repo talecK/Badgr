@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
                     :default_url => 'no-image-:style.png',
                     :storage => :s3,
                     :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
-                    :path => "/:style/:filename"
+                    :path => "Users/:id/Avatar/:style.:extension"
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :avatar, :name
 	email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

@@ -20,7 +20,7 @@ class Group < ActiveRecord::Base
                     :default_url => 'no-image-:style.png',
                     :storage => :s3,
                     :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
-                    :path => "/:style/:filename"
+                    :path => "Groups/:id/Avatar/:style.:extension"
 
   # paperclip upload validations
   validates_attachment_size :avatar, :less_than => 5.megabytes, :message => "File must be smaller than 5MB"
