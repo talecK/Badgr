@@ -9,7 +9,7 @@
   <div id="group_page_container" class="span-24">
     <h1> <%= @group.name %> Hub </h1>
 
-    <%= image_tag( @group.avatar.url(:medium) ) %>
+    <%= image_tag( @group.avatar.url(:original) ) %>
 
     <% flash.each do |key, value| %>
       <div class="flash <%= key %>"><%= value %></div>

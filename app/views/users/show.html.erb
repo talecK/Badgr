@@ -20,7 +20,7 @@
           <% end %>
         </h1>
 
-        <%= image_tag @user.avatar.url( :medium ) %> <br /> <br />
+        <%= image_tag @user.avatar.url( :original ) %> <br /> <br />
 
         <% flash.each do |key, value| %>
           <div class="flash <%= key %>"><%= value %></div>

@@ -16,8 +16,11 @@ class Group < ActiveRecord::Base
              :length => { :within => 1...25 } )
 
   # paperclip attribute ( for file associations / uploads )
-  has_attached_file :avatar, :styles => { :thumb  => "50x50#", :medium => "300x300>"},
-                    :default_url => 'no-image-:style.png'
+  has_attached_file :avatar, :styles => { :thumb  => "50x50#", :original => "300x300>"},
+                    :default_url => 'no-image-:style.png',
+                    :storage => :s3,
+                    :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
+                    :path => "/:style/:filename"
 
   # paperclip upload validations
   validates_attachment_size :avatar, :less_than => 5.megabytes, :message => "File must be smaller than 5MB"

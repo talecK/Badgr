@@ -18,8 +18,11 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # paperclip attribute ( for file associations / uploads )
-  has_attached_file :avatar, :styles => { :thumb  => "50x50#", :medium => "300x300>"},
-                    :default_url => 'no-image-:style.png'
+  has_attached_file :avatar, :styles => { :thumb  => "50x50#", :original => "300x300>"},
+                    :default_url => 'no-image-:style.png',
+                    :storage => :s3,
+                    :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
+                    :path => "/:style/:filename"
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :avatar, :name
 	email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

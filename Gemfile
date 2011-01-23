@@ -35,6 +35,7 @@ group :development, :test do
   gem 'rcov'
 end
 
+gem 'aws-s3'
 gem 'cancan'
 gem 'jquery-rails'
 gem 'devise'

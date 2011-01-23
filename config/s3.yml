@@ -1,0 +1,13 @@
+development:
+  bucket: dev.badgr.com
+  access_key_id: AKIAJCDO2SBHAIQSPMBA
+  secret_access_key: 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
+test:
+  bucket: test.badgr.com
+  access_key_id: AKIAJCDO2SBHAIQSPMBA
+  secret_access_key: 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
+production:
+  bucket: prod.badgr.com
+  access_key_id: AKIAJCDO2SBHAIQSPMBA
+  secret_access_key: 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
+
