@@ -49,3 +49,10 @@ Feature: Feed Item Feature
         And I log in as "user1@valid.com" with password "valid_password"
         Then I should see a feed item with text "You became a member of the Some Group Hub" once within the feed
 
+    @javascript
+    @wip
+    Scenario: Mousing over an achievement link within a feed item should pop up a tooltip with information about the achievement
+        Given "valid_user@valid.com" has forged the "test_achievement" for "Some Group"
+        And I follow "Some Group"
+        And I mouse over "a test_achievement" within "#hub_feed"
+

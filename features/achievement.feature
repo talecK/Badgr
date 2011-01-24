@@ -8,6 +8,7 @@ Feature: Achievements
         And a valid account "valid_user@valid.com" exists with password "valid_password" and name "user1"
         And the group "Some Group" exists
 
+    @wip
     Scenario: Creating an achievement as a group admin
         And "valid_user@valid.com" belongs to "Some Group"
         Given "valid_user@valid.com" is a group admin for "Some Group"
@@ -20,9 +21,9 @@ Feature: Achievements
         And I fill in "earn it" for "Achievement requirement"
         And I press "Create Achievement"
         Then I should see "Achievement was successfully created."
-        And I should see a feed item with text "You forged the 'test_achievement' Achievement" once within the feed
+        And I should see a feed item with text "You forged the test_achievement Achievement" once within the feed
         When I follow "My Profile"
-        Then I should see a feed item with text "You forged the 'test_achievement' Achievement" once within the feed
+        Then I should see a feed item with text "You forged the test_achievement Achievement" once within the feed
 
     Scenario: Viewing all achievements in a group
         And "valid_user@valid.com" belongs to "Some Group"
