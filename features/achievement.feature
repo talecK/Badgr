@@ -45,9 +45,9 @@ Feature: Achievements
         And I follow "Create achievement"
         Then I should not see "Either that resource does not exist or you do not have permission to access it."
 
-    @wip
     Scenario: User who is not an admin for a group trying to create an achievement by visiting the create url
         Given "valid_user@valid.com" belongs to "Some Group"
         When I log in as "valid_user@valid.com" with password "valid_password"
         And I visit the create a new achievement page for "Some Group"
+        Then I should see "Either that resource does not exist or you do not have permission to access it."
 
