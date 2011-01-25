@@ -1,16 +1,28 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
-$('.achievementToolTipLink').qtip({
-   content: {
-      text: 'Loading...', // The text to use whilst the AJAX request is loading
-      ajax: {
-         url: '/path/to/file', // URL to the local file
-         type: 'GET', // POST or GET
-         data: {}, // Data to pass along with your request
-         success: function(data, status) {
-            return false; // Stop it from setting the content
-         }
-      }
-   }
+$('.achievementToolTipLink').each(function(){
+    $currentLink = $(this);
+    $currentLink.qtip({
+       content: {
+          text: '<img src="/images/ajax-tooltip-loader.gif" alt="Loading..." />', // Loading text...
+          ajax: {
+             url: $currentLink.attr('href'), // URL to the JSON script
+             type: 'GET', // POST or GET
+             data: { }, // Data to pass along with your request
+             dataType: 'json', // Tell it we're retrieving JSON
+             success: function(data, status) {
+                /* Process the retrieved JSON object
+                 *    Retrieve a specific attribute from our parsed
+                 *    JSON string and set the tooltip content.
+                 */
+                var content = 'Name: ' + data.achievement.name;
+                this.set('content.text', content);
+
+                // Disable the default behaviour
+                return false;
+             }
+          }
+       }
+   })
 });
 

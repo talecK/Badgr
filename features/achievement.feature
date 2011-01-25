@@ -8,7 +8,6 @@ Feature: Achievements
         And a valid account "valid_user@valid.com" exists with password "valid_password" and name "user1"
         And the group "Some Group" exists
 
-    @wip
     Scenario: Creating an achievement as a group admin
         And "valid_user@valid.com" belongs to "Some Group"
         Given "valid_user@valid.com" is a group admin for "Some Group"

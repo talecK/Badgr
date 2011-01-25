@@ -2,6 +2,12 @@ class AchievementsController < ApplicationController
   before_filter :authenticate_user!
   load_resource :group
   authorize_resource :group, :only => :index
+  respond_to :html, :json, :only => :show
+
+  def show
+    @achievement = @group.achievements.find( params[:id] )
+    respond_with( @achievement )
+  end
 
   def index
   end
