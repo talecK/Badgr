@@ -24,21 +24,15 @@ class Achievement < ActiveRecord::Base
                                     :content_type => ['image/jpeg', 'image/jpg', 'image/png','image/gif'],
                                     :message => "Can only upload jpeg, jpg, png and gif file types"
 
-  def as_json( options = {} )
-    {
-      image: "#{image_url}", name: "#{self.name}",
-      description: "#{self.description}", requirements: "#{requirements}"
-    }
-  end
+  #def as_json( options = {} )
+    #{
+      #image: "#{image_url}", name: "#{self.name}",
+      #description: "#{self.description}", requirements: "#{requirements}"
+    #}
+  #end
 
   def image_url
-    url = image.url( :thumb )
-
-    if(url.blank?)
-      return image.url
-    else
-      return url
-    end
+    image.url( :thumb )
   end
 end
 
