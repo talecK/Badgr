@@ -15,7 +15,10 @@ $('.achievementToolTipLink').each(function(){
                  *    Retrieve a specific attribute from our parsed
                  *    JSON string and set the tooltip content.
                  */
-                var content = 'Name: ' + data.achievement.name;
+                var content = '<img src="' + data.image +'" alt="' + data.name + '"/>' +"<br />";
+                content += 'Name: ' + data.name + "<br />";
+                content += 'Requirements: ' + data.requirements + "<br />";
+                content += 'Description: ' + data.description + "<br />";
                 this.set('content.text', content);
 
                 // Disable the default behaviour

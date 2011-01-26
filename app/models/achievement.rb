@@ -23,5 +23,16 @@ class Achievement < ActiveRecord::Base
   validates_attachment_content_type :image,
                                     :content_type => ['image/jpeg', 'image/jpg', 'image/png','image/gif'],
                                     :message => "Can only upload jpeg, jpg, png and gif file types"
+
+  def as_json( options = {} )
+    {
+      image: "#{image_url}", name: "#{self.name}",
+      description: "#{self.description}", requirements: "#{requirements}"
+    }
+  end
+
+  def image_url
+    image.url( :thumb )
+  end
 end
 
