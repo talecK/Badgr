@@ -6,7 +6,7 @@ class AddDescriptionToAchievement < ActiveRecord::Migration
 
   def self.down
     remove_column :achievements, :description
-    remove_column :achievements, :requirement
+    remove_column :achievements, :requirements
   end
 end
 
