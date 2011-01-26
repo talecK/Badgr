@@ -32,7 +32,13 @@ class Achievement < ActiveRecord::Base
   end
 
   def image_url
-    image.url( :thumb )
+    url = image.url( :thumb )
+
+    if(url.blank?)
+      return image.url
+    else
+      return url
+    end
   end
 end
 
