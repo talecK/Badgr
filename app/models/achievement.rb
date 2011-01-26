@@ -26,8 +26,8 @@ class Achievement < ActiveRecord::Base
 
   def as_json( options = {} )
     {
-      name: "#{self.name}",
-      description: "#{self.description}", requirements: "#{requirements}"
+      :image => "#{image_url}", :name => "#{self.name}",
+      :description => "#{self.description}", :requirements => "#{requirements}"
     }
   end
 
