@@ -31,10 +31,8 @@ class Achievement < ActiveRecord::Base
     }
   end
 
-  private
-
-    def image_url
-      image.url( :thumb )
-    end
+  def image_url
+    image.url( :thumb )
+  end
 end
 
