@@ -12,7 +12,8 @@ class GemslotsController < ApplicationController
 
   def update
     if ( @achievement != nil && @user != nil )
-      @user.gemslot.achievement = @achievement
+      @user.gem = @achievement
+      @user.save
       flash[:notice] = "Your gem has been updated"
       redirect_to user_path( @user )
     else

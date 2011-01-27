@@ -1,6 +1,6 @@
 class Achievement < ActiveRecord::Base
   belongs_to :user
-  belongs_to :gemslot
+  has_many :gemslot_refs, :class_name => "User"
   belongs_to :group
   belongs_to :creator, :class_name => "User"
   attr_accessible :name, :description, :requirements, :image

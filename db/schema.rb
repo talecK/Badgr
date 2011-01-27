@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110117005810) do
+ActiveRecord::Schema.define(:version => 20110127054135) do
 
   create_table "achievements", :force => true do |t|
     t.string   "name"
@@ -21,13 +21,11 @@ ActiveRecord::Schema.define(:version => 20110117005810) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.integer  "gemslot_id"
     t.string   "description"
     t.string   "requirements"
     t.integer  "group_id"
   end
 
-  add_index "achievements", ["gemslot_id"], :name => "index_achievements_on_gemslot_id"
   add_index "achievements", ["group_id"], :name => "index_achievements_on_group_id"
   add_index "achievements", ["name"], :name => "index_achievements_on_name"
   add_index "achievements", ["user_id"], :name => "index_achievements_on_user_id"
@@ -51,12 +49,6 @@ ActiveRecord::Schema.define(:version => 20110117005810) do
   create_table "feeds", :force => true do |t|
     t.integer  "source_id"
     t.string   "source_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "gemslots", :force => true do |t|
-    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -106,9 +98,11 @@ ActiveRecord::Schema.define(:version => 20110117005810) do
     t.string   "gem_content_type"
     t.integer  "gem_file_size"
     t.datetime "gem_updated_at"
+    t.integer  "gem_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["gem_id"], :name => "index_users_on_gem_id"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end
