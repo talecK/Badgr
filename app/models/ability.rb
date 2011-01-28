@@ -15,7 +15,7 @@ class Ability
       group.has_admin?(user)
     end
 
-    can :manage, User, do |curr_profile|
+    can :manage, User do |curr_profile|
       user == curr_profile
     end
 
