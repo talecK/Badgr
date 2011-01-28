@@ -84,5 +84,17 @@ describe User do
     user = Factory( :user )
     user.avatar.url.should == 'no-image-original.png'
   end
+
+  it "should be able to be made a super admin" do
+    @user.save!
+    @user.make_super_admin!
+    @user.role.should == User::ROLES[0]
+  end
+
+  it "should be able to revoke super admin status" do
+    @user.save!
+    @user.revoke_super_admin!
+    @user.role.should == nil
+  end
 end
 

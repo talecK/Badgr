@@ -25,3 +25,7 @@ Given /^"([^"]*)" is a group admin for "([^"]*)"$/ do |user_email, group_name|
   group.make_admin!(user)
 end
 
+When /^I visit the edit group page for "([^"]*)"$/ do |group_name|
+  visit edit_group_path(Group.find_by_name(group_name))
+end
+

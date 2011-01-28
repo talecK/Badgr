@@ -8,6 +8,29 @@ Feature: User Profile Feature
         And a valid account "valid_user@valid.com" exists with password "valid_password"
         And I log in as "valid_user@valid.com" with password "valid_password"
 
+    Scenario: I should be able to edit my profile
+        Then I should see "Edit Profile"
+
+    Scenario: No one else besides me and site admins should be able to edit my profile
+        Given I am not already logged in
+        And I go to the home page
+        And a valid account "other_user@valid.com" exists with password "valid_password"
+        When I log in as "other_user@valid.com" with password "valid_password"
+        And I visit the profile for "valid_user@valid.com"
+        Then I should not see "Edit Profile"
+        When I visit the edit profile page for "valid_user@valid.com"
+        Then I should see "Either that resource does not exist or you do not have permission to access it."
+
+        Given I am not already logged in
+        And I go to the home page
+        And a valid account "super_admin@valid.com" exists with password "valid_password"
+        And "super_admin@valid.com" is a super admin
+        And I log in as "super_admin@valid.com" with password "valid_password"
+        And I visit the profile for "valid_user@valid.com"
+        Then I should see "Edit Profile"
+        When I visit the edit profile page for "valid_user@valid.com"
+        Then I should not see "Either that resource does not exist or you do not have permission to access it."
+
     @javascript
     Scenario: Avatar Image
         When I follow "Edit Profile"

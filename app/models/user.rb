@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :feed_item_model_refs, :as => :referenced_model, :class_name => "FeedItem"
   has_many :feed_item_user_refs, :class_name => "FeedItem"
   has_many :achievement_creator_refs, :class_name => "Achievement"
+  ROLES = %w[super_admin]
 
 
   after_create :create_feed_for_user#, :create_gem
@@ -37,6 +38,16 @@ class User < ActiveRecord::Base
   validates_attachment_size :avatar, :less_than => 5.megabytes, :message => "File must be smaller than 5MB"
   validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'],
                                     :message => "Can only upload jpeg, jpg, png and gif file types"
+
+  def make_super_admin!
+    self.role = User::ROLES[0]
+    self.save
+  end
+
+  def revoke_super_admin!
+    self.role = nil
+    self.save
+  end
 
   def create_feed_for_user
     self.create_feed

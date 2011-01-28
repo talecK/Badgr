@@ -1,4 +1,7 @@
 class GroupsController < ApplicationController
+  before_filter :authenticate_user!
+  load_and_authorize_resource
+
   def new
     @group = Group.new
   end
@@ -13,7 +16,6 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @group = Group.find(params[:id])
     @feed = @group.feed
   end
 
@@ -22,11 +24,9 @@ class GroupsController < ApplicationController
   end
 
   def edit
-    @group = Group.find(params[:id])
   end
 
   def update
-    @group = Group.find(params[:id])
     if @group.update_attributes( params[:group] )
       flash[:notice] = "#{@group.name} Hub has been updated."
       redirect_to group_path( @group )
@@ -36,6 +36,5 @@ class GroupsController < ApplicationController
       @group.save
     end
   end
-
 end
 

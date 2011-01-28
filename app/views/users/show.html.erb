@@ -33,7 +33,9 @@
       </div>
 
       <div id="userPageActions" class="span-24">
-        <%= link_to( 'Edit Profile', edit_user_path( @user ) ) %>
+        <% if can? :edit, @user %>
+         <%= link_to( 'Edit Profile', edit_user_path( @user ) ) %>
+        <% end %>
       </div>
 
       <div id="user_feed" class="span-24">

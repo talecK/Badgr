@@ -45,15 +45,34 @@ Feature: Group Feature
         Then I should not see "Join Hub"
 
     @javascript
-    Scenario: Updating the group avatar
+    Scenario: Updating the group avatar as an administrator
+        Given "valid_user@valid.com" is a group admin for "Some Group"
         When I follow "Some Group"
         And I follow "Edit group"
         And I attach the file "spec/fixtures/valid_avatar.png" to "Avatar image"
         And I press "Update Group"
+        Then show me the page
         Then I should see "Some Group Hub has been updated"
+
+    Scenario: Only group administrators and super admins should be able to edit a group
+        When I follow "Some Group"
+        Then I should not see "Edit group"
+        When I visit the edit group page for "Some Group"
+        Then I should see "Either that resource does not exist or you do not have permission to access it."
+
+        Given I am not already logged in
+        And I go to the home page
+        And a valid account "super_admin@valid.com" exists with password "valid_password"
+        And "super_admin@valid.com" is a super admin
+        And I log in as "super_admin@valid.com" with password "valid_password"
+        When I view the "Some Group" page
+        Then I should see "Edit"
+        When I visit the edit group page for "Some Group"
+        Then I should not see "Either that resource does not exist or you do not have permission to access it."
 
     @javascript
     Scenario: Invalid Group avatar Image
+        Given "valid_user@valid.com" is a group admin for "Some Group"
         When I follow "Some Group"
         And I follow "Edit group"
         And I attach the file "spec/fixtures/invalid_avatar.png" to "Avatar image"
