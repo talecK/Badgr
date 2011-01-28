@@ -79,3 +79,9 @@ Feature: Group Feature
         And I press "Update Group"
         Then I should see "Can only upload jpeg, jpg, png and gif file types"
 
+    Scenario: Viewing Administrators for the group
+        Given "valid_user@valid.com" is a group admin for "Some Group"
+        When I view the "Some Group" page
+        And I follow "View Hub Admins"
+        Then I should see "valid_user@valid.com"
+

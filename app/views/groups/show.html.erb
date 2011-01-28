@@ -29,6 +29,7 @@
 
       <%= link_to "View members", group_memberships_path( @group.id ) %> <br />
       <%= link_to "View achievements", group_achievements_path( @group.id ) %> <br />
+      <%= link_to "View Hub Admins", group_admins_path( @group.id ) %> <br />
 
       <% unless @group.has_member?(current_user) %>
         <%= link_to "Join Hub", group_memberships_path( @group.id ), :method => :post %> <br />

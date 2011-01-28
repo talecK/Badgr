@@ -56,5 +56,11 @@ class Group < ActiveRecord::Base
     membership = self.memberships.where( :user_id => user.id ).limit(1).first
     membership.make_group_admin! unless membership.nil?
   end
+
+  # return all admins in the group by getting all membership w/ group_admin => true ( by memberships.admins)
+  # Then collect each of their corresponding user references into an array
+  def admins
+    self.memberships.admins.collect { |admin| admin.user  }
+  end
 end
 

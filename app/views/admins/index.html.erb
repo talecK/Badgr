@@ -1,0 +1,17 @@
+<div class="container">
+
+  <div id="header" class="span-24">
+    <%- if user_signed_in? %>
+        <%= render :partial => "shared/dashboard" %> <br />
+    <% end -%>
+  </div>
+
+  <b>Total Admins for the <%= @group.name %> Hub: <%= @group.admins.count %> </b> <br />
+  <ul>
+    <% for admin in @group.admins %>
+      <li> <%= link_to( admin.email, user_path( admin ) ) %> </li>
+    <% end %>
+  </ul>
+
+</div>
+

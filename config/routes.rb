@@ -13,10 +13,8 @@ Badgr::Application.routes.draw do
 
   resources :groups do
     resources :memberships
-  end
-
-  resources :groups do
     resources :achievements
+    resources :admins
   end
 
   resources :feeds do
