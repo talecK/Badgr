@@ -20,7 +20,7 @@ Feature: Feed Item Feature
 
     @javascript
     Scenario: Deleting a feed feed (all ajax-y and the like...)
-        Given I follow "Some Group"
+        When I view the "Some Group" page
         When I click remove for the feed item with reference "valid_user@valid.com", source "Some Group" and type "user_joined_hub"
         Then I should not see "You became a member of the Some Group Hub" within "#hub_feed"
 

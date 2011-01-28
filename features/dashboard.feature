@@ -11,8 +11,7 @@ Feature: Dashboard Feature
         When I log in as "valid_user@valid.com" with password "valid_password"
         Then I should see "Logout"
         And I should see "My Profile"
-        And I should see "My User Page"
-        And I should see "My friends"
+        And I should see "My Friends"
         And I should see "My Groups"
         And I should see "My Trophy Case"
 

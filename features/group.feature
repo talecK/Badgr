@@ -23,7 +23,7 @@ Feature: Group Feature
 
     @javascript
     Scenario: Leaving a Group
-        When I follow "Some Group"
+        When I view the "Some Group" page
         Then I should see "Leave group"
         When I follow "Leave group" and click OK
         Then I should see "You have left the Some Group hub"
@@ -47,7 +47,7 @@ Feature: Group Feature
     @javascript
     Scenario: Updating the group avatar as an administrator
         Given "valid_user@valid.com" is a group admin for "Some Group"
-        When I follow "Some Group"
+        When I view the "Some Group" page
         And I follow "Edit group"
         And I attach the file "spec/fixtures/valid_avatar.png" to "Avatar image"
         And I press "Update Group"
@@ -73,7 +73,7 @@ Feature: Group Feature
     @javascript
     Scenario: Invalid Group avatar Image
         Given "valid_user@valid.com" is a group admin for "Some Group"
-        When I follow "Some Group"
+        When I view the "Some Group" page
         And I follow "Edit group"
         And I attach the file "spec/fixtures/invalid_avatar.png" to "Avatar image"
         And I press "Update Group"

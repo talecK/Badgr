@@ -11,3 +11,109 @@ a.feedItemRemoveLink:hover
     color: red;
 }
 
+
+#nav {
+    -moz-border-radius: 2em 2em 2em 2em;
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    background: url("/images/gradient.png") repeat-x scroll 0 -110px #7D7D7D;
+    line-height: 100%;
+    margin: 0;
+    padding: 7px 6px 0;
+}
+#nav li {
+    float: left;
+    list-style: none outside none;
+    margin: 0 5px;
+    padding: 0 0 8px;
+    position: relative;
+}
+#nav a {
+    -moz-border-radius: 1.6em 1.6em 1.6em 1.6em;
+    color: #E7E5E5;
+    display: block;
+    font-weight: bold;
+    margin: 0;
+    padding: 8px 20px;
+    text-decoration: none;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+#nav a:hover {
+    background: none repeat scroll 0 0 #000000;
+    color: #FFFFFF;
+}
+#nav .current a, #nav li:hover > a {
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    background: url("/images/gradient.png") repeat-x scroll 0 -40px #666666;
+    border-top: 1px solid #F8F8F8;
+    color: #444444;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+#nav ul li:hover a, #nav li:hover li a {
+    -moz-box-shadow: none;
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    color: #666666;
+}
+#nav ul a:hover {
+    -moz-border-radius: 0 0 0 0;
+    background: url("/images/gradient.png") repeat-x scroll 0 -100px #0078FF !important;
+    color: #FFFFFF !important;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+#nav li:hover > ul {
+    display: block;
+}
+#nav ul {
+    -moz-border-radius: 10px 10px 10px 10px;
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    background: url("/images/gradient.png") repeat-x scroll 0 0 #DDDDDD;
+    border: 1px solid #B4B4B4;
+    display: none;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 35px;
+    width: 185px;
+}
+#nav ul li {
+    float: none;
+    margin: 0;
+    padding: 0;
+}
+#nav ul a {
+    font-weight: normal;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+#nav ul ul {
+    left: 181px;
+    top: -3px;
+}
+#nav ul li:first-child > a {
+    -moz-border-radius-topleft: 9px;
+    -moz-border-radius-topright: 9px;
+}
+#nav ul li:last-child > a {
+    -moz-border-radius-bottomleft: 9px;
+    -moz-border-radius-bottomright: 9px;
+}
+#nav:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+}
+#nav {
+    display: inline-block;
+}
+html[xmlns] #nav {
+    display: block;
+}
+* html #nav {
+    height: 1%;
+}
+
+#nav ul li:hover { background:#cad5e9; }
+
