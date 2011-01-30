@@ -17,10 +17,7 @@
 
 
     <div id="group_page_actions" class="span-24">
-      <% if @group.has_member?(current_user)%>
-        <%= link_to "Leave group", group_membership_path( @group.id, current_user ), :method => :delete,
-                                  :confirm => "Are you sure you want to leave this group?" %> <br />
-      <% end %>
+      <%= link_for_leave_group(@group, current_user) if @group.has_member?(current_user) %> <br />
 
       <% if can? :edit, @group %>
         <%= link_to "Create achievement", new_group_achievement_path( @group ) %> <br />

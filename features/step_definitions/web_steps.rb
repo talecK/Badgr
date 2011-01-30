@@ -16,12 +16,7 @@ module WithinHelpers
 end
 World(WithinHelpers)
 
-# added this as a hackish way to confirm js popups
-When /^I follow "([^"]*)" and click OK$/ do |text|
-  page.evaluate_script("window.alert = function(msg) { return true; }")
-  page.evaluate_script("window.confirm = function(msg) { return true; }")
-  When %{I follow "#{text}"}
-end
+
 
 Given /^(?:|I )am on (.+)$/ do |page_name|
   visit path_to(page_name)

@@ -85,3 +85,20 @@ Feature: Group Feature
         And I follow "View Hub Admins"
         Then I should see "valid_user@valid.com"
 
+    @javascript
+    @wip
+    Scenario: Banning a member from a hub as a group admin
+        Given "valid_user@valid.com" is a group admin for "Some Group"
+        And a valid account "banned@valid.com" exists with password "valid_password"
+        And "banned@valid.com" belongs to "Some Group"
+        When I view the "Some Group" page
+        And I follow "View members"
+        Then show me the page
+        And I press "Ban" and click OK within "#banned-valid-com"
+        Then I should see "banned@valid.com has been banned from the Some Group Hub."
+        And I should not see "banned@valid.com" within "#memberlist"
+        When I view the "Some Group" page
+        Then I should see a feed item with text "You banned banned@valid.com from the Some Group Hub." once within the feed
+
+    Scenario: Only group creators should be able to ban admins
+

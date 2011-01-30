@@ -1,6 +1,7 @@
 class Membership < ActiveRecord::Base
   belongs_to :group
   belongs_to :user
+  belongs_to :banned_by, :class_name => "User"
 
   validates_inclusion_of :group_admin, :in => [true, false]
 

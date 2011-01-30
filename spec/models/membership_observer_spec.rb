@@ -40,7 +40,18 @@ describe MembershipObserver do
     @group.add_user(user2)
     feed_item_count = @user.feed.feed_items.where( :referenced_model_id => @group.id,
                                                     :user_id => user2.id, :feed_type => :user_joined_hub
-                                                    ).count
+                                                  ).count
+    feed_item_count.should == 1
+  end
+
+  it "should put an item in the group feed for when a member is banned" do
+    user2 = Factory(:user, :email => Factory.next(:email))
+    user2.save!
+    @group.add_user( @user )
+    @group.remove_user(@user, :via_ban_by => user2 )
+    feed_item_count = @group.feed.feed_items.where( :referenced_model_id => @group,
+                                                    :user_id => @user, :feed_type => :user_banned_from_hub
+                                                  ).count
     feed_item_count.should == 1
   end
 end

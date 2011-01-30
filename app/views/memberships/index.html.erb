@@ -1,14 +1,30 @@
-<%- if user_signed_in? %>
-    <%= render :partial => "shared/dashboard" %> <br />
-<% end -%>
+<div class="container">
+  <div id="header" class="span-24">
+      <%- if user_signed_in? %>
+          <%= render :partial => "shared/dashboard" %> <br />
+      <% end -%>
+  <div>
 
-<h1>
-  <%= @group.name %> Hub - Memberlist
-</h1>
+  <div id="memberlist" class="span-24">
+    <h1>
+      <%= @group.name %> Hub - Memberlist
+    </h1>
 
-<ul>
-  <% for user in @group.users %>
-    <li> <%= link_to(user.name, user_path(user)) %> </li>
-  <% end %>
-</ul>
+    <ul>
+      <% for user in @group.users %>
+        <li id="<%= email_to_safe_id(user.email) %>">
+            <%= link_to(user.name, user_path(user)) %>
+            <%= ban_button_for(@group, user) if user != current_user %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div id="errors" class="span-24">
+    <% flash.each do |key, value| %>
+      <div class="flash <%= key %>"><%= value %></div>
+    <% end %>
+  </div>
+
+</div>
 

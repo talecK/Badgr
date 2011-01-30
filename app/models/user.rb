@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :feed_item_model_refs, :as => :referenced_model, :class_name => "FeedItem"
   has_many :feed_item_user_refs, :class_name => "FeedItem"
   has_many :achievement_creator_refs, :class_name => "Achievement"
+  has_many :banned_by_refs, :class_name => "Membership"
   ROLES = %w[super_admin]
 
 

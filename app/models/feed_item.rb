@@ -8,7 +8,7 @@ class FeedItem < ActiveRecord::Base
 
   validates(:feed_type, :presence => true,
             :inclusion => { :in => [:user_built_hub, :user_joined_hub,
-                                    :user_left_hub, :user_forged_achievement]
+                                    :user_left_hub, :user_forged_achievement, :user_banned_from_hub]
                           }
            )
 

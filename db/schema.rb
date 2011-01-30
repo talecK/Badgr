@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110128021324) do
+ActiveRecord::Schema.define(:version => 20110130060834) do
 
   create_table "achievements", :force => true do |t|
     t.string   "name"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(:version => 20110128021324) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "group_creator", :default => false
+    t.integer  "banned_by_id"
   end
 
   create_table "users", :force => true do |t|

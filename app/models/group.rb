@@ -36,8 +36,15 @@ class Group < ActiveRecord::Base
     self.memberships.create( :group_id => self.id, :user_id => user.id ,:group_admin => false )
   end
 
-  def remove_user( user )
-    self.memberships.find_by_user_id(user).destroy
+  def remove_user( user, params = {} )
+    membership = self.memberships.find_by_user_id(user)
+    if( membership != nil )
+      membership.banned_by = params[:via_ban_by]
+      membership.save
+      membership.destroy
+    else
+      return false
+    end
   end
 
   def has_member?( user )
