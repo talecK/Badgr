@@ -1,25 +1,29 @@
 class MembershipsController < ApplicationController
-  before_filter :authenticate_user!, :find_group, :find_user
+  before_filter :authenticate_user!, :find_group
+  load_resource
 
   def destroy
-    if( @user != nil && @group != nil )
-
-      if( @user == current_user )  # leaving a group voluntarily
-        @group.remove_user(current_user)
-        flash[:notice] = "You have left the #{@group.name} hub"
-        redirect_to user_path(current_user)
-
-      else  # otherwise, we are forcing another to leave the group (ie. banning)
-        @group.remove_user(@user, :via_ban => true)
-        flash.now[:notice] = "#{@user.email} has been banned from the #{@group.name} Hub."
-        render :action => 'index'
-      end
-
+    if( @membership != nil && @group != nil && @membership.user == current_user )  # leaving a group voluntarily
+      @group.remove_user(current_user)
+      flash[:notice] = "You have left the #{@group.name} hub"
+      redirect_to user_path(current_user)
     else
       flash[:error] = "Either the requested hub does not exist or you do not have permission to perform this action."
       redirect_to user_path(current_user)
     end
+  end
 
+  def ban
+    if( @membership != nil && @group != nil )
+      authorize! :destroy, @membership
+
+      @group.remove_user(@membership.user, :via_ban_by => current_user)
+      flash.now[:notice] = "#{@membership.user.email} has been banned from the #{@group.name} Hub."
+      render :action => 'index'
+    else
+      flash[:error] = "Either the requested hub does not exist or you do not have permission to perform this action."
+      redirect_to user_path(current_user)
+    end
   end
 
   def index
@@ -41,11 +45,5 @@ class MembershipsController < ApplicationController
   def find_group
     @group = Group.find_by_id(params[:group_id])
   end
-
-  def find_user
-    @user = User.find_by_id(params[:id])
-  end
-
-
 end
 

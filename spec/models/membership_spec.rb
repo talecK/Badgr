@@ -38,5 +38,11 @@ describe Membership do
     group_user.revoke_group_admin!
     group_user.is_group_admin?.should == false
   end
+
+  it "should respond to 'rank'" do
+    group_user = @user.memberships.build( @attr )
+    group_user.save!
+    group_user.should respond_to(:rank)
+  end
 end
 

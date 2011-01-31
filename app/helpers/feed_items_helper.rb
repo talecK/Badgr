@@ -23,6 +23,10 @@ module FeedItemsHelper
     elsif ( feed_item.feed_type.to_sym == :user_forged_achievement )
       achievement = feed_item.referenced_model
       retVal =  "#{h(user_name)} forged the " + link_to( h(achievement.name), group_achievement_path(achievement.group, achievement), :class => "achievementToolTipLink" ) + " Achievement"
+
+    elsif ( feed_item.feed_type.to_sym == :user_banned_from_hub )
+      group = feed_item.referenced_model
+      retVal =  "#{h(user_name)} was banned from the " + link_to( h(group.name), group_path(group) ) + " Hub"
     end
 
     return retVal.html_safe

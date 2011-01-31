@@ -20,5 +20,15 @@ class Membership < ActiveRecord::Base
     self.group_admin = false
     self.save
   end
+
+  def rank
+    if self.group_creator == true
+      return 2
+    elsif self.group_admin == true
+      return 1
+    else
+      return 0
+    end
+  end
 end
 

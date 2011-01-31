@@ -12,7 +12,13 @@ Badgr::Application.routes.draw do
   end
 
   resources :groups do
-    resources :memberships
+
+    resources :memberships do
+      member do
+        delete :ban
+      end
+    end
+
     resources :achievements
     resources :admins
   end

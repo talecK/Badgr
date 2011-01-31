@@ -7,9 +7,9 @@ module MembershipsHelper
   end
 
   def ban_button_for(group, user)
-    button_to( "Ban", group_membership_path(@group, user.memberships.find_by_group_id(@group) ), :method => "delete",
+    button_to( "Ban", ban_group_membership_path(@group, @group.get_membership(user) ), :method => "delete",
                          :confirm => "Are you sure you want to ban this member? This action cannot be undone!"
-                 )
+             )
   end
 end
 

@@ -32,7 +32,7 @@ Feature: Group Feature
         And I follow "Some Group"
         When I follow "View members"
         Then I should see "Some Group Hub - Memberlist"
-        And I should see "user1"
+        And I should see "valid_user@valid.com"
 
     Scenario: Joining the Hub
         Given the group "Another Group" exists
@@ -86,19 +86,27 @@ Feature: Group Feature
         Then I should see "valid_user@valid.com"
 
     @javascript
-    @wip
     Scenario: Banning a member from a hub as a group admin
         Given "valid_user@valid.com" is a group admin for "Some Group"
-        And a valid account "banned@valid.com" exists with password "valid_password"
+        And a valid account "banned@valid.com" exists with password "valid_password" and name "banned_user"
         And "banned@valid.com" belongs to "Some Group"
         When I view the "Some Group" page
         And I follow "View members"
-        Then show me the page
         And I press "Ban" and click OK within "#banned-valid-com"
         Then I should see "banned@valid.com has been banned from the Some Group Hub."
         And I should not see "banned@valid.com" within "#memberlist"
         When I view the "Some Group" page
-        Then I should see a feed item with text "You banned banned@valid.com from the Some Group Hub." once within the feed
+        Then I should see a feed item with text "banned_user was banned from the Some Group Hub" once within the feed
+        When I visit the profile for "valid_user@valid.com"
+        Then I should see a feed item with text "banned_user was banned from the Some Group Hub" once within the feed
+
+    Scenario: Only Hub admins can ban members
+        And a valid account "banned@valid.com" exists with password "valid_password" and name "banned_user"
+        And "banned@valid.com" belongs to "Some Group"
+        When I view the "Some Group" page
+        And I follow "View members"
+        Then show me the page
+        Then I should not see any buttons on the page with value "Ban"
 
     Scenario: Only group creators should be able to ban admins
 

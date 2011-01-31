@@ -29,3 +29,7 @@ When /^I visit the edit group page for "([^"]*)"$/ do |group_name|
   visit edit_group_path(Group.find_by_name(group_name))
 end
 
+Then /^I should not see any buttons on the page with value "([^"]*)"$/ do |value|
+  page.should have_no_xpath( '//button[value="' + "#{value}" + '"]' )
+end
+

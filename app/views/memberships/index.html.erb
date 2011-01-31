@@ -13,8 +13,8 @@
     <ul>
       <% for user in @group.users %>
         <li id="<%= email_to_safe_id(user.email) %>">
-            <%= link_to(user.name, user_path(user)) %>
-            <%= ban_button_for(@group, user) if user != current_user %>
+            <%= link_to(user.email, user_path(user)) %>
+            <%= ban_button_for(@group, user) if can? :destroy, @group.get_membership(user) %>
         </li>
       <% end %>
     </ul>
