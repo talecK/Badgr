@@ -29,11 +29,17 @@ class Group < ActiveRecord::Base
 
 
   def add_creator( user )
-    self.memberships.create( :group_id => self.id, :user_id => user.id ,:group_admin => true, :group_creator => true )
+    self.memberships.create( :group_id => self.id, :user_id => user.id , :role => Membership::ROLES[2] )
+  end
+
+  def make_creator!( user )
+    membership = get_membership(user)
+    membership.role = Membership::ROLES[2]
+    membership.save
   end
 
   def add_user( user )
-    self.memberships.create( :group_id => self.id, :user_id => user.id ,:group_admin => false )
+    self.memberships.create( :group_id => self.id, :user_id => user.id , :role => Membership::ROLES[0] )
   end
 
   def remove_user( user, params = {} )
@@ -57,6 +63,10 @@ class Group < ActiveRecord::Base
 
   def has_admin?( user )
     self.memberships.admins.exists?( :user_id => user.id )
+  end
+
+  def has_creator?( user )
+    self.memberships.creator.exists?( :user_id => user.id )
   end
 
   def make_admin!( user )

@@ -9,27 +9,47 @@ class Ability
 
     # can ban the other membership if the current user's membership for the
     # group that the other membership belongs to outranks the other membership
-    # this clause also catches the case of user trying to ban themselves,
-    # they won't be able to since the rank is the same
     can :destroy, Membership do |membership|
       membership.group.get_membership(user) != nil &&
       membership.group.get_membership(user).rank > membership.rank
     end
 
     can :create_achievements, Group do |group|
-      group.has_admin?(user)
+      group.get_membership(user) != nil &&
+      group.get_membership(user).rank >= 1
     end
 
     can :update, Group do |group|
-      group.has_admin?(user)
+      group.get_membership(user) != nil &&
+      group.get_membership(user).rank >= 1
     end
 
     can :manage, User do |curr_profile|
       user == curr_profile
     end
 
-    #can manage all if user is super_admin
+    # can promote another member as long as the current_user is a group_creator for the same group
+    # as promotee, and the promotee isn't already a group_creator or a group_admin
+    can :promote, Membership do |membership|
+      membership.group.get_membership(user) != nil &&
+      membership.group.get_membership(user).is_group_creator? &&
+      membership.role == Membership::ROLES[0]
+    end
+
+    # can manage all if user is super_admin
     can :manage, :all if user.role == User::ROLES[0]
+
+    # make sure a user can't ban themselves (only really necesssary for super_admin)
+    cannot :destroy, Membership do |membership|
+      user == membership.user
+    end
+
+    # make sure a user can't promote themselves (only really necesssary for super_admin)
+    # and they can't promote users beyond group_creator
+    cannot :promote, Membership do |membership|
+      user == membership.user ||
+      membership.rank >= 1
+    end
   end
 end
 

@@ -57,5 +57,34 @@ describe Ability do
     ability = Ability.new(@user)
     ability.should_not be_able_to(:destroy, @group.get_membership(@user))
   end
+
+  it "should let group creators promote other members to admins" do
+    ability = Ability.new(@creator)
+    ability.should be_able_to(:promote, @group.get_membership(@user))
+  end
+
+  it "should not let group creators promote members that are already admins" do
+    ability = Ability.new(@creator)
+    ability.should_not be_able_to(:promote, @group.get_membership(@admin))
+  end
+
+  it "should not let normal users or group admins promote any type of user" do
+    other_admin = Factory(:user, :email => Factory.next(:email))
+    @group.add_user(other_admin)
+    @group.make_admin!(other_admin)
+
+    other_user = Factory(:user, :email => Factory.next(:email))
+    @group.add_user(other_user)
+
+    ability = Ability.new(@admin)
+    ability.should_not be_able_to(:promote, @group.get_membership(@user))
+    ability.should_not be_able_to(:promote, @group.get_membership(@creator))
+    ability.should_not be_able_to(:promote, @group.get_membership(other_admin))
+
+    ability = Ability.new(@user)
+    ability.should_not be_able_to(:promote, @group.get_membership(other_user))
+    ability.should_not be_able_to(:promote, @group.get_membership(@creator))
+    ability.should_not be_able_to(:promote, @group.get_membership(@admin))
+  end
 end
 

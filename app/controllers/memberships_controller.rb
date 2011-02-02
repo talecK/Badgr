@@ -26,6 +26,19 @@ class MembershipsController < ApplicationController
     end
   end
 
+  def update
+    if ( params[:commit] == "Promote" )
+      authorize! :promote, @membership
+      @membership.role = Membership::ROLES[ @membership.rank + 1 ]
+      if( @membership.save )
+        flash.now[:notice] = "#{@membership.user.email} has been promoted to #{@membership.role}"
+      else
+        flash.now[:error] = "Could not update membership!"
+      end
+    end
+    render :action => "index"
+  end
+
   def index
   end
 

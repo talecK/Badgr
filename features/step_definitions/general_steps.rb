@@ -19,3 +19,15 @@ When /^I press "([^"]*)" and click OK (?:within "([^"]*)")?$/ do |text, selector
   end
 end
 
+Then /^the page should not have css "([^"]*)"(?: within "([^"]*)")?$/ do |css, selector|
+  with_scope(selector) do
+    page.has_css?(css).should == false
+  end
+end
+
+Then /^the page should have css "([^"]*)"(?: within "([^"]*)")?$/ do |css, selector|
+  with_scope(selector) do
+    page.has_css?(css).should == true
+  end
+end
+

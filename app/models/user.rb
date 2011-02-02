@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   ROLES = %w[super_admin]
 
 
-  after_create :create_feed_for_user#, :create_gem
+  after_create :create_feed_for_user
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable

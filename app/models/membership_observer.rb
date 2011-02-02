@@ -1,6 +1,6 @@
 class MembershipObserver < ActiveRecord::Observer
   def after_create( membership )
-    feed_type = membership.group_creator? ? :user_built_hub : :user_joined_hub
+    feed_type = membership.role == Membership::ROLES[2] ? :user_built_hub : :user_joined_hub
     feed_item = FeedItem.create( :feed_type => feed_type )
     add_to_feeds( feed_item, membership )
   end

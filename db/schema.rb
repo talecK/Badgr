@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110130060834) do
+ActiveRecord::Schema.define(:version => 20110201213617) do
 
   create_table "achievements", :force => true do |t|
     t.string   "name"
@@ -66,13 +66,12 @@ ActiveRecord::Schema.define(:version => 20110130060834) do
   add_index "groups", ["name"], :name => "index_groups_on_name"
 
   create_table "memberships", :force => true do |t|
-    t.boolean  "group_admin"
     t.integer  "group_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "group_creator", :default => false
     t.integer  "banned_by_id"
+    t.string   "role",         :default => "member"
   end
 
   create_table "users", :force => true do |t|
