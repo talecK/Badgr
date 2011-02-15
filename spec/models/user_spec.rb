@@ -40,8 +40,8 @@ describe User do
       invalid_email_user = Factory( :user, :email => address )
       invalid_email_user.should_not be_valid
     end
-  end
-
+	end
+	
 	it "should reject email addresses identical up to case" do
 	  @user.save!
 		upcased_email = Factory.attributes_for(:user)[:email].upcase
@@ -95,6 +95,7 @@ describe User do
     @user.save!
     @user.revoke_super_admin!
     @user.role.should == nil
+  end
   
   describe "friendships" do
 
