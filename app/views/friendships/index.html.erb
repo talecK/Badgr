@@ -58,7 +58,7 @@
 				<% else %>
 					<% @friend = friendship.friend %>
 				<% end %>
-      				<%= @friend.name %>
+				<%= link_to @friend.name, user_path(@friend) %>
 				(<%= link_to "Remove", user_friendship_path(:id => friendship.id), :method => :delete %>)
     			</li>
   			<% end %>

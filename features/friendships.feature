@@ -52,13 +52,21 @@ Feature: Friendships Feature
 	Then I should see "You have 1 pending friendship requests!"
 	And I should see "Friendly User (Accept) (Deny)"
 
-    Scenario: Viewing friend off of link
+    Scenario: Viewing friend off of link - pending friend
 	And "valid_user@valid.com" is not a friend of "valid_friend@valid.com"
 	And "valid_user@valid.com" is a pending friend of "valid_friend@valid.com"
 	When I log in as "valid_friend@valid.com" with password "valid_password"
 	And I follow "My Friends"
 	And I follow "Friendly User"
 	Then I should see "Friendly User's Profile"
+
+    Scenario: Viewing friend off of link - confirmed friend
+	And "valid_user@valid.com" is a friend of "valid_friend@valid.com"
+	When I log in as "valid_friend@valid.com" with password "valid_password"
+	And I follow "My Friends"
+	And I follow "Friendly User"
+	Then I should see "Friendly User's Profile"
+
 
     Scenario: Accepting a friend request - friends page
 	And "valid_user@valid.com" is not a friend of "valid_friend@valid.com"
@@ -89,7 +97,7 @@ Feature: Friendships Feature
         When I log in as "valid_user@valid.com" with password "valid_password"
         Then I should see "You and Some Friend are now friends"
 
-    Scenario: Adding friends - feed items - user page
+    Scenario: Adding friends - feed items - friend's page
 	And "valid_user@valid.com" is a friend of "valid_friend@valid.com"
         When I log in as "valid_user@valid.com" with password "valid_password"
         And I visit "valid_friend@valid.com"'s profile
