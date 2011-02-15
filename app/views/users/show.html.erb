@@ -31,12 +31,37 @@
         <br />
 
       </div>
+	
 
       <div id="userPageActions" class="span-24">
         <% if can? :edit, @user %>
          <%= link_to( 'Edit Profile', edit_user_path( @user ) ) %>
         <% end %>
+        <%= link_to( 'Edit Profile', edit_user_path( @user ) ) %>
+	<% if current_user != @user %>
+	  <%- if @friendship.nil? -%>
+		<%= link_to( "Request Friendship", user_friendships_path(current_user, :friend_id => @user), :method => :post ) %>
+	  <%- else -%>
+		<%- if @friendship.pending -%>
+			<b>Friendship Pending</b>
+			<%- if current_user != @friendship.user -%>
+				(<%= link_to "Accept", user_friendship_path(:user_id => @user.id, :id => @friendship.id), :method => :put %>)
+				(<%= link_to "Deny", user_friendship_path(:user_id => @user.id, :id => @friendship.id), :method => :delete %>)
+			<%- end -%>
+		<%- else -%>
+			<%= link_to "Remove Friend", user_friendship_path(:user_id => @user.id, :id => @friendship.id), :method => :delete %>
+		<%- end -%>
+	  <%- end -%>
+
+	  <%= link_to "View Friends", user_friendships_path(@user) %>
+	<%- end -%>
       </div>
+
+	<% if current_user == @user %>
+	<% if @pending.count != 0 %>
+		<h3>You have pending friendship requests! <%= link_to "See who wants to be your friend!", user_friendships_path(current_user) %> </h3>
+	<% end %>
+	<%- end -%>
 
       <div id="user_feed" class="span-24">
       <h3> Notice Board </h3>

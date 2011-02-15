@@ -1,4 +1,5 @@
 Badgr::Application.routes.draw do
+
   devise_for :users
 	resources :users
   resources :groups
@@ -10,6 +11,10 @@ Badgr::Application.routes.draw do
   resources :users do
       resource :gemslot
       resources :user_achievements
+  end
+  
+  resources :users do
+    resources :friendships
   end
 
   resources :groups do
