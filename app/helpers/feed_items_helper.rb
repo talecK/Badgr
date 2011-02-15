@@ -27,10 +27,10 @@ module FeedItemsHelper
     elsif ( feed_item.feed_type.to_sym == :user_banned_from_hub )
       group = feed_item.referenced_model
       retVal =  "#{h(user_name)} was banned from the " + link_to( h(group.name), group_path(group) ) + " Hub"
-    end
 	
 	elsif ( feed_item.feed_type.to_sym == :user_added_friend )
-		retVal = "#{h(user_name)} and #{referenced_model.name} are now friends"
+		friend = feed_item.referenced_model
+		retVal = "#{h(user_name)} and #{friend.name} are now friends"
 	end
 
     return retVal.html_safe
