@@ -7,7 +7,6 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group = Group.new(params[:group])
     @group.save!
     @group.add_creator( current_user )
 

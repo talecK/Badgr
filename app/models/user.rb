@@ -1,13 +1,15 @@
 class User < ActiveRecord::Base
   has_many :groups, :through => :memberships
   has_many :memberships
-  has_many :achievements
+  has_many :achievements, :through => :user_achievements
+  has_many :user_achievements
   belongs_to :gem, :class_name => "Achievement"
   has_one :feed, :as => :source
   has_many :feed_item_model_refs, :as => :referenced_model, :class_name => "FeedItem"
   has_many :feed_item_user_refs, :class_name => "FeedItem"
   has_many :achievement_creator_refs, :class_name => "Achievement"
   has_many :banned_by_refs, :class_name => "Membership"
+  has_many :presenter_refs, :class_name => "UserAchievement"
   ROLES = %w[super_admin]
 
 

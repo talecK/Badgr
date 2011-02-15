@@ -6,8 +6,9 @@
 <b>Total Achievements for the <%= @group.name %> Hub: <%= @group.achievements.count %> </b> <br />
 <ul>
   <% for achievement in @group.achievements %>
-    <li>
+    <li id="<%= achievement.name %>-achievement" >
       <%= link_to( achievement.name, group_achievement_path( @group, achievement ) ) %>
+      <%= link_to( "Request", user_user_achievements_path( current_user, achievement ) ) %>
     </li>
   <% end %>
 </ul>

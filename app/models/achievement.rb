@@ -1,5 +1,5 @@
 class Achievement < ActiveRecord::Base
-  belongs_to :user
+  has_many :users, :through => :user_achievements
   has_many :gemslot_refs, :class_name => "User"
   belongs_to :group
   belongs_to :creator, :class_name => "User"

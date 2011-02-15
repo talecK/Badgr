@@ -9,6 +9,7 @@ Badgr::Application.routes.draw do
 
   resources :users do
       resource :gemslot
+      resources :user_achievements
   end
 
   resources :groups do
@@ -32,6 +33,7 @@ Badgr::Application.routes.draw do
   end
 
   resources :achievements
+
 
   #as :user do
 		#root :to => "users#show"

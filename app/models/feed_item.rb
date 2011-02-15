@@ -4,7 +4,7 @@ class FeedItem < ActiveRecord::Base
   belongs_to :user
   belongs_to :referenced_model, :polymorphic => true
 
-  attr_accessible :feed_type
+  #attr_accessible :feed_type
 
   validates(:feed_type, :presence => true,
             :inclusion => { :in => [:user_built_hub, :user_joined_hub,
