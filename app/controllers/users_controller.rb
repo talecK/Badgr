@@ -16,6 +16,13 @@ class UsersController < ApplicationController
 		  @user = current_user
 		  @feed = @user.feed
     end
+	
+	@friendship = Friendship.find_by_user_id_and_friend_id(current_user.id, params[:id])
+	if @friendship.nil?
+		@friendship = Friendship.find_by_user_id_and_friend_id(params[:id], current_user.id)
+	end
+	@pending = current_user.inverse_friendships.where(:pending => true)
+		
 	end
 
   def edit

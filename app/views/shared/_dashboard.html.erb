@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <ul id="nav" >
   <li class="current"> <%= link_to('My Profile', user_path(current_user)) %> </li>
   <li> <%= link_to('My Groups', destroy_user_session_path) %>
@@ -8,7 +9,7 @@
       <li> <%= link_to('Create a Group', new_group_path) %> </li>
     </ul>
   </li>
-  <li> <%= link_to('My Friends', destroy_user_session_path) %> </li>
+  <li> <%= link_to('My Friends', user_friendships_path(current_user)) %> </li>
   <li> <%= link_to('My Trophy Case', destroy_user_session_path) %> </li>
   <li> <%= link_to('Logout', destroy_user_session_path) %> </li>
 </ul>

@@ -7,9 +7,12 @@ class User < ActiveRecord::Base
   has_many :feed_item_model_refs, :as => :referenced_model, :class_name => "FeedItem"
   has_many :feed_item_user_refs, :class_name => "FeedItem"
   has_many :achievement_creator_refs, :class_name => "Achievement"
+  has_many :friendships
+  has_many :friends, :through => :friendships
+  has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
+  has_many :inverse_friends, :through => :inverse_friendships, :source => :user
   has_many :banned_by_refs, :class_name => "Membership"
   ROLES = %w[super_admin]
-
 
   after_create :create_feed_for_user
 

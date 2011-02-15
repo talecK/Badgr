@@ -84,7 +84,7 @@ describe User do
     user = Factory( :user )
     user.avatar.url.should == 'no-image-original.png'
   end
-
+  
   it "should be able to be made a super admin" do
     @user.save!
     @user.make_super_admin!
@@ -95,6 +95,26 @@ describe User do
     @user.save!
     @user.revoke_super_admin!
     @user.role.should == nil
+  
+  describe "friendships" do
+
+    before(:each) do
+      @user = Factory(:user)
+	  @friend = Factory(:user, :email => "valid_friend@valid.com", :name => "Some Friend")
+    end
+
+    it "should have a friendships method" do
+      @user.should respond_to(:friendships)
+    end
+	
+	it "should have a friends method" do
+      @user.should respond_to(:friends)
+    end
+	
+	it "should have an inverse_friendships method" do
+      @user.should respond_to(:inverse_friendships)
+    end 
+
   end
 end
 

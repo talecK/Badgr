@@ -1,0 +1,78 @@
+<div class="container">
+
+  <div id="header" class="span-24">
+      <%- if user_signed_in? %>
+          <%= render :partial => "shared/dashboard" %> <br />
+      <% end -%>
+    </div>
+
+    <div id="userPageContainer" class="span-24">
+
+      <div id="userPageInfo" class="span-24">
+        <h1>
+        <%= @user.name %>'s Friends
+          <% unless @user.gem.nil? %>
+            <%= link_to image_tag( @user.gem.image.url( :thumb ) , :border => 1 ), edit_user_gemslot_path( @user.id ),
+                                   :title => @user.gem.name %>
+          <% else %>
+            <%= link_to image_tag( 'no-gem-image.png', :border => 1 ), edit_user_gemslot_path( @user.id ),
+                                   :title => "Click to set gem" %>
+          <% end %>
+        </h1>
+
+        <%= image_tag @user.avatar.url( :original ) %> <br /> <br />
+
+        <% flash.each do |key, value| %>
+          <div class="flash <%= key %>"><%= value %></div>
+        <% end %>
+
+        <b> Email: </b> <%= @user.email %> <br />
+        <br />
+        <br />
+
+      </div>
+	<% if current_user == @user %>
+	<% if @pending.count != 0 %>
+		<h2>You have <%= @pending.count %> pending friendship requests!</h2>
+		<ul>
+  			<% for friendship in @pending %>
+    			<li>
+      				<%= link_to friendship.user.name, user_path(friendship.user) %>
+				(<%= link_to "Accept", user_friendship_path(:id => friendship.id), :method => :put %>)
+				(<%= link_to "Deny", user_friendship_path(:id => friendship.id), :method => :delete %>)
+    			</li>
+  			<% end %>
+		</ul>
+	<% end %>
+	<% end %>
+
+	<br><br>
+	<h2>Your Friends</h2>
+
+	<% if @friends.count != 0 %>
+		<ul>
+  			<% for friendship in @friends %>
+    			<li>
+				<% if friendship.friend.id == @user.id %>
+					<% @friend = friendship.user %>
+				<% else %>
+					<% @friend = friendship.friend %>
+				<% end %>
+      				<%= @friend.name %>
+				(<%= link_to "Remove", user_friendship_path(:id => friendship.id), :method => :delete %>)
+    			</li>
+  			<% end %>
+		</ul>
+	<% else %>
+		<% if current_user == @user %>
+			<br>You have not added any friends yet!<br>
+		<% else %>
+			<br><%= @user.name %> has not added any friends yet!<br>
+		<% end %>
+	<% end %>
+      
+    </div>
+
+  </div>
+</div>
+
