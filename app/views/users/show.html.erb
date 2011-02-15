@@ -37,7 +37,6 @@
         <% if can? :edit, @user %>
          <%= link_to( 'Edit Profile', edit_user_path( @user ) ) %>
         <% end %>
-        <%= link_to( 'Edit Profile', edit_user_path( @user ) ) %>
 	<% if current_user != @user %>
 	  <%- if @friendship.nil? -%>
 		<%= link_to( "Request Friendship", user_friendships_path(current_user, :friend_id => @user), :method => :post ) %>
