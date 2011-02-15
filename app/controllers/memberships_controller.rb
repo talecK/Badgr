@@ -35,6 +35,17 @@ class MembershipsController < ApplicationController
       else
         flash.now[:error] = "Could not update membership!"
       end
+
+    elsif ( params[:commit] == "Demote" )
+      authorize! :demote, @membership
+      @membership.role = Membership::ROLES[ @membership.rank - 1 ]
+      if( @membership.save )
+        flash.now[:notice] = "#{@membership.user.email} has been demoted to #{@membership.role}"
+      else
+        flash.now[:error] = "Could not update membership!"
+      end
+    else
+      flash.now[:error] = "Could not update membership!"
     end
     render :action => "index"
   end

@@ -36,6 +36,12 @@ class Ability
       membership.role == Membership::ROLES[0]
     end
 
+    can :demote, Membership do |membership|
+      membership.group.get_membership(user) != nil &&
+      membership.group.get_membership(user).is_group_creator? &&
+      membership.role == Membership::ROLES[1]
+    end
+
     # can manage all if user is super_admin
     can :manage, :all if user.role == User::ROLES[0]
 
@@ -50,6 +56,12 @@ class Ability
       user == membership.user ||
       membership.rank >= 1
     end
+
+    cannot :demote, Membership do |membership|
+      user == membership.user ||
+      membership.rank < 1
+    end
+
   end
 end
 

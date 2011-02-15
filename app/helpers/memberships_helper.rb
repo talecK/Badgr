@@ -15,8 +15,14 @@ module MembershipsHelper
   def promote_button_for(group, user)
     membership = group.get_membership( user )
     form_for [ group, membership ] do |f|
-      hidden_field_tag('rank', "group_admin") << \
       f.submit( "Promote", :onclick => "return confirm(\"Are you sure you want to promote #{user.email} to an officer?\")" )
+    end
+  end
+
+  def demote_button_for(group, user)
+    membership = group.get_membership( user )
+    form_for [ group, membership ] do |f|
+      f.submit( "Demote", :onclick => "return confirm(\"Are you sure you want to demote #{user.email} to a regular member?\")" )
     end
   end
 end

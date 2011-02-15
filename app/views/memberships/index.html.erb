@@ -16,6 +16,7 @@
             <%= link_to(user.email, user_path(user)) %>
             <%= ban_button_for(@group, user) if can? :destroy, @group.get_membership(user) %>
             <%= promote_button_for(@group, user) if can? :promote, @group.get_membership(user) %>
+            <%= demote_button_for(@group, user) if can? :demote, @group.get_membership(user) %>
         </li>
       <% end %>
     </ul>

@@ -51,3 +51,18 @@ Feature: Achievements
         And I visit the create a new achievement page for "Some Group"
         Then I should see "Either that resource does not exist or you do not have permission to access it."
 
+    @wip
+    Scenario: Requesting an acheivement
+        Given "valid_user@valid.com" belongs to "Some Group"
+        And a valid account "hub_admin@valid.com" exists with password "valid_password"
+        And "hub_admin@valid.com" belongs to "Some Group"
+        And "hub_admin@valid.com" is a group admin for "Some Group"
+        And "hub_admin@valid.com" has forged the "test_achievement" for "Some Group"
+        When I log in as "valid_user@valid.com" with password "valid_password"
+        And I view the "Some Group" page
+        When I follow "View achievements"
+        And I follow "Request" within "#test_achievement-achievement"
+        Then I should see "A request for the test_achievement has been sent to the Some Group Officers"
+        And the page should not have css "input[value='Request']" within "#test_achievement-achievement"
+        And I should see "Pending" within "#test_achievement-achievement"
+

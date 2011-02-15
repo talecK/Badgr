@@ -130,7 +130,6 @@ Feature: Group Feature
         And "promoted@valid.com" belongs to "Some Group"
         When I view the "Some Group" page
         And I follow "View members"
-        Then I should see a button on the page with value "Promote"
         When I press "Promote" and click OK within "#promoted-valid-com"
         Then I should see "promoted@valid.com has been promoted to group_admin"
         Then the page should not have css "input[value='Promote']" within "#promoted-valid-com"
@@ -154,16 +153,35 @@ Feature: Group Feature
         And I follow "View members"
         Then the page should not have css "input[value='Promote']"
 
-    @javascript @wip
+    @javascript
     Scenario: Only group creators should be able to demote other admins to normal users
         Given "valid_user@valid.com" is the creator for the "Some Group" Hub
-        And a valid account "promoted@valid.com" exists with password "valid_password" and name "promoted_user"
+        And a valid account "demoted@valid.com" exists with password "valid_password" and name "promoted_user"
         And "demoted@valid.com" belongs to "Some Group"
+        And "demoted@valid.com" is a group admin for "Some Group"
         When I view the "Some Group" page
         And I follow "View members"
-        Then I should see a button on the page with value "Promote"
-        When I press "Promote" and click OK within "#promoted-valid-com"
-        Then I should see "promoted@valid.com has been promoted to group_admin"
-        Then the page should not have css "input[value='Promote']" within "#promoted-valid-com"
-        And "promoted@valid.com" should be a group admin for "Some Group"
+        When I press "Demote" and click OK within "#demoted-valid-com"
+        Then show me the page
+        Then I should see "demoted@valid.com has been demoted to member"
+        Then the page should not have css "input[value='Demote']" within "#demoted-valid-com"
+        And "demoted@valid.com" should be a regular member for "Some Group"
+
+    Scenario: Normal users and hub admins shouldn't be able to demote anyone
+        Given "valid_user@valid.com" is a group admin for "Some Group"
+        And a valid account "user@valid.com" exists with password "valid_password" and name "some_user"
+        And "user@valid.com" belongs to "Some Group"
+        And a valid account "creator@valid.com" exists with password "valid_password" and name "creator_user"
+        And "creator@valid.com" belongs to "Some Group"
+        And "creator@valid.com" is the creator for the "Some Group" Hub
+
+        When I view the "Some Group" page
+        And I follow "View members"
+        Then the page should not have css "input[value='Demote']"
+        Given I am not already logged in
+        And I go to the home page
+        When I log in as "user@valid.com" with password "valid_password"
+        And I view the "Some Group" page
+        And I follow "View members"
+        Then the page should not have css "input[value='Demote']"
 
