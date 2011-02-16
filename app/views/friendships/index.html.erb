@@ -33,7 +33,7 @@
       </div>
 	<% if current_user == @user %>
 	<% if @pending.count != 0 %>
-		<h2>You have <%= @pending.count %> pending friendship requests!</h2>
+		<h2>You have pending friendship requests!</h2>
 		<ul>
   			<% for friendship in @pending %>
     			<li>
@@ -44,10 +44,21 @@
   			<% end %>
 		</ul>
 	<% end %>
+
+	<% if @my_pending.count != 0 %>
+		<h2>You have sent friendship requests to the following people:</h2>
+		<ul>
+  			<% for friendship in @my_pending %>
+    			<li>
+      				<%= link_to friendship.friend.name, user_path(friendship.friend) %>
+    			</li>
+  			<% end %>
+		</ul>
+	<% end %>
 	<% end %>
 
 	<br><br>
-	<h2>Your Friends</h2>
+	<h2>Friends</h2>
 
 	<% if @friends.count != 0 %>
 		<ul>
@@ -59,7 +70,9 @@
 					<% @friend = friendship.friend %>
 				<% end %>
 				<%= link_to @friend.name, user_path(@friend) %>
+				<% if @user == current_user %>
 				(<%= link_to "Remove", user_friendship_path(:id => friendship.id), :method => :delete %>)
+				<% end %>
     			</li>
   			<% end %>
 		</ul>

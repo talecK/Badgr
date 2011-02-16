@@ -36,7 +36,15 @@ Feature: Friendships Feature
 	And "valid_user@valid.com" is a pending friend of "valid_friend@valid.com"
         When I log in as "valid_friend@valid.com" with password "valid_password"
         And I visit "valid_user@valid.com"'s profile
-	Then I should see "Friendship Pending"
+	Then I should see "Friendship Pending (Accept) (Deny)"
+
+    Scenario: View which friends you have requested but are still pending
+	And "valid_user@valid.com" is not a friend of "valid_friend@valid.com"
+	And "valid_user@valid.com" is a pending friend of "valid_friend@valid.com"
+        When I log in as "valid_user@valid.com" with password "valid_password"
+	And I follow "My Friends"
+	Then I should see "You have sent friendship requests to the following people:"
+	And I should see "Some Friend"
 
     Scenario: Being alerted of friend requests - profile page
 	And "valid_user@valid.com" is not a friend of "valid_friend@valid.com"
@@ -49,7 +57,7 @@ Feature: Friendships Feature
 	And "valid_user@valid.com" is a pending friend of "valid_friend@valid.com"
 	When I log in as "valid_friend@valid.com" with password "valid_password"
 	And I follow "My Friends"
-	Then I should see "You have 1 pending friendship requests!"
+	Then I should see "You have pending friendship requests!"
 	And I should see "Friendly User (Accept) (Deny)"
 
     Scenario: Viewing friend off of link - pending friend
@@ -66,7 +74,6 @@ Feature: Friendships Feature
 	And I follow "My Friends"
 	And I follow "Friendly User"
 	Then I should see "Friendly User's Profile"
-
 
     Scenario: Accepting a friend request - friends page
 	And "valid_user@valid.com" is not a friend of "valid_friend@valid.com"
@@ -137,6 +144,7 @@ Feature: Friendships Feature
         And I visit "valid_friend@valid.com"'s profile
 	And I follow "View Friends"
 	Then I should see "Friendly User"
+	And I should not see "(Remove)"
 
     Scenario: Not viewing other people's pending friendships
 	And "valid_user@valid.com" is a pending friend of "valid_friend@valid.com"
@@ -144,6 +152,13 @@ Feature: Friendships Feature
         And I visit "valid_friend@valid.com"'s profile
 	And I follow "View Friends"
 	Then I should not see "Friendly User"
+
+    Scenario: Not viewing other people's pending friendships (inverse)
+	And "valid_user@valid.com" is a pending friend of "valid_friend@valid.com"
+        When I log in as "valid_friend@valid.com" with password "valid_password"
+        And I visit "valid_user@valid.com"'s profile
+	And I follow "View Friends"
+	Then I should not see "Some Friend"
 
     Scenario: Proper text for no friends - my page
 	When I log in as "valid_user@valid.com" with password "valid_password"
