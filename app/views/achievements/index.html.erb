@@ -7,9 +7,15 @@
 <ul>
   <% for achievement in @group.achievements %>
     <li id="<%= achievement.name %>-achievement" >
-      <%= link_to( achievement.name, group_achievement_path( @group, achievement ) ) %>
-      <%= link_to( "Request", new_user_user_achievements_path( current_user, achievement ) ) %>
+      <%= link_to( achievement.name, group_achievements_path( @group, achievement ) ) %>
+      <%= link_to( "Request", new_user_user_achievement_path( current_user, :achievement_id => achievement.id ) ) %>
     </li>
   <% end %>
 </ul>
+
+<br />
+
+<% flash.each do |key, value| %>
+  <div class="flash <%= key %>"><%= value %></div>
+<% end %>
 

@@ -62,7 +62,8 @@ Feature: Achievements
         And I view the "Some Group" page
         When I follow "View achievements"
         And I follow "Request" within "#test_achievement-achievement"
-        Then I should see "A request for the test_achievement has been sent to the officers of the Some Group Hub"
+        And I press "Request"
+        Then I should see "A request for the test_achievement has been sent to the officers of the Some Group Hub."
         And the page should not have css "input[value='Request']" within "#test_achievement-achievement"
         And I should see "Pending" within "#test_achievement-achievement"
 
