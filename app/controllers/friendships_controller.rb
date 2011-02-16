@@ -38,6 +38,7 @@ class FriendshipsController < ApplicationController
   def index
 	@user = User.find( params[:user_id] )
 	@pending = @user.inverse_friendships.where(:pending => true)
+	@my_pending = @user.friendships.where(:pending => true)
 	@friends = @user.friendships.where(:pending => false) + @user.inverse_friendships.where(:pending => false)
   end
   
