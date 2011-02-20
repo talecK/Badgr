@@ -41,7 +41,7 @@ describe User do
       invalid_email_user.should_not be_valid
     end
 	end
-	
+
 	it "should reject email addresses identical up to case" do
 	  @user.save!
 		upcased_email = Factory.attributes_for(:user)[:email].upcase
@@ -84,7 +84,7 @@ describe User do
     user = Factory( :user )
     user.avatar.url.should == 'no-image-original.png'
   end
-  
+
   it "should be able to be made a super admin" do
     @user.save!
     @user.make_super_admin!
@@ -96,7 +96,7 @@ describe User do
     @user.revoke_super_admin!
     @user.role.should == nil
   end
-  
+
   describe "friendships" do
 
     before(:each) do
@@ -107,14 +107,14 @@ describe User do
     it "should have a friendships method" do
       @user.should respond_to(:friendships)
     end
-	
+
 	it "should have a friends method" do
       @user.should respond_to(:friends)
     end
-	
+
 	it "should have an inverse_friendships method" do
       @user.should respond_to(:inverse_friendships)
-    end 
+    end
 
   end
 
@@ -122,7 +122,7 @@ describe User do
     @user.save!
     achievement = Factory(:achievement)
     @user.request_achievement(achievement)
-    @user.user_achievements.find_by_achievement_id(achievement.id).status.should == "pending"
+    @user.user_achievements.find_by_achievement_id(achievement.id).status.should == UserAchievement::STATES[:pending]
   end
 
   it "should be able to tell if the user has a certain achievement pending" do

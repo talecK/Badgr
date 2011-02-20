@@ -17,10 +17,10 @@ describe UserAchievement do
     group.add_user(group_officer)
     group.add_user(@user)
     group.make_admin!(group_officer)
-    user_achievement = @user.user_achievements.create(:achievement_id => @achievement.id, :status => UserAchievement:STATES[:pending])
+    user_achievement = @user.user_achievements.create(:achievement_id => @achievement.id, :status => UserAchievement::STATES[:pending])
 
     user_achievement.present_by( group_officer )
-    user_achievement.status.should == UserAchievement:STATES[:awarded]
+    user_achievement.status.should == UserAchievement::STATES[:awarded]
     user_achievement.presenter.should == group_officer
     @user.user_achievements.count.should == 1
   end

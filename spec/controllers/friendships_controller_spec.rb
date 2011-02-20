@@ -17,3 +17,4 @@ describe FriendshipsController do
   end
 
 end
+
