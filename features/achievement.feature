@@ -79,6 +79,5 @@ Feature: Achievements
         And I press "Request"
         Then I should see "A request for the test_achievement has been sent to the officers of the Some Group Hub."
         When I try and request "test_achievement" for "Some Group" by url as "valid_user@valid.com"
-        Then show me the page
         Then I should see "Either that resource does not exist or you do not have permission to access it."
 
