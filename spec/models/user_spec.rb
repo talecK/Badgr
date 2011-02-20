@@ -3,6 +3,7 @@ require 'spec_helper'
 describe User do
   before (:each) do
     @user = Factory( :user )
+    @friend = Factory(:user, :email => "valid_friend@valid.com", :name => "Some Friend")
   end
 
   it "should require an email addres" do
@@ -97,24 +98,18 @@ describe User do
     @user.role.should == nil
   end
 
-  describe "friendships" do
 
-    before(:each) do
-      @user = Factory(:user)
-	  @friend = Factory(:user, :email => "valid_friend@valid.com", :name => "Some Friend")
-    end
+  it "should have a friendships method" do
+    @user.should respond_to(:friendships)
+  end
 
-    it "should have a friendships method" do
-      @user.should respond_to(:friendships)
-    end
+  it "should have a friends method" do
+    @user.should respond_to(:friends)
+  end
 
-	it "should have a friends method" do
-      @user.should respond_to(:friends)
-    end
-
-	it "should have an inverse_friendships method" do
-      @user.should respond_to(:inverse_friendships)
-    end
+  it "should have an inverse_friendships method" do
+    @user.should respond_to(:inverse_friendships)
+  end
 
   end
 
