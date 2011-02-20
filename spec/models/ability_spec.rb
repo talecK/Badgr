@@ -86,5 +86,21 @@ describe Ability do
     ability.should_not be_able_to(:promote, @group.get_membership(@creator))
     ability.should_not be_able_to(:promote, @group.get_membership(@admin))
   end
+
+  it "should not let someone who already has an achievement or it is pending request the same achievement" do
+    achievement = @group.achievements.build( :name => "achievement",
+                                             :description => "some_description",
+                                             :requirements => "some_requirements")
+    achievement.creator = @user
+    achievement.save!
+    ability = Ability.new(@user)
+
+    ability.should be_able_to(:request_achievement, achievement )
+
+    @user.request_achievement(achievement)
+
+    # shouldn't be able to request the achievement again, since it is pending
+    ability.should_not be_able_to(:request_achievement, achievement )
+  end
 end
 

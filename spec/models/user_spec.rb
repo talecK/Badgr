@@ -96,5 +96,33 @@ describe User do
     @user.revoke_super_admin!
     @user.role.should == nil
   end
+
+  it "should be able to request achievements" do
+    @user.save!
+    achievement = Factory(:achievement)
+    @user.request_achievement(achievement)
+    @user.user_achievements.find_by_achievement_id(achievement.id).status.should == "pending"
+  end
+
+  it "should be able to tell if the user has a certain achievement pending" do
+    @user.save!
+    group = Factory(:group)
+    group.save!
+    achievement = group.achievements.build( :name => "achievement",
+                                             :description => "some_description",
+                                             :requirements => "some_requirements")
+    achievement.creator = @user
+    achievement.save!
+
+    achievement2 = group.achievements.build( :name => "achievement2",
+                                              :description => "some_description",
+                                              :requirements => "some_requirements")
+    achievement2.creator = @user
+    achievement2.save!
+
+    @user.request_achievement(achievement)
+    @user.has_pending_achievement?(achievement).should == true
+    @user.has_pending_achievement?(achievement2).should == false
+  end
 end
 

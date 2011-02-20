@@ -51,8 +51,22 @@ Feature: Achievements
         And I visit the create a new achievement page for "Some Group"
         Then I should see "Either that resource does not exist or you do not have permission to access it."
 
-    @wip
     Scenario: Requesting an acheivement
+        Given "valid_user@valid.com" belongs to "Some Group"
+        And a valid account "hub_admin@valid.com" exists with password "valid_password"
+        And "hub_admin@valid.com" belongs to "Some Group"
+        And "hub_admin@valid.com" is a group admin for "Some Group"
+        And "hub_admin@valid.com" has forged the "test_achievement" for "Some Group"
+        When I log in as "valid_user@valid.com" with password "valid_password"
+        And I view the "Some Group" page
+        And I follow "View achievements"
+        And I follow "Request" within "#test_achievement-achievement"
+        And I press "Request"
+        Then I should see "A request for the test_achievement has been sent to the officers of the Some Group Hub."
+        And the page should not have css "input[value='Request']" within "#test_achievement-achievement"
+        And I should see "Pending" within "#test_achievement-achievement"
+
+    Scenario: Trying to request an achievement you've already requested by url
         Given "valid_user@valid.com" belongs to "Some Group"
         And a valid account "hub_admin@valid.com" exists with password "valid_password"
         And "hub_admin@valid.com" belongs to "Some Group"
@@ -64,6 +78,7 @@ Feature: Achievements
         And I follow "Request" within "#test_achievement-achievement"
         And I press "Request"
         Then I should see "A request for the test_achievement has been sent to the officers of the Some Group Hub."
-        And the page should not have css "input[value='Request']" within "#test_achievement-achievement"
-        And I should see "Pending" within "#test_achievement-achievement"
+        When I try and request "test_achievement" for "Some Group" by url as "valid_user@valid.com"
+        Then show me the page
+        Then I should see "Either that resource does not exist or you do not have permission to access it."
 

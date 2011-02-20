@@ -3,7 +3,7 @@ class CreateUserAchievements < ActiveRecord::Migration
     create_table :user_achievements do |t|
       t.belongs_to :achievement
       t.belongs_to :user
-      t.string :status
+      t.integer :status
       t.belongs_to :presenter
       t.timestamps
     end

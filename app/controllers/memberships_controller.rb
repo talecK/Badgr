@@ -47,6 +47,7 @@ class MembershipsController < ApplicationController
     else
       flash.now[:error] = "Could not update membership!"
     end
+
     render :action => "index"
   end
 

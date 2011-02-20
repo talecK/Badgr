@@ -65,7 +65,7 @@ describe Achievement do
     achievement2 = group2.achievements.build( :name => "achievement",
                                               :description => "some_description",
                                               :requirements => "some_requirements")
-                                               achievement.creator = @user
+    achievement.creator = @user
     achievement2.creator = @user
     achievement2.should be_valid
   end

@@ -56,6 +56,18 @@ class User < ActiveRecord::Base
     self.create_feed
   end
 
+  def request_achievement( achievement )
+    if( achievement != nil && self.user_achievements.exists?( :achievement_id => achievement.id ) == false )
+      @user_achievement = self.user_achievements.create( :status => UserAchievement::STATES[:pending], :achievement_id =>  achievement.id )
+    else
+      return false
+    end
+  end
+
+  def has_pending_achievement?( achievement )
+    self.user_achievements.exists?( :achievement_id => achievement.id, :status => UserAchievement::STATES[:pending] )
+  end
+
  # def create_gem
   #  self.create_gemslot
   #end

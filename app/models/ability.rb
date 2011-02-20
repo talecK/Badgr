@@ -42,6 +42,10 @@ class Ability
       membership.role == Membership::ROLES[1]
     end
 
+    can :request_achievement, Achievement do |achievement|
+      user.has_pending_achievement?(achievement) == false
+    end
+
     # can manage all if user is super_admin
     can :manage, :all if user.role == User::ROLES[0]
 
