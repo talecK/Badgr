@@ -1,8 +1,22 @@
-<h1>Users#index</h1>
+<div class="container">
+
+<div id="header" class="span-24">
+      <%- if user_signed_in? %>
+          <%= render :partial => "shared/dashboard" %> <br />
+      <% end -%>
+    </div>
+
 <b>Total Users: <%= @users.count %> </b> <br />
 <ul>
   <% for user in @users %>
-    <li> <%= link_to( user.name, user_path( user ) ) %> </li>
+    <li> <%= link_to( user.name, user_path( user ) ) %> 
+	<% if current_user != user %>
+	  <% if current_user.has_friend?(user) == nil %>
+		(<%= link_to( "Request Friendship", user_friendships_path(current_user, :friend_id => user.id), :method => :post ) %>)
+	  <% end %>
+  	<% end %>
+    </li>
   <% end %>
 </ul>
 
+</div>

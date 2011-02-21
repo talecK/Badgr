@@ -56,6 +56,28 @@ class User < ActiveRecord::Base
   def create_feed_for_user
     self.create_feed
   end
+  
+  def self.search(search)
+    if search
+      find(:all, :conditions => ['name LIKE ?', "%#{search}%"])
+    else
+      find(:all)
+    end
+  end
+  
+  def has_friend?(friend)
+	@friendship = Friendship.find_by_user_id_and_friend_id(self.id, friend.id)
+		if @friendship.nil?
+			@friendship = Friendship.find_by_user_id_and_friend_id(friend.id, self.id)
+			if @friendship.nil?
+				return nil
+			else
+				return @friendship
+			end
+		else
+			return @friendship
+		end
+	end
 
  # def create_gem
   #  self.create_gemslot

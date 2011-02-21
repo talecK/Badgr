@@ -100,8 +100,9 @@ describe User do
   describe "friendships" do
 
     before(:each) do
-      @user = Factory(:user)
+      @user.save!
 	  @friend = Factory(:user, :email => "valid_friend@valid.com", :name => "Some Friend")
+	  @friend.save!
     end
 
     it "should have a friendships method" do
@@ -114,8 +115,17 @@ describe User do
 	
 	it "should have an inverse_friendships method" do
       @user.should respond_to(:inverse_friendships)
-    end 
-
+    end
+	
+	it "should use has_friend? to determine an existing friendship" do
+		@friendship = @user.friendships.build(:friend_id => @friend.id, :pending => true)
+		@friendship.save!
+		@user.has_friend?(@friend).should == @friendship
+	end
+	
+	it "should use has_friend? to determine an existing friendship" do
+		@user.has_friend?(@friend).should == nil
+	end
   end
 end
 
