@@ -14,7 +14,16 @@ Feature: Friendships Feature
         And I visit "valid_user@valid.com"'s profile
 	Then I should not see "Request Friendship"
 
-    Scenario: Add a new friend
+    Scenario: Add a new friend - from search page
+	And "valid_user@valid.com" is not a friend of "valid_friend@valid.com"
+	And "valid_user@valid.com" is not a pending friend of "valid_friend@valid.com"
+        When I log in as "valid_user@valid.com" with password "valid_password"
+        And I press "submit_search"
+	And I follow "Request Friendship"
+	Then I should see "Friendship request sent."
+	And I should see "Friendship Pending"
+
+    Scenario: Add a new friend - from profile page
 	And "valid_user@valid.com" is not a friend of "valid_friend@valid.com"
 	And "valid_user@valid.com" is not a pending friend of "valid_friend@valid.com"
         When I log in as "valid_user@valid.com" with password "valid_password"

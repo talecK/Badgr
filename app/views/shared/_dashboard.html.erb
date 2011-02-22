@@ -12,6 +12,12 @@
   <li> <%= link_to('My Trophy Case', destroy_user_session_path) %> </li>
   <li> <%= link_to('Logout', destroy_user_session_path) %> </li>
 </ul>
+
+<%= form_tag users_path, :method => 'get' do %>
+    User: <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :id => "submit_search" %>
+<% end %>
+
 <br />
 <br />
 <br />
