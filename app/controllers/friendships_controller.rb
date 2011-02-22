@@ -5,7 +5,7 @@ class FriendshipsController < ApplicationController
 	if current_user.id == params[:friend_id]
 		flash[:error] = "You cannot add yourself as a friend."
 	else
-		@friendship = current_user.has_friend?User.find_by_id(params[:friend_id])
+		@friendship = current_user.has_friend?(User.find_by_id(params[:friend_id])
 		if @friendship.nil?
 			@friendship = current_user.friendships.build(:friend_id => params[:friend_id], :pending => true)
 			if @friendship.save
