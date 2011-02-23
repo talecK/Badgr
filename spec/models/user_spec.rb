@@ -98,7 +98,6 @@ describe User do
     @user.role.should == nil
   end
 
-
   it "should have a friendships method" do
     @user.should respond_to(:friendships)
   end
@@ -109,8 +108,6 @@ describe User do
 
   it "should have an inverse_friendships method" do
     @user.should respond_to(:inverse_friendships)
-  end
-
   end
 
   it "should be able to request achievements" do
@@ -140,5 +137,6 @@ describe User do
     @user.has_pending_achievement?(achievement).should == true
     @user.has_pending_achievement?(achievement2).should == false
   end
+
 end
 

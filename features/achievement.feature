@@ -81,3 +81,19 @@ Feature: Achievements
         When I try and request "test_achievement" for "Some Group" by url as "valid_user@valid.com"
         Then I should see "Either that resource does not exist or you do not have permission to access it."
 
+    @wip
+    Scenario: Confirming a requested achievement as an admin of Some Group
+        Given "valid_user@valid.com" belongs to "Some Group"
+        And a valid account "hub_admin@valid.com" exists with password "valid_password"
+        And "hub_admin@valid.com" belongs to "Some Group"
+        And "hub_admin@valid.com" is a group admin for "Some Group"
+        And "hub_admin@valid.com" has forged the "test_achievement" for "Some Group"
+        And "valid_user@valid.com" has requested the "test_achievement" for "Some Group"
+        When I log in as "hub_admin@valid.com" with password "valid_password"
+        And I view the "Some Group" page
+        And I follow "Manage achievement requests"
+        Then I should see "Pending" within "#valid_user@valid.com-test_achievement"
+        When I follow "View request" within "#valid_user@valid.com-test_achievement"
+        And I press "Award" and click OK
+        Then I should see "You have awarded valid_user@valid.com the 'test_achievement' achievement."
+
