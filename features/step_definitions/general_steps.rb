@@ -11,7 +11,7 @@ When /^I follow "([^"]*)" and click OK$/ do |text|
 end
 
 # added this as a hackish way to confirm js popups
-When /^I press "([^"]*)" and click OK (?:within "([^"]*)")?$/ do |text, selector|
+When /^I press "([^"]*)" and click OK(?: within "([^"]*)")?$/ do |text, selector|
   page.evaluate_script("window.alert = function(msg) { return true; }")
   page.evaluate_script("window.confirm = function(msg) { return true; }")
   with_scope(selector) do

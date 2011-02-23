@@ -9,14 +9,14 @@ Badgr::Application.routes.draw do
   #end
 
   resources :users do
-      resource :gemslot
-      resources :user_achievements
+    resource :gemslot
+    resources :user_achievements
   end
-  
+
   resources :users do
     resources :friendships
   end
-  
+
   resources :users do
     resources :friendships
   end
@@ -29,6 +29,7 @@ Badgr::Application.routes.draw do
       end
     end
 
+    resources :user_achievements
     resources :achievements
     resources :admins
   end

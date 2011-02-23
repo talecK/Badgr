@@ -1,0 +1,7 @@
+User Name <%= @user_achievement.achievement.name %>
+<% if @user_achievement.status == UserAchievement::STATES[:Pending] %>
+  <%= form_for [ @user_achievement.achievement.group, @user_achievement ] do |f| %>
+    <%= f.submit( "Award", :onclick => "return confirm(\"Are you sure you want to award #{@user_achievement.user.email} the '#{@user_achievement.achievement.name}' achievement?\")" )%>
+  <% end %>
+<% end %>
+

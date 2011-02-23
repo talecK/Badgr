@@ -22,6 +22,7 @@
       <% if can? :edit, @group %>
         <%= link_to "Create achievement", new_group_achievement_path( @group ) %> <br />
         <%= link_to "Edit group", edit_group_path( @group ) %> <br />
+        <%= link_to "Manage achievement requests", group_user_achievements_path( @group ) %> <br />
       <% end %>
 
       <%= link_to "View members", group_memberships_path( @group.id ) %> <br />

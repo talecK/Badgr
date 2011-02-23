@@ -2,6 +2,10 @@ Given /^I am not already logged in$/ do
 	visit '/users/sign_out'
 end
 
+Given /^I logout$/ do
+	visit '/users/sign_out'
+end
+
 # "and name ____" is optional
 Given /^a valid account "([^"]*)" exists with password "([^"]*)"(?: and name "([^"]*)")?$/ do | email, password, name |
 		name = "user1" if (name.blank?)  #assign default name if its not given

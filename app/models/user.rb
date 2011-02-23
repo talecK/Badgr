@@ -61,14 +61,14 @@ class User < ActiveRecord::Base
 
   def request_achievement( achievement )
     if( achievement != nil && self.user_achievements.exists?( :achievement_id => achievement.id ) == false )
-      @user_achievement = self.user_achievements.create( :status => UserAchievement::STATES[:pending], :achievement_id =>  achievement.id )
+      @user_achievement = self.user_achievements.create( :status => UserAchievement::STATES[:Pending], :achievement_id =>  achievement.id )
     else
       return false
     end
   end
 
   def has_pending_achievement?( achievement )
-    self.user_achievements.exists?( :achievement_id => achievement.id, :status => UserAchievement::STATES[:pending] )
+    self.user_achievements.exists?( :achievement_id => achievement.id, :status => UserAchievement::STATES[:Pending] )
   end
 
  # def create_gem

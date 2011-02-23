@@ -114,7 +114,7 @@ describe User do
     @user.save!
     achievement = Factory(:achievement)
     @user.request_achievement(achievement)
-    @user.user_achievements.find_by_achievement_id(achievement.id).status.should == UserAchievement::STATES[:pending]
+    @user.user_achievements.find_by_achievement_id(achievement.id).status.should == UserAchievement::STATES[:Pending]
   end
 
   it "should be able to tell if the user has a certain achievement pending" do
