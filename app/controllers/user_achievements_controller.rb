@@ -17,7 +17,7 @@ class UserAchievementsController < ApplicationController
 
     if(params[:commit] == "Award")
       @user_achievement.present_by(current_user)
-      flash[:notice] = "You have awarded #{@user_achievement.user.name} the '#{@user_achievement.achievement.name}' achievement."
+      flash[:notice] = "You have awarded #{@user_achievement.user.email} the '#{@user_achievement.achievement.name}' achievement."
     end
 
     redirect_to group_achievements_path(@group)

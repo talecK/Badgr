@@ -15,7 +15,7 @@ Given /^"([^"]*)" has achieved the "([^"]*)" achievement from "([^"]*)"$/ do |us
 
   # achievement.request_achievement()
   # achievement.present_by( Factory( :user, :email => Factory.next( :email ) ) )
-  user.user_achievements.create(:achievement_id => achievement.id, :status => UserAchievement::STATES[:awarded])
+  user.user_achievements.create(:achievement_id => achievement.id, :status => UserAchievement::STATES[:Awarded])
   user.save!
 end
 

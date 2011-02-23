@@ -81,7 +81,7 @@ Feature: Achievements
         When I try and request "test_achievement" for "Some Group" by url as "valid_user@valid.com"
         Then I should see "Either that resource does not exist or you do not have permission to access it."
 
-    @wip @javascript
+    @javascript
     Scenario: Confirming a requested achievement as an admin of Some Group
         Given "valid_user@valid.com" belongs to "Some Group"
         And a valid account "hub_admin@valid.com" exists with password "valid_password"
