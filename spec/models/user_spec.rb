@@ -4,7 +4,7 @@ describe User do
   before (:each) do
     @user = Factory( :user )
     @friend = Factory(:user, :email => "valid_friend@valid.com", :name => "Some Friend")
-	@øfriend.save!
+	@friend.save!
   end
 
   it "should require an email addres" do
