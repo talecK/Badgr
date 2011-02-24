@@ -102,5 +102,41 @@ describe Ability do
     # shouldn't be able to request the achievement again, since it is pending
     ability.should_not be_able_to(:request_achievement, achievement )
   end
+
+  it "should not let users award pending achievements to themselves, whether they be normal users, admins or group creators" do
+    achievement = @group.achievements.build( :name => "achievement",
+                                             :description => "some_description",
+                                             :requirements => "some_requirements")
+    achievement.creator = @user
+    achievement.save!
+
+    ability = Ability.new(@user)
+    user_achievement = @user.request_achievement(achievement)
+    ability.should_not be_able_to(:award, user_achievement )
+
+    ability = Ability.new(@admin)
+    admin_achievement = @admin.request_achievement(achievement)
+    ability.should_not be_able_to(:award, admin_achievement )
+
+    ability = Ability.new(@creator)
+    creator_achievement = @creator.request_achievement(achievement)
+    ability.should_not be_able_to(:award, creator_achievement )
+  end
+
+  it "should let admins or creators award pending achievements to users" do
+    achievement = @group.achievements.build( :name => "achievement",
+                                             :description => "some_description",
+                                             :requirements => "some_requirements")
+    achievement.creator = @user
+    achievement.save!
+
+    user_achievement = @user.request_achievement(achievement)
+
+    ability = Ability.new(@admin)
+    ability.should be_able_to(:award, user_achievement )
+
+    ability = Ability.new(@creator)
+    ability.should be_able_to(:award, user_achievement )
+  end
 end
 

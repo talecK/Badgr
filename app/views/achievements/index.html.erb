@@ -8,7 +8,7 @@
   <% for achievement in @group.achievements %>
     <li id="<%= achievement.name %>-achievement" >
       <%= link_to( achievement.name, group_achievement_path( @group, achievement ) ) %>
-      <%= status_or_promote_button(achievement) %>
+      <%= status_or_request_link(achievement) %>
     </li>
   <% end %>
 </ul>

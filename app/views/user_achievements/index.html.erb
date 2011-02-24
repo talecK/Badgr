@@ -3,7 +3,8 @@
   <% for user_achievement in @user_achievements %>
     <li id=<%="#{email_to_safe_id(user_achievement.user.email)}-#{user_achievement.achievement.name}"%> >
       <%= user_achievement.user.email %> requested the <%= user_achievement.achievement.name %> achievement
-      | Status: <%= user_achievement.ordinal_to_state %>  | <%= link_to( "View request", group_user_achievement_path(@group, user_achievement) ) %>
+      | Status: <%= user_achievement.ordinal_to_state %>  |
+      <%= link_to( "View request", group_user_achievement_path(@group, user_achievement) ) %>
     </li>
   <% end %>
 </ul>

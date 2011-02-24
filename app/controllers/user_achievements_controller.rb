@@ -1,6 +1,8 @@
 class UserAchievementsController < ApplicationController
 	before_filter :authenticate_user!
-	before_filter :find_achievement, :except => [:index, :show, :update]
+	load_resource :group, :only => [:update, :show, :index]
+	load_resource :achievement, :only => [:new, :create]
+	load_resource :only => [:show, :update]
 
   def new
     authorize! :request_achievement, @achievement
@@ -8,23 +10,30 @@ class UserAchievementsController < ApplicationController
   end
 
   def show
-    @user_achievement = UserAchievement.find( params[:id] )
+    authorize! :update, @group
   end
 
   def update
-    @group = Group.find( params[:group_id] )
-    @user_achievement = UserAchievement.find( params[:id] )
+    authorize! :award, @user_achievement
 
-    if(params[:commit] == "Award")
-      @user_achievement.present_by(current_user)
-      flash[:notice] = "You have awarded #{@user_achievement.user.email} the '#{@user_achievement.achievement.name}' achievement."
+    if( @group != nil && @user_achievement != nil )
+      if(params[:commit] == "Award")
+        @user_achievement.present_by(current_user)
+        flash[:notice] = "You have awarded #{@user_achievement.user.email} the '#{@user_achievement.achievement.name}' achievement."
+      else
+        flash[:error] = "Either that Achievement no longer exists or we could not send a request for that achievement."
+      end
+
+    else
+      flash[:error] = "Either that Achievement no longer exists or we could not send a request for that achievement."
+      redirect_to user_path(current_user)
     end
 
-    redirect_to group_achievements_path(@group)
+    redirect_to group_user_achievements_path(@group)
   end
 
   def index
-    @group = Group.find( params[:group_id] )
+    authorize! :update, @group
 
     # for each user in the group, add its user achievements
     @user_achievements = Array.new
@@ -33,6 +42,8 @@ class UserAchievementsController < ApplicationController
   end
 
   def create
+    authorize! :request_achievement, @achievement
+
     if( current_user.request_achievement( @achievement ) )
       flash[:notice] = "A request for the test_achievement has been sent to the officers of the #{@achievement.group.name} Hub."
       redirect_to group_achievements_path( @achievement.group )
@@ -42,8 +53,5 @@ class UserAchievementsController < ApplicationController
     end
   end
 
-  def find_achievement
-    @achievement = Achievement.find( params[:achievement_id] )
-  end
 end
 

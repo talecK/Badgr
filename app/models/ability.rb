@@ -43,8 +43,16 @@ class Ability
     end
 
     can :request_achievement, Achievement do |achievement|
-      user.has_pending_achievement?(achievement) == false
+      user.has_pending_achievement?(achievement) == false &&
+      user.has_earned_achievement?(achievement) == false
     end
+
+    can :award, UserAchievement do |user_achievement|
+      user_achievement.user != user &&                                       # can't award yourself achievements
+      user_achievement.achievement.group.get_membership(user).rank >= 1 &&   # the user's rank in the group is admin or higher
+      user_achievement.status == UserAchievement::STATES[:Pending]
+    end
+
 
     # can manage all if user is super_admin
     can :manage, :all if user.role == User::ROLES[0]
@@ -65,7 +73,6 @@ class Ability
       user == membership.user ||
       membership.rank < 1
     end
-
   end
 end
 

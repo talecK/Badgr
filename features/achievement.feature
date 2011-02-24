@@ -78,6 +78,7 @@ Feature: Achievements
         And I follow "Request" within "#test_achievement-achievement"
         And I press "Request"
         Then I should see "A request for the test_achievement has been sent to the officers of the Some Group Hub."
+        Then I should see "Pending" within "#test_achievement-achievement"
         When I try and request "test_achievement" for "Some Group" by url as "valid_user@valid.com"
         Then I should see "Either that resource does not exist or you do not have permission to access it."
 
@@ -98,4 +99,27 @@ Feature: Achievements
         When I follow "View request" within "#valid_user-valid-com-test_achievement"
         And I press "Award" and click OK
         Then I should see "You have awarded valid_user@valid.com the 'test_achievement' achievement."
+        When I logout
+        And I log in as "valid_user@valid.com" with password "valid_password"
+        And I view the "Some Group" page
+        And I follow "View achievements"
+        Then I should see "Awarded" within "#test_achievement-achievement"
+
+    Scenario: Users should not be able to confirm their own achievements
+        Given a valid account "hub_admin@valid.com" exists with password "valid_password"
+        And "hub_admin@valid.com" belongs to "Some Group"
+        And "hub_admin@valid.com" is a group admin for "Some Group"
+        And "hub_admin@valid.com" has forged the "test_achievement" for "Some Group"
+        When I log in as "hub_admin@valid.com" with password "valid_password"
+        And "hub_admin@valid.com" has requested the "test_achievement" for "Some Group"
+        And I view the "Some Group" page
+        And I follow "Manage achievement requests"
+        And I follow "View request" within "#hub_admin-valid-com-test_achievement"
+        Then the page should not have css "input[value='Award']"
+
+    Scenario: Only admins or creators should be able to confirm achievements
+        Given "valid_user@valid.com" belongs to "Some Group"
+        And I log in as "valid_user@valid.com" with password "valid_password"
+        And I view the "Some Group" page
+        Then I should not see "Manage acheivement requests"
 
