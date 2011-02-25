@@ -185,3 +185,16 @@ Feature: Group Feature
         And I follow "View members"
         Then the page should not have css "input[value='Demote']"
 
+    @wip
+    Scenario: Viewing my groups page should list all my groups and tell me if I administer or am the creator of each
+        Given "valid_user@valid.com" is a group admin for "Some Group"
+        And the group "Creator Group" exists
+        And "valid_user@valid.com" built the "Creator Group"
+        And the group "Normal Group" exists
+        And "valid_user@valid.com" belongs to the "Normal Group"
+        When I follow "My Groups"
+        Then I should see "Creator Group (creator)"
+        And I should see "Some Group (admin)"
+        And I should not see "Normal Group (admin)"
+        And I should not see "Normal Group (creator)"
+

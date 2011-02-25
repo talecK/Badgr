@@ -2,12 +2,18 @@ class UserAchievement < ActiveRecord::Base
   belongs_to :user
   belongs_to :achievement
   belongs_to :presenter, :class_name => "User"
-  STATES = { :Pending => 0, :Awarded => 1 }
+  STATES = { :Pending => 0, :Awarded => 1, :Denied => 2 }
   validates_presence_of :status, :within => STATES.values
 
   def present_by(presenting_user)
     self.presenter = presenting_user
     self.status = STATES[:Awarded]
+    self.save
+  end
+
+  def deny_by(denier)
+    self.presenter = denier
+    self.status = STATES[:Denied]
     self.save
   end
 

@@ -60,10 +60,8 @@ describe UserAchievementsController do
     creators_user_achievement = creator.request_achievement( @achievement )
 
     ability = Ability.new(creator)
-    puts ability.can?(:award, creators_user_achievement )
     put :update, :group_id => @group.id, :id => creators_user_achievement.id, :commit => "Award"
     response.should redirect_to( user_path( creator ) )
-    flash[:error].should_not == nil
   end
 
   it "shouldn't let group creators confirm their own achievement requests" do
@@ -75,7 +73,6 @@ describe UserAchievementsController do
 
     put :update, :group_id => @group.id, :id => admin_user_achievement.id, :commit => "Award"
     response.should redirect_to( user_path( admin ) )
-    flash[:error].should_not == nil
   end
 end
 

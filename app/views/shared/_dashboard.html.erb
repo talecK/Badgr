@@ -3,8 +3,9 @@
   <li> <%= link_to('My Groups', destroy_user_session_path) %>
     <ul>
       <% for group in current_user.groups %>
-        <li> <%= link_to(group.name, group_path( group ) ) %> </li>
+        <li> <%= group_name_helper(group) %> </li>
       <% end %>
+
       <li> <%= link_to('Create a Group', new_group_path) %> </li>
     </ul>
   </li>

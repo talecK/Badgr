@@ -123,3 +123,26 @@ Feature: Achievements
         And I view the "Some Group" page
         Then I should not see "Manage acheivement requests"
 
+    @wip
+    Scenario: Denying a user an achievement as an admin
+        Given "valid_user@valid.com" belongs to "Some Group"
+        And a valid account "hub_admin@valid.com" exists with password "valid_password"
+        And "hub_admin@valid.com" belongs to "Some Group"
+        And "hub_admin@valid.com" is a group admin for "Some Group"
+        And "hub_admin@valid.com" has forged the "test_achievement" for "Some Group"
+        And I log in as "valid_user@valid.com" with password "valid_password"
+        And "valid_user@valid.com" has requested the "test_achievement" for "Some Group"
+        And I logout
+        And I log in as "hub_admin@valid.com" with password "valid_password"
+        And I view the "Some Group" page
+        And I follow "Manage achievement requests"
+        Then I should see "Pending" within "#valid_user-valid-com-test_achievement"
+        When I follow "View request" within "#valid_user-valid-com-test_achievement"
+        And I press "Deny" and click OK
+        Then I should see "You have denied valid_user@valid.com the 'test_achievement' achievement."
+        When I logout
+        And I log in as "valid_user@valid.com" with password "valid_password"
+        And I view the "Some Group" page
+        And I follow "View achievements"
+        Then I should see "Denied" within "#test_achievement-achievement"
+

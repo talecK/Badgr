@@ -137,6 +137,74 @@ describe Ability do
 
     ability = Ability.new(@creator)
     ability.should be_able_to(:award, user_achievement )
+
+  end
+
+  it "should let admins or creators deny pending achievements to users or other admins" do
+    achievement = @group.achievements.build( :name => "achievement",
+                                             :description => "some_description",
+                                             :requirements => "some_requirements")
+    achievement.creator = @user
+    achievement.save!
+    other_admin = Factory(:user, :email => Factory.next(:email))
+    other_admin.save!
+    @group.add_user(other_admin)
+    @group.make_admin!(other_admin)
+
+    user_achievement = @user.request_achievement(achievement)
+
+    ability = Ability.new(@admin)
+    ability.should be_able_to(:deny, user_achievement )
+
+    ability = Ability.new(@creator)
+    ability.should be_able_to(:deny, user_achievement )
+
+    user_achievement = @admin.request_achievement(achievement)
+    ability.should be_able_to(:deny, user_achievement )
+
+    ability = Ability.new(@admin)
+    user_achievement = other_admin.request_achievement(achievement)
+    ability.should be_able_to(:deny, user_achievement )
+  end
+
+  it "shouldn't let users normal users deny pendign achievements" do
+    achievement = @group.achievements.build( :name => "achievement",
+                                             :description => "some_description",
+                                             :requirements => "some_requirements")
+    achievement.creator = @user
+    achievement.save!
+    other_user = Factory(:user, :email => Factory.next(:email) )
+    other_user.save!
+
+    ability = Ability.new(@user)
+    user_achievement = @admin.request_achievement(achievement)
+    ability.should_not be_able_to(:deny, user_achievement )
+
+    user_achievement = @creator.request_achievement(achievement)
+    ability.should_not be_able_to(:deny, user_achievement )
+
+    user_achievement = other_user.request_achievement(achievement)
+    ability.should_not be_able_to(:deny, user_achievement )
+  end
+
+  it "shouldn't let admins or creators or normal users deny their own achievement requests" do
+    achievement = @group.achievements.build( :name => "achievement",
+                                             :description => "some_description",
+                                             :requirements => "some_requirements")
+    achievement.creator = @user
+    achievement.save!
+
+    ability = Ability.new(@user)
+    user_achievement = @user.request_achievement(achievement)
+    ability.should_not be_able_to(:deny, user_achievement )
+
+    ability = Ability.new(@admin)
+    user_achievement = @admin.request_achievement(achievement)
+    ability.should_not be_able_to(:deny, user_achievement )
+
+    ability = Ability.new(@creator)
+    user_achievement = @creator.request_achievement(achievement)
+    ability.should_not be_able_to(:deny, user_achievement )
   end
 end
 

@@ -20,6 +20,9 @@ class UserAchievementsController < ApplicationController
       if(params[:commit] == "Award")
         @user_achievement.present_by(current_user)
         flash[:notice] = "You have awarded #{@user_achievement.user.email} the '#{@user_achievement.achievement.name}' achievement."
+      elsif(params[:commit] == "Deny")
+        @user_achievement.deny_by(current_user)
+        flash[:notice] = "You have denied #{@user_achievement.user.email} the '#{@user_achievement.achievement.name}' achievement."
       else
         flash[:error] = "Either that Achievement no longer exists or we could not send a request for that achievement."
       end
