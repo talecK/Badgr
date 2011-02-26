@@ -118,5 +118,18 @@ describe Ability do
 	friendship2.save!
 	ability.should_not be_able_to(:update, friendship2)
   end
+  
+  it "should only allow someone involved in a friendship to destroy it" do
+	ability = Ability.new(@user)
+	friendship1 = @admin.friendships.build(:friend_id => @user.id, :pending => true)
+	friendship1.save!
+	ability.should be_able_to(:destroy, friendship1)
+	#otherside of the friendship
+	ability2 = Ability.new(@admin)
+	ability2.should be_able_to(:destroy, friendship1)
+	friendship2 = @admin.friendships.build(:friend_id => @creator.id, :pending => true)
+	friendship2.save!
+	ability.should_not be_able_to(:destroy, friendship2)
+  end
 end
 
