@@ -4,6 +4,8 @@ module AchievementsHelper
       "| Pending |".html_safe
     elsif( current_user.has_earned_achievement?(achievement) )
       "| Awarded |".html_safe
+    elsif( current_user.has_denied_achievement?(achievement) )
+      "| Denied |".html_safe
     else
       link_to( "| Request |", new_user_user_achievement_path( current_user, :achievement_id => achievement.id ) )
     end

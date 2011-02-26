@@ -53,6 +53,8 @@ class Ability
       user_achievement.status == UserAchievement::STATES[:Pending]
     end
 
+    can :read, FeedItem, :user_id => user.id
+
     # can manage all if user is super_admin
     can :manage, :all if user.role == User::ROLES[0]
 

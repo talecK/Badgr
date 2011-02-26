@@ -49,3 +49,20 @@ Feature: Feed Item Feature
         And I log in as "user1@valid.com" with password "valid_password"
         Then I should see a feed item with text "You became a member of the Some Group Hub" once within the feed
 
+    Scenario: When a user earns an achievement, it should place a feed item in the group feed as well as the user's feed
+        Given "valid_user@valid.com" has achieved the "test" achievement from "Some Group"
+        And I view the "Some Group" page
+        Then show me the page
+        Then I should see a feed item with text "You earned the test Achievement" once within the feed
+        When I follow "My Profile"
+        Then I should see a feed item with text "You earned the test Achievement" once within the feed
+
+    @wip
+    Scenario: When a user is denied an achievement, it should place a private feed item in their feed which other users can't see
+        Given a valid account "hub_admin@valid.com" exists with password "valid_password"
+        And "hub_admin@valid.com" belongs to "Some Group"
+        And "hub_admin@valid.com" is a group admin for "Some Group"
+        And "valid_user@valid.com" was denied the "test" achievement from "Some Group" by "hub_admin@valid.com"
+        When I follow "My Profile"
+        Then I should see a feed item with text "Your request for the test Achievement was denied" once within the feed
+

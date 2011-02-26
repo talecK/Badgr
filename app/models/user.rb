@@ -71,8 +71,12 @@ class User < ActiveRecord::Base
     self.user_achievements.exists?( :achievement_id => achievement.id, :status => UserAchievement::STATES[:Pending] )
   end
 
-    def has_earned_achievement?( achievement )
+  def has_earned_achievement?( achievement )
     self.user_achievements.exists?( :achievement_id => achievement.id, :status => UserAchievement::STATES[:Awarded] )
+  end
+
+  def has_denied_achievement?( achievement )
+    self.user_achievements.exists?( :achievement_id => achievement.id, :status => UserAchievement::STATES[:Denied] )
   end
 
  # def create_gem

@@ -8,7 +8,7 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 module Badgr
   class Application < Rails::Application
-    config.active_record.observers = :membership_observer, :achievement_observer, :friendship_observer
+    config.active_record.observers = :membership_observer, :achievement_observer, :friendship_observer, :user_achievement_observer
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

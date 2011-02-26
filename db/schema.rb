@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110215013439) do
+ActiveRecord::Schema.define(:version => 20110226013104) do
 
   create_table "achievements", :force => true do |t|
     t.string   "name"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20110215013439) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "visibility",            :default => 0
   end
 
   create_table "feed_subscriptions", :force => true do |t|

@@ -27,11 +27,24 @@ module FeedItemsHelper
     elsif ( feed_item.feed_type.to_sym == :user_banned_from_hub )
       group = feed_item.referenced_model
       retVal =  "#{h(user_name)} was banned from the " + link_to( h(group.name), group_path(group) ) + " Hub"
-	
-	elsif ( feed_item.feed_type.to_sym == :user_added_friend )
-		friend = feed_item.referenced_model
-		retVal = "#{h(user_name)} and #{friend.name} are now friends"
-	end
+
+	  elsif ( feed_item.feed_type.to_sym == :user_added_friend )
+		  friend = feed_item.referenced_model
+		  retVal = "#{h(user_name)} and #{friend.name} are now friends"
+
+    elsif ( feed_item.feed_type.to_sym == :user_earned_achievement )
+      user_achievement = feed_item.referenced_model
+		  achievement = user_achievement.achievement
+		  retVal = "#{h(user_name)} earned the " + link_to( h(achievement.name), group_achievement_path(achievement.group, achievement), :class => "achievementToolTipLink" ) + " Achievement"
+
+    elsif ( feed_item.feed_type.to_sym == :user_denied_achievement )
+      user_achievement = feed_item.referenced_model
+		  achievement = user_achievement.achievement
+      user_qualifier = values[:first_person] == true ? "" : "'s"
+      denied_by_text = values[:first_person] == true ? "" : " by #{user_achievement.presenter}"
+
+		  retVal = "#{h(user_name)}#{user_qualifier} request for the " + link_to( h(achievement.name), group_achievement_path(achievement.group, achievement), :class => "achievementToolTipLink" ) + " Achievement was denied#{denied_by_text}"
+	  end
 
     return retVal.html_safe
   end

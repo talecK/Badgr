@@ -206,5 +206,22 @@ describe Ability do
     user_achievement = @creator.request_achievement(achievement)
     ability.should_not be_able_to(:deny, user_achievement )
   end
+
+  it "private feed item should only be visible by super users and their owner" do
+    achievement = @group.achievements.build( :name => "achievement",
+                                             :description => "some_description",
+                                             :requirements => "some_requirements")
+    achievement.creator = @user
+    achievement.save!
+
+    ability = Ability.new(@user)
+    user_achievement = @user.request_achievement(achievement)
+    user_achievement.deny_by( @admin )
+
+    @user.feed.feed_items.accessible_by(ability, :read ).exists?(:feed_type => :user_denied_achievement).should == true
+
+    ability = Ability.new(@admin)
+    @user.feed.feed_items.accessible_by(ability, :read ).exists?(:feed_type => :user_denied_achievement).should == false
+  end
 end
 

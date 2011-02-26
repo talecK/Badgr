@@ -123,7 +123,7 @@ Feature: Achievements
         And I view the "Some Group" page
         Then I should not see "Manage acheivement requests"
 
-    @wip
+    @javascript
     Scenario: Denying a user an achievement as an admin
         Given "valid_user@valid.com" belongs to "Some Group"
         And a valid account "hub_admin@valid.com" exists with password "valid_password"

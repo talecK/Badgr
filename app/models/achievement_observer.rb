@@ -13,7 +13,7 @@ class AchievementObserver < ActiveRecord::Observer
       feed_item.save!
 
       achievement.group.feed.add_feed_item( feed_item )
-      achievement.creator.feed.add_feed_item( feed_item )
+      # achievement.creator.feed.add_feed_item( feed_item )
       achievement.group.users.each { |user| user.feed.add_feed_item( feed_item ) } # add to each feed item for members of the group
     end
 end

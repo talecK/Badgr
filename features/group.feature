@@ -189,9 +189,9 @@ Feature: Group Feature
     Scenario: Viewing my groups page should list all my groups and tell me if I administer or am the creator of each
         Given "valid_user@valid.com" is a group admin for "Some Group"
         And the group "Creator Group" exists
-        And "valid_user@valid.com" built the "Creator Group"
+        And "valid_user@valid.com" built the "Creator Group" Hub
         And the group "Normal Group" exists
-        And "valid_user@valid.com" belongs to the "Normal Group"
+        And "valid_user@valid.com" belongs to "Normal Group"
         When I follow "My Groups"
         Then I should see "Creator Group (creator)"
         And I should see "Some Group (admin)"

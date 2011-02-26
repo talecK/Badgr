@@ -6,6 +6,8 @@ describe AchievementObserver do
     @group.save!
     @user = Factory(:user)
     @user.save!
+    @group.add_user(@user)
+    @group.make_admin!(@user)
   end
 
   it "should put an (exactly one) item in the creators feed when a new achievement is forged" do

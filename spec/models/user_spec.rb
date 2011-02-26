@@ -112,7 +112,15 @@ describe User do
 
   it "should be able to request achievements" do
     @user.save!
-    achievement = Factory(:achievement)
+    group = Factory( :group )
+    group.save!
+    group.add_user(@user)
+
+    achievement = group.achievements.build( :name => "achievement",
+                                             :description => "some_description",
+                                             :requirements => "some_requirements")
+    achievement.creator = @user
+    achievement.save!
     @user.request_achievement(achievement)
     @user.user_achievements.find_by_achievement_id(achievement.id).status.should == UserAchievement::STATES[:Pending]
   end

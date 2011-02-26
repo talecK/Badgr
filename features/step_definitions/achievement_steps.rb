@@ -50,3 +50,18 @@ Given /^"([^"]*)" has requested the "([^"]*)" for "([^"]*)"$/ do |user_email, ac
   And %{I press "Request"}
 end
 
+
+Given /^"([^"]*)" was denied the "([^"]*)" achievement from "([^"]*)" by "([^"]*)"$/ do |user_name, achievement_name, group_name, admin_email|
+  user = User.find_by_email( user_name )
+  admin = User.find_by_email( admin_email )
+  group = Group.find_by_name( group_name )
+  achievement = group.achievements.build( :name => achievement_name, :description => "test", :requirements => "test" )
+  achievement.creator = user
+  achievement.image = File.open( "./spec/fixtures/valid-gem.png" )
+  achievement.save!
+
+  user_achievement = user.request_achievement( achievement )
+  user_achievement.deny_by( admin )
+
+end
+
