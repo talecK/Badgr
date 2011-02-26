@@ -10,7 +10,7 @@
 <ul>
   <% for user in @users %>
     <li> <%= link_to( user.name, user_path( user ) ) %> 
-	<% if current_user != user %>
+	<% if can? :befriend, user %>
 	  <% if current_user.has_friend?(user) == nil %>
 		(<%= link_to( "Request Friendship", user_friendships_path(current_user, :friend_id => user.id), :method => :post ) %>)
 	  <% end %>

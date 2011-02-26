@@ -102,5 +102,21 @@ describe Ability do
     # shouldn't be able to request the achievement again, since it is pending
     ability.should_not be_able_to(:request_achievement, achievement )
   end
+  
+  it "should not let users friend themselves" do
+	ability = Ability.new(@user)
+	ability.should_not be_able_to(:befriend, @user)
+	ability.should be_able_to(:befriend, @admin)
+  end
+  
+  it "should only allow the potential friend to update (accept or deny)" do
+	ability = Ability.new(@user)
+	friendship1 = @admin.friendships.build(:friend_id => @user.id, :pending => true)
+	friendship1.save!
+	ability.should be_able_to(:update, friendship1)
+	friendship2 = @admin.friendships.build(:friend_id => @creator.id, :pending => true)
+	friendship2.save!
+	ability.should_not be_able_to(:update, friendship2)
+  end
 end
 
