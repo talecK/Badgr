@@ -55,8 +55,11 @@ Given /^"([^"]*)" was denied the "([^"]*)" achievement from "([^"]*)" by "([^"]*
   user = User.find_by_email( user_name )
   admin = User.find_by_email( admin_email )
   group = Group.find_by_name( group_name )
+  creator = Factory(:user, :email => Factory.next(:email))
+  creator.save!
+  group.add_user(creator)
   achievement = group.achievements.build( :name => achievement_name, :description => "test", :requirements => "test" )
-  achievement.creator = user
+  achievement.creator = creator
   achievement.image = File.open( "./spec/fixtures/valid-gem.png" )
   achievement.save!
 

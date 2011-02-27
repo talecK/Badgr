@@ -38,3 +38,8 @@ Then /^I should see a feed item with text "([^"]*)" once within the feed$/ do |t
                            :text => text, :count => 1 )
 end
 
+Then /^I should not see a feed item with text "([^"]*)" within the feed$/ do |text|
+  page.should have_no_xpath( "//div[@class='feed_item span-16']/li/div[@class='feed_item_content span-10']",
+                           :text => text, :count => 1 )
+end
+

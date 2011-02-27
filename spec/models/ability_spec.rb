@@ -219,7 +219,6 @@ describe Ability do
     user_achievement.deny_by( @admin )
 
     @user.feed.feed_items.accessible_by(ability, :read ).exists?(:feed_type => :user_denied_achievement).should == true
-
     ability = Ability.new(@admin)
     @user.feed.feed_items.accessible_by(ability, :read ).exists?(:feed_type => :user_denied_achievement).should == false
   end
