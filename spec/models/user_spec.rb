@@ -4,6 +4,7 @@ describe User do
   before (:each) do
     @user = Factory( :user )
     @friend = Factory(:user, :email => "valid_friend@valid.com", :name => "Some Friend")
+	@friend.save!
   end
 
   it "should require an email addres" do
@@ -109,6 +110,16 @@ describe User do
   it "should have an inverse_friendships method" do
     @user.should respond_to(:inverse_friendships)
   end
+
+  it "should use has_friend? to determine an existing friendship" do
+		@friendship = @user.friendships.build(:friend_id => @friend.id, :pending => true)
+		@friendship.save!
+		@user.has_friend?(@friend).should == @friendship
+	end
+
+	it "should use has_friend? to determine an existing friendship" do
+		@user.has_friend?(@friend).should == nil
+	end
 
   it "should be able to request achievements" do
     @user.save!

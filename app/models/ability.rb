@@ -24,7 +24,11 @@ class Ability
       group.get_membership(user).rank >= 1
     end
 
-    can :manage, User do |curr_profile|
+    can :edit, User do |curr_profile|
+      user == curr_profile
+    end
+	
+	can :update, User do |curr_profile|
       user == curr_profile
     end
 
@@ -45,6 +49,26 @@ class Ability
     can :request_achievement, Achievement do |achievement|
       user.has_pending_achievement?(achievement) == false &&
       user.has_earned_achievement?(achievement) == false
+    end
+	
+	#friendships
+	can :befriend, User do |friend|
+		user != friend
+	end
+	
+	can :update, Friendship do |friendship|
+		user == friendship.friend &&
+		user != friendship.user
+	end
+	
+	can :destroy, Friendship do |friendship|
+		user == friendship.friend ||
+		user == friendship.user
+	end
+
+	#tested through features
+	can :see_private_friend_info, User do |curr_profile|
+      user == curr_profile
     end
 
     can [:award, :deny], UserAchievement do |user_achievement|

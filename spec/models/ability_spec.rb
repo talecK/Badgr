@@ -222,6 +222,34 @@ describe Ability do
 
     ability = Ability.new(@admin)
     @user.feed.feed_items.accessible_by(ability, :read ).exists?(:feed_type => :user_denied_achievement).should == false
+
+  it "should not let users friend themselves" do
+	  ability = Ability.new(@user)
+	  ability.should_not be_able_to(:befriend, @user)
+	  ability.should be_able_to(:befriend, @admin)
+  end
+
+  it "should only allow the potential friend to update (accept or deny)" do
+	  ability = Ability.new(@user)
+	  friendship1 = @admin.friendships.build(:friend_id => @user.id, :pending => true)
+	  friendship1.save!
+	  ability.should be_able_to(:update, friendship1)
+	  friendship2 = @admin.friendships.build(:friend_id => @creator.id, :pending => true)
+	  friendship2.save!
+	  ability.should_not be_able_to(:update, friendship2)
+  end
+
+  it "should only allow someone involved in a friendship to destroy it" do
+	  ability = Ability.new(@user)
+	  friendship1 = @admin.friendships.build(:friend_id => @user.id, :pending => true)
+	  friendship1.save!
+	  ability.should be_able_to(:destroy, friendship1)
+	  #otherside of the friendship
+	  ability2 = Ability.new(@admin)
+	  ability2.should be_able_to(:destroy, friendship1)
+	  friendship2 = @admin.friendships.build(:friend_id => @creator.id, :pending => true)
+	  friendship2.save!
+	  ability.should_not be_able_to(:destroy, friendship2)
   end
 end
 
