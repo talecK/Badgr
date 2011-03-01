@@ -57,7 +57,6 @@ Feature: Feed Item Feature
         When I follow "My Profile"
         Then I should see a feed item with text "You earned the test Achievement" once within the feed
 
-    @wip
     Scenario: When a user is denied an achievement, it should place a private feed item in their feed which other users can't see
         Given a valid account "hub_admin@valid.com" exists with password "valid_password"
         And "hub_admin@valid.com" belongs to "Some Group"
@@ -65,4 +64,8 @@ Feature: Feed Item Feature
         And "valid_user@valid.com" was denied the "test" achievement from "Some Group" by "hub_admin@valid.com"
         When I follow "My Profile"
         Then I should see a feed item with text "Your request for the test Achievement was denied" once within the feed
+        Given I logout
+        And I log in as "hub_admin@valid.com" with password "valid_password"
+        When I visit the profile for "valid_user@valid.com"
+        Then I should not see a feed item with text "Your request for the test Achievement was denied" within the feed
 

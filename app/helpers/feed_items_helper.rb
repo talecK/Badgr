@@ -40,10 +40,21 @@ module FeedItemsHelper
     elsif ( feed_item.feed_type.to_sym == :user_denied_achievement )
       user_achievement = feed_item.referenced_model
 		  achievement = user_achievement.achievement
+      user_qualifier = values[:first_person] == true ? "#{user_name}r" : "#{user_name}'s"
+      denied_by_text = values[:first_person] == true ? "" : " by #{user_achievement.presenter}"
+
+		  retVal = "#{h(user_qualifier)} request for the " + link_to( h(achievement.name), group_achievement_path(achievement.group, achievement), :class => "achievementToolTipLink" ) + " Achievement was denied#{h(denied_by_text)}"
+
+   elsif ( feed_item.feed_type.to_sym == :user_requested_achievement )
+      user_achievement = feed_item.referenced_model
+		  achievement = user_achievement.achievement
       user_qualifier = values[:first_person] == true ? "" : "'s"
       denied_by_text = values[:first_person] == true ? "" : " by #{user_achievement.presenter}"
 
-		  retVal = "#{h(user_name)}#{user_qualifier} request for the " + link_to( h(achievement.name), group_achievement_path(achievement.group, achievement), :class => "achievementToolTipLink" ) + " Achievement was denied#{denied_by_text}"
+		  retVal = "#{h(user_name)} requested the " + link_to( h(achievement.name), group_achievement_path(achievement.group, achievement), :class => "achievementToolTipLink" ) + " Achievement"
+
+    else
+      retVal = "Could not find feed text!"
 	  end
 
     return retVal.html_safe

@@ -31,7 +31,7 @@
         <br />
 
       </div>
-	
+
 
       <div id="userPageActions" class="span-24">
         <% if can? :edit, @user %>
@@ -68,7 +68,7 @@
       <h3> Notice Board </h3>
 
       <ul style="list-style-type: none;">
-        <%= render @user.feed.feed_items %>
+        <%= render @feed_items %>
 
         <div id="last_feed_item_line" class="span-16 append-8" >
           <hr />

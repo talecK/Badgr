@@ -27,9 +27,9 @@ class UserAchievementObserver < ActiveRecord::Observer
 
       user_achievement.achievement.group.feed.add_feed_item( feed_item )
       user_achievement.achievement.group.users.each { |user| user.feed.add_feed_item( feed_item ) } # add to each feed item for members of the group
-      end
-
-    add_to_feeds( feed_item,  user_achievement )
+    else
+      nil.save
+    end
   end
 
   # add the feed item to its appropriate feeds (add_feed_item takes care of duplciates)
