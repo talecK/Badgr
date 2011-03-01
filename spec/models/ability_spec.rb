@@ -222,6 +222,7 @@ describe Ability do
 
     ability = Ability.new(@admin)
     @user.feed.feed_items.accessible_by(ability, :read ).exists?(:feed_type => :user_denied_achievement).should == false
+  end
 
   it "should not let users friend themselves" do
 	  ability = Ability.new(@user)
